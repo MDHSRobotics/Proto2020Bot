@@ -11,5 +11,10 @@
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true
-  }
+},
+"editor.detectIndentation": false,
+"editor.formatOnPaste": true,
+"editor.minimap.showSlider": "always",
+"files.trimTrailingWhitespace": true,
+"java.format.comments.enabled": false
 }
