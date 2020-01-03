@@ -4,7 +4,7 @@ package frc.robot.consoles;
 import edu.wpi.first.wpilibj.DriverStation;
 import java.time.LocalTime;
 
-// This is a helper class for colorful console logging.
+// This is a helper class for colorful custom console logging.
 // To see the colors in the rio log, you need to replace a javascript file that is installed with WPILib.
 
 // First, rename the existing installed file, so you have a backup (check to see if there is a newer install than this path):
