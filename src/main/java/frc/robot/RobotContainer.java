@@ -5,10 +5,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.*;
+import frc.robot.consoles.Logger;
+import frc.robot.subsystems.*;
 
 /**
+ * The container for the robot. Contains subsystems, OI devices, and commands.
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
@@ -16,14 +18,13 @@ import frc.robot.subsystems.ExampleSubsystem;
  */
 public class RobotContainer {
 
-    // The robot's subsystems and commands are defined here...
+    // Subsystems
     private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-    private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+    // Commands
+    private final ExampleCommand m_exampleCommand = new ExampleCommand(m_exampleSubsystem);
 
-    /**
-     * The container for the robot.  Contains subsystems, OI devices, and commands.
-     */
+    // Constructor
     public RobotContainer() {
         // Configure the button bindings
         configureButtonBindings();
@@ -36,6 +37,17 @@ public class RobotContainer {
      * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
+        if (!OIDevices.isDriveXboxConnected()) {
+            Logger.error("Drive XBox controller not plugged in!");
+        } else {
+            configureDriveXBoxButtons();
+        }
+    }
+
+    // Drive XBox Buttons
+    public void configureDriveXBoxButtons() {
+        // Bind the "drive" xbox buttons to specific commands
+        OIDevices.driveXboxBtnA.whenPressed(m_exampleCommand);
     }
 
     /**
@@ -45,7 +57,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return m_autoCommand;
+        return m_exampleCommand;
     }
 
 }
