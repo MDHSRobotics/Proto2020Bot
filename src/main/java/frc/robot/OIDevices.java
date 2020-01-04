@@ -1,17 +1,17 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.helpers.DPad;
 import frc.robot.helpers.DPadButton;
 import frc.robot.helpers.DPadButton.Direction;
 
 // This class contains human interface id mappings, singleton input device instances, and utility methods.
-public class InputDevices {
+public class OIDevices {
 
     private static final int DRIVE_XBOX_STICK_NUM = 0;
     private static final int CLIMB_XBOX_STICK_NUM = 1;
