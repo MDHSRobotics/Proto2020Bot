@@ -1,49 +1,51 @@
 
-package frc.robot.commands.interactive;
+package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.consoles.Logger;
 import frc.robot.helpers.CartesianMovement;
+import frc.robot.subsystems.MecDriver;
 import frc.robot.OI;
-import frc.robot.Robot;
 
 // This command uses the joystick input to mecanum drive using the cartesian method
-public class MecDriveCartesian extends Command {
+public class MecDriveCartesian extends CommandBase {
 
-    public MecDriveCartesian() {
+    MecDriver m_mecDriver = null;
+
+    public MecDriveCartesian(MecDriver mecDriver) {
         Logger.setup("Constructing Command: MecDriveCartesian...");
 
-        // Declare subsystem dependencies
-        requires(Robot.robotMecDriver);
+        // Add given subsystem requirements
+        m_mecDriver = mecDriver;
+        addRequirements(m_mecDriver);
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
         Logger.action("Initializing Command: MecDriveCartesian...");
     }
 
     @Override
-    protected void execute() {
-        CartesianMovement move = OI.getCartesianMovement(Robot.robotMecDriver.controlStickDirectionFlipped);
-        Robot.robotMecDriver.driveCartesian(move.ySpeed, move.xSpeed, move.zRotation);
+    public void execute() {
+        CartesianMovement move = OI.getCartesianMovement(m_mecDriver.controlStickDirectionFlipped);
+        m_mecDriver.driveCartesian(move.ySpeed, move.xSpeed, move.zRotation);
     }
 
-    // This command continues until interrupted
+    // This command continues until interrupted.
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return false;
     }
 
     @Override
-    protected void end() {
-        Logger.ending("Ending Command: MecDriveCartesian...");
-    }
-
-    @Override
-    protected void interrupted() {
-        System.out.println("--");
-        Logger.ending("Interrupting Command: MecDriveCartesian...");
+    public void end(boolean interrupted) {
+        if (interrupted) {
+            System.out.println("--");
+            Logger.ending("Interrupting Command: MecDriveCartesian...");
+        } else {
+            Logger.ending("Ending Command: MecDriveCartesian...");
+        }
     }
 
 }
