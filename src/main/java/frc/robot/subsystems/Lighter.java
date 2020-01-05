@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Relay;
 
 import frc.robot.consoles.Logger;
-import frc.robot.RobotDevices;
+import frc.robot.SubsystemDevices;
 
-// Lighter Subsystem, for turning lights on and off.
+// Lighter subsystem, for turning lights on and off.
 public class Lighter extends SubsystemBase {
 
     public Lighter() {
@@ -20,19 +20,19 @@ public class Lighter extends SubsystemBase {
     }
 
     public void turnOnBoth() {
-        RobotDevices.lighterRelay.set(Relay.Value.kOn);
+        SubsystemDevices.relayLighter.set(Relay.Value.kOn);
     }
 
     public void turnOffBoth() {
-        RobotDevices.lighterRelay.set(Relay.Value.kOff);
+        SubsystemDevices.relayLighter.set(Relay.Value.kOff);
     }
 
     public void turnOnWhiteOnly() {
-        RobotDevices.lighterRelay.set(Relay.Value.kForward);
+        SubsystemDevices.relayLighter.set(Relay.Value.kForward);
     }
 
     public void turnOnRedOnly() {
-        RobotDevices.lighterRelay.set(Relay.Value.kReverse);
+        SubsystemDevices.relayLighter.set(Relay.Value.kReverse);
     }
 
 }

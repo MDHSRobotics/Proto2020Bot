@@ -9,7 +9,7 @@ import java.util.Map;
 import frc.robot.consoles.ShuffleLogger;
 import frc.robot.sensors.Vision;
 import frc.robot.Brain;
-import frc.robot.Robot;
+import frc.robot.RobotManager;
 
 
 // The Shuffleboard Main Tab
@@ -40,14 +40,14 @@ public class MainTab {
         m_frontLineDetectedWidget = m_tab.add("Front Line Detected", Brain.frontLineDetectedDefault);
         Brain.frontLineDetectedEntry = m_frontLineDetectedWidget.getEntry();
 
-        m_gameModeWidget = m_tab.add("Game Mode", Robot.robotGameMode.toString());
-        m_climbModeWidget = m_tab.add("Climb Mode", Robot.robotClimbMode.toString());
+        m_gameModeWidget = m_tab.add("Game Mode", RobotManager.botGameMode.toString());
+        m_climbModeWidget = m_tab.add("Climb Mode", RobotManager.botClimbMode.toString());
     }
 
     // Create all other Widgets
     public void initialize() {
         // Autonomous Command
-        m_autoCmdWidget = m_tab.add("Auto Command", Robot.autoCommandChooser);
+        m_autoCmdWidget = m_tab.add("Auto Command", RobotManager.autoCommandChooser);
     }
 
     // Configure all Widgets
@@ -78,11 +78,11 @@ public class MainTab {
 
         // updating the value of the game mode
         NetworkTableEntry gameModeEntry = m_gameModeWidget.getEntry();
-        gameModeEntry.setString(Robot.robotGameMode.toString());
+        gameModeEntry.setString(RobotManager.botGameMode.toString());
 
         // updating the value of the climb mode
         NetworkTableEntry climbModeEntry = m_climbModeWidget.getEntry();
-        climbModeEntry.setString(Robot.robotClimbMode.toString());
+        climbModeEntry.setString(RobotManager.botClimbMode.toString());
     }
 
 }

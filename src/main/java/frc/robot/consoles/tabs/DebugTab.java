@@ -1,8 +1,8 @@
 
 package frc.robot.consoles.tabs;
 
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.shuffleboard.*;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.consoles.ShuffleLogger;
 
@@ -28,8 +28,8 @@ public class DebugTab {
     // Create all other Widgets
     public void initialize() {
         //  Command Scheduler - Not sure why this isn't working
-        Scheduler sched = Scheduler.getInstance();
-        m_schedulerWidget = m_tab.add("Scheduler", sched);
+        CommandScheduler sched = CommandScheduler.getInstance();
+        m_schedulerWidget = m_tab.add("Command Scheduler", sched);
     }
 
     // Configure all Widgets

@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.shuffleboard.*;
 
 import frc.robot.consoles.ShuffleLogger;
 import frc.robot.Brain;
-import frc.robot.Robot;
+import frc.robot.RobotSensors;
 
 
 // The Shuffleboard Sight Tab
@@ -54,27 +54,27 @@ public class SightTab {
     public void update() {
 
         // Don't need to update anything if the sight camera is not active
-        if (Robot.robotCameraSight == null) return;
+        if (RobotSensors.cameraSight == null) return;
 
         double brightness = Brain.getBrightness();
         NetworkTableEntry brightnessEntry = m_brightnessWidget.getEntry();
         double newBrightness = brightnessEntry.getDouble(brightness);
         if (newBrightness != brightness) {
-            Robot.robotCameraSight.setBrightness((int)newBrightness);
+            RobotSensors.cameraSight.setBrightness((int)newBrightness);
         }
 
         double exposure = Brain.getExposure();
         NetworkTableEntry exposureEntry = m_exposureWidget.getEntry();
         double newExposure = exposureEntry.getDouble(brightness);
         if (newExposure != exposure) {
-            Robot.robotCameraSight.setExposureManual((int)newExposure);
+            RobotSensors.cameraSight.setExposureManual((int)newExposure);
         }
 
         double whiteBalance = Brain.getBrightness();
         NetworkTableEntry whiteBalanceEntry = m_whiteBalanceWidget.getEntry();
         double newWhiteBalance = whiteBalanceEntry.getDouble(whiteBalance);
         if (newWhiteBalance != whiteBalance) {
-            Robot.robotCameraSight.setWhiteBalanceManual((int)newWhiteBalance);
+            RobotSensors.cameraSight.setWhiteBalanceManual((int)newWhiteBalance);
         }
     }
 

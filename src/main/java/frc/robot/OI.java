@@ -3,7 +3,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
-import frc.robot.consoles.Logger;
 import frc.robot.helpers.*;
 import frc.robot.Brain;
 
@@ -15,11 +14,6 @@ public class OI {
 
     public enum ControlStick {
         JOYSTICK, XBOX
-    }
-
-    // Constructor
-    public OI() {
-        Logger.setup("Constructing OI...");
     }
 
     //----------------------//

@@ -2,19 +2,18 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.SPI;
 
-// This class contains singleton instances of id mapped robot components, and utility methods.
-public class RobotDevices {
+import frc.robot.consoles.Logger;
 
-    // Gyros
-    public static final AHRS gyro = new AHRS(SPI.Port.kMXP);
+// This class contains singleton instances of id mapped subsystem components, and utility methods.
+// IMPORTANT: It is imperative that ONLY subsystems control any interactive device.
+// Also, only ONE subsystem should control any given device.
+public class SubsystemDevices {
 
     // Relays
-    public static final Relay lighterRelay = new Relay(1);
+    public static final Relay relayLighter = new Relay(1);
 
     // Motor Controllers
     public static final WPI_TalonSRX talonSrxMecWheelFrontLeft = new WPI_TalonSRX(5); // 1 motor
@@ -24,21 +23,14 @@ public class RobotDevices {
 
     public static final WPI_TalonSRX talonSrxHatcher = new WPI_TalonSRX(9); // 1 motor
     public static final WPI_TalonSRX talonSrxBaller = new WPI_TalonSRX(10); // 1 motor
-    public static final WPI_TalonSRX talonSrxLever = new WPI_TalonSRX(12);
-
-    public static final WPI_TalonSRX talonSrxBackPulleyA = new WPI_TalonSRX(19); // 1 motor
-    public static final WPI_TalonSRX talonSrxBackPulleyB = new WPI_TalonSRX(14); // 1 motor
-    public static final WPI_TalonSRX talonSrxBackPulleyC = new WPI_TalonSRX(15); // 1 motor
-
-    public static final WPI_TalonSRX talonSrxFrontPulleyA = new WPI_TalonSRX(1); // 1 motor
-    public static final WPI_TalonSRX talonSrxFrontPulleyB = new WPI_TalonSRX(2); // 1 motor
-    public static final WPI_TalonSRX talonSrxFrontPulleyC = new WPI_TalonSRX(13); // 1 motor
 
     // Drives
-    public static MecanumDrive mecDrive = null;
+    public static MecanumDrive mecDrive;
 
-    // Constructor
-    public RobotDevices() {
+    // Intialize the subsystem devices
+    public static void initializeDevices() {
+        Logger.setup("Initializing SubsystemDevices...");
+
         // TODO: Investigate why these motor controllers have to be inverted. Are all TalonSRX Motor Controllers backwards?
         talonSrxMecWheelFrontLeft.setInverted(true);
         talonSrxMecWheelRearLeft.setInverted(true);
