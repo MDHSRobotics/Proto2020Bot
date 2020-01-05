@@ -1,63 +1,52 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.commands.*;
 import frc.robot.consoles.Logger;
 import frc.robot.subsystems.*;
 
-/**
- * The container for the robot. Contains subsystems, OI devices, and commands.
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
- */
+// The container for the robot. This class is where the bulk of the robot should be declared.
+// Contains subsystems, commands, and button mappings.
 public class RobotContainer {
 
     // Subsystems
-    private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+    private final MecDriver m_mecDriver = new MecDriver();
 
     // Commands
-    private final ExampleCommand m_exampleCommand = new ExampleCommand(m_exampleSubsystem);
+    private final MecDriveCartesian m_mecDriveCartesian = new MecDriveCartesian(m_mecDriver);
 
     // Constructor
     public RobotContainer() {
-        // Configure the button bindings
+        setDefaultCommands();
         configureButtonBindings();
     }
 
-    /**
-     * Use this method to define your button->command mappings.  Buttons can be created by
-     * instantiating a {@link GenericHID} or one of its subclasses ({@link
-     * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-     * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-     */
+    // Set all the subsystem default commands
+    private void setDefaultCommands() {
+        Logger.setup("Initializing MecDriver DefaultCommand -> MecDriveCartesian...");
+        m_mecDriver.setDefaultCommand(m_mecDriveCartesian);
+    }
+
+    // Return the command to run in autonomous mode
+    public Command getAutonomousCommand() {
+        return m_mecDriveCartesian;
+    }
+
+    // Configure "drive" xbox buttons
+    public void configureDriveXBoxButtons() {
+        Logger.setup("Configure Buttons -> Drive Xbox Controller...");
+        OIDevices.driveXboxBtnA.whenPressed(m_mecDriveCartesian);
+    }
+
+    // Check controllers and configure button bindings
     private void configureButtonBindings() {
         if (!OIDevices.isDriveXboxConnected()) {
             Logger.error("Drive XBox controller not plugged in!");
         } else {
             configureDriveXBoxButtons();
         }
-    }
-
-    // Drive XBox Buttons
-    public void configureDriveXBoxButtons() {
-        // Bind the "drive" xbox buttons to specific commands
-        OIDevices.driveXboxBtnA.whenPressed(m_exampleCommand);
-    }
-
-    /**
-     * Use this to pass the autonomous command to the main {@link Robot} class.
-     *
-     * @return the command to run in autonomous
-     */
-    public Command getAutonomousCommand() {
-        // An ExampleCommand will run in autonomous
-        return m_exampleCommand;
     }
 
 }

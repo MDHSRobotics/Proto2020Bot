@@ -3,8 +3,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.commands.interactive.MecDriveCartesian;
-import frc.robot.commands.interactive.MecDriveTank;
 import frc.robot.consoles.Logger;
 import frc.robot.sensors.Gyro;
 import frc.robot.sensors.Vision;
@@ -47,10 +45,6 @@ public class MecDriver extends SubsystemBase {
             RobotDevices.talonSrxMecWheelFrontRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
             RobotDevices.talonSrxMecWheelRearRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
         }
-
-        Logger.setup("Initializing MecDriver DefaultCommand -> MecDriveCartesian...");
-
-        setDefaultCommand(new MecDriveTank());
     }
 
     @Override
