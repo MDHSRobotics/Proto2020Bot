@@ -34,8 +34,10 @@ public class MecDriver extends SubsystemBase {
         boolean talonRearLeftIsConnected = RobotDevices.isConnected(RobotDevices.talonSrxMecWheelRearLeft);
         boolean talonFrontRightIsConnected = RobotDevices.isConnected(RobotDevices.talonSrxMecWheelFrontRight);
         boolean talonRearRightIsConnected = RobotDevices.isConnected(RobotDevices.talonSrxMecWheelRearRight);
-        m_talonsAreConnected = (talonFrontLeftIsConnected && talonRearLeftIsConnected && talonFrontRightIsConnected
-                && talonRearRightIsConnected);
+        m_talonsAreConnected = (talonFrontLeftIsConnected &&
+                                talonRearLeftIsConnected &&
+                                talonFrontRightIsConnected &&
+                                talonRearRightIsConnected);
 
         if (!m_talonsAreConnected) {
             Logger.error("MecDriver talons not all connected! Disabling MecDriver...");
@@ -297,7 +299,7 @@ public class MecDriver extends SubsystemBase {
     }
 
     // TODO: Use this to indicate to the driver that the Robot is aligned with the target (lights? Shuffleboard?)
-    public boolean isAligned(double targetAngle) {
+    public static boolean isAligned(double targetAngle) {
         boolean straight = Gyro.isYawAligned(targetAngle);
         if (!straight)
             return false;

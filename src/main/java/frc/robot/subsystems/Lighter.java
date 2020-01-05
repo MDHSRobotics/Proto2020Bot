@@ -1,42 +1,38 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Relay;
 
-import frc.robot.commands.reactive.LightToggle;
 import frc.robot.consoles.Logger;
-import frc.robot.Devices;
+import frc.robot.RobotDevices;
 
-
-// Lighter Subsystem
-public class Lighter extends Subsystem {
+// Lighter Subsystem, for turning lights on and off.
+public class Lighter extends SubsystemBase {
 
     public Lighter() {
         Logger.setup("Constructing Subsystem: Lighter...");
     }
 
     @Override
-    public void initDefaultCommand() {
-        Logger.setup("Initializing Lighter DefaultCommand -> LightToggle...");
-
-        setDefaultCommand(new LightToggle());
+    public void periodic() {
+        // This method will be called once per scheduler run
     }
 
     public void turnOnBoth() {
-        Devices.lighterRelay.set(Relay.Value.kOn);
+        RobotDevices.lighterRelay.set(Relay.Value.kOn);
     }
 
     public void turnOffBoth() {
-        Devices.lighterRelay.set(Relay.Value.kOff);
+        RobotDevices.lighterRelay.set(Relay.Value.kOff);
     }
 
     public void turnOnWhiteOnly() {
-        Devices.lighterRelay.set(Relay.Value.kForward);
+        RobotDevices.lighterRelay.set(Relay.Value.kForward);
     }
 
     public void turnOnRedOnly() {
-        Devices.lighterRelay.set(Relay.Value.kReverse);
+        RobotDevices.lighterRelay.set(Relay.Value.kReverse);
     }
 
 }

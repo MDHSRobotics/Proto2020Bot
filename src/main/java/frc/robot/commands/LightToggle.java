@@ -1,74 +1,72 @@
 
-package frc.robot.commands.reactive;
+package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.consoles.Logger;
 import frc.robot.sensors.Distance;
 import frc.robot.sensors.Vision;
+import frc.robot.subsystems.Lighter;
+import frc.robot.subsystems.MecDriver;
 import frc.robot.OI;
-import frc.robot.Robot;
-
 
 // This command toggles the "Lighter" lights from certain sensor states
-public class LightToggle extends Command {
+public class LightToggle extends CommandBase {
 
-    public LightToggle() {
+    Lighter m_lighter = null;
+
+    public LightToggle(Lighter lighter) {
         Logger.setup("Constructing Command: LightToggle...");
 
-        // Declare subsystem dependencies
-        requires(Robot.robotLighter);
+        // Add given subsystem requirements
+        m_lighter = lighter;
+        addRequirements(m_lighter);
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
         Logger.action("Initializing Command: LightToggle...");
     }
 
     @Override
-    protected void execute() {
+    public void execute() {
         boolean frontLineDetected = Vision.frontLineDetected();
         boolean rightLineDetected = Vision.rightLineDetected();
         boolean leftLineDetected = Vision.leftLineDetected();
         if (frontLineDetected || leftLineDetected || rightLineDetected) {
             int dpadAngle = OI.getDpadAngleForGyro();
-            boolean isAligned = Robot.robotMecDriver.isAligned(dpadAngle);
+            boolean isAligned = MecDriver.isAligned(dpadAngle);
             if (isAligned) {
                 boolean closeEnough = Distance.distanceReached();
                 if (closeEnough) {
-                    Robot.robotLighter.turnOnBoth();
+                    m_lighter.turnOnBoth();
+                } else {
+                    m_lighter.turnOnRedOnly();
                 }
-                else {
-                    Robot.robotLighter.turnOnRedOnly();
-                }
+            } else {
+                m_lighter.turnOnWhiteOnly();
             }
-            else {
-                Robot.robotLighter.turnOnWhiteOnly();
-            }
-        }
-        else {
-            Robot.robotLighter.turnOffBoth();
+        } else {
+            m_lighter.turnOffBoth();
         }
     }
 
     // This command continues until interrupted
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return false;
     }
 
     @Override
-    protected void end() {
-        Logger.ending("Ending Command: LightToggle...");
+    public void end(boolean interrupted) {
+        if (interrupted) {
+            System.out.println("--");
+            Logger.ending("Interrupting Command: LightToggle...");
+        } else {
+            Logger.ending("Ending Command: LightToggle...");
+        }
 
-        Robot.robotLighter.turnOffBoth();
-    }
-
-    @Override
-    protected void interrupted() {
-        Logger.ending("Interrupting Command: LightToggle...");
-
-        Robot.robotLighter.turnOffBoth();
+        m_lighter.turnOffBoth();
     }
 
 }
