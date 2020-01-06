@@ -16,13 +16,17 @@ public class SubsystemDevices {
     public static final Relay relayLighter = new Relay(1);
 
     // Motor Controllers
-    public static final WPI_TalonSRX talonSrxMecWheelFrontLeft = new WPI_TalonSRX(5); // 1 motor
-    public static final WPI_TalonSRX talonSrxMecWheelRearLeft = new WPI_TalonSRX(7); // 1 motor
-    public static final WPI_TalonSRX talonSrxMecWheelFrontRight = new WPI_TalonSRX(6); // 1 motor
-    public static final WPI_TalonSRX talonSrxMecWheelRearRight = new WPI_TalonSRX(8); // 1 motor
+    public static final WPI_TalonSRX talonSrxMecWheelFrontLeft = new WPI_TalonSRX(1); // 1 motor
+    public static final WPI_TalonSRX talonSrxMecWheelRearLeft = new WPI_TalonSRX(2); // 1 motor
+    public static final WPI_TalonSRX talonSrxMecWheelFrontRight = new WPI_TalonSRX(3); // 1 motor
+    public static final WPI_TalonSRX talonSrxMecWheelRearRight = new WPI_TalonSRX(4); // 1 motor
 
-    public static final WPI_TalonSRX talonSrxHatcher = new WPI_TalonSRX(9); // 1 motor
-    public static final WPI_TalonSRX talonSrxBaller = new WPI_TalonSRX(10); // 1 motor
+    public static final WPI_TalonSRX talonSrxOmniWheelFrontLeft = new WPI_TalonSRX(5); // 1 motor
+    public static final WPI_TalonSRX talonSrxOmniWheelRearLeft = new WPI_TalonSRX(17); // 1 motor
+    public static final WPI_TalonSRX talonSrxOmniWheelFrontRight = new WPI_TalonSRX(6); // 1 motor
+    public static final WPI_TalonSRX talonSrxOmniWheelRearRight = new WPI_TalonSRX(8); // 1 motor
+    public static final WPI_TalonSRX talonSrxOmniWheelFront = new WPI_TalonSRX(7); // 1 motor
+    public static final WPI_TalonSRX talonSrxOmniWheelRear = new WPI_TalonSRX(18); // 1 motor
 
     // Drives
     public static MecanumDrive mecDrive;
