@@ -78,36 +78,38 @@ public class OI {
     // Joystick //
     //----------//
 
-    // Determines the cartesian movement (forward/backward speed, side to side speed, rotation speed)
+    // Determines the cartesian movement (straight speed, strafe speed, rotation speed)
     // from the current joystick position
     public static CartesianMovement getCartesianMovementFromJoystick(boolean isYflipped) {
         JoystickPosition pos = getJoystickPosition(isYflipped);
-        CartesianMovement move = new CartesianMovement(pos.xPosition, pos.yPosition, pos.zPosition);
-        // Logger.info("Joystick Cartesian Movement: " + pos.yPosition + ", " + pos.xPosition + ", " + pos.zPosition);
+        CartesianMovement move = new CartesianMovement(pos.sideToSidePosition, pos.forwardBackPosition, pos.rotationPosition);
+        // Logger.info("Joystick Cartesian Movement: " + pos.sideToSidePosition + ", " + pos.forwardBackPosition + ", " + pos.rotationPosition);
         return move;
     }
 
-    // Determines the polar movement (magnitude, angle, rotation)
+    // Determines the polar movement (angle speed, angle degrees, rotation speed)
     // from the current joystick position
     public static PolarMovement getPolarMovementFromJoystick(boolean isYflipped) {
         JoystickPosition pos = getJoystickPosition(isYflipped);
-        PolarMovement move = new PolarMovement(pos.xPosition, pos.yPosition, pos.zPosition);
+        PolarMovement move = new PolarMovement(pos.forwardBackPosition, pos.sideToSidePosition, pos.rotationPosition);
+        // Logger.info("Joystick Polar Movement: " + pos.forwardBackPosition + ", " + pos.sideToSidePosition + ", " + pos.rotationPosition);
         return move;
     }
 
-    // Determines the arcade movement (magnitude, rotation, square inputs)
+    // Determines the arcade movement (straight speed, rotation speed, square inputs, strafe speed)
     // from the current joystick position
     public static ArcadeMovement getArcadeMovementFromJoystick(boolean isYflipped) {
         JoystickPosition pos = getJoystickPosition(isYflipped);
-        ArcadeMovement move = new ArcadeMovement(pos.xPosition, pos.zPosition, false, pos.yPosition);
+        ArcadeMovement move = new ArcadeMovement(pos.forwardBackPosition, pos.rotationPosition, pos.sideToSidePosition);
+        // Logger.info("Joystick Arcade Movement: " + pos.forwardBackPosition + ", " + pos.rotationPosition + ", " + pos.sideToSidePosition);
         return move;
     }
 
     // Gets the joystick position and applies user-determined orientation, deadzones, and sensitivity
     private static JoystickPosition getJoystickPosition(boolean isYflipped) {
-        double y = OIDevices.jstick.getY(); // Forward & backward
+        double y = OIDevices.jstick.getY(); // Forward & backward, flipped
         double x = OIDevices.jstick.getX(); // Side to side
-        double z = OIDevices.jstick.getZ(); // Rotate
+        double z = OIDevices.jstick.getZ(); // Rotate, flipped?
 
         // Forward/backward and rotation directions are both reversed from what is intuitive, so flip them
         y = -y;
@@ -160,43 +162,46 @@ public class OI {
     // Xbox Thumbsticks //
     //------------------//
 
-    // Determines the speed at which to drive front wheels from the current xbox right hand trigger axis
+    // Determines the front wheel drive movement (straight speed)
+    // from the current xbox left-hand trigger axis
     public static double getFrontWheelDriveSpeed() {
         double triggerAxis = OIDevices.driveXbox.getTriggerAxis(Hand.kLeft);
         return triggerAxis;
     }
 
-    // Determines the tank movement (up or down of Left, up or down of Right)
+    // Determines the tank movement (left-side straight speed, right-side straight speed)
     // from the current xbox thumbstick positions
     public static TankMovement getTankMovementFromThumbsticks(boolean isYflipped) {
         ThumbStickPosition pos = getThumbstickPosition(isYflipped);
-        TankMovement move = new TankMovement(pos.yLeftPosition, pos.yRightPosition);
-        //Logger.info("Xbox Tankrtesian Movement: " + pos.yLeftPosition + ", " + pos.yRightPosition);
+        TankMovement move = new TankMovement(pos.leftForwardBackPosition, pos.rightForwardBackPosition);
+        //Logger.info("Xbox Tank Movement: " + pos.leftForwardBackPosition + ", " + pos.rightForwardBackPosition);
         return move;
     }
 
-    // Determines the cartesian movement (forward/backward speed, side to side speed, rotation speed)
+    // Determines the cartesian movement (straight speed, strafe speed, rotation speed)
     // from the current xbox thumbstick positions
     public static CartesianMovement getCartesianMovementFromThumbsticks(boolean isYleftFlipped) {
         ThumbStickPosition pos = getThumbstickPosition(isYleftFlipped);
-        CartesianMovement move = new CartesianMovement(pos.xLeftPosition, pos.yLeftPosition, pos.xRightPosition);
-        // Logger.info("Xbox Cartesian Movement: " + pos.yLeftPosition + ", " + pos.xLeftPosition + ", " + pos.xRightPosition);
+        CartesianMovement move = new CartesianMovement(pos.leftSideToSidePosition, pos.leftForwardBackPosition, pos.rightSideToSidePosition);
+        // Logger.info("Xbox Cartesian Movement: " + pos.leftSideToSidePosition + ", " + pos.leftForwardBackPosition + ", " + pos.rightSideToSidePosition);
         return move;
     }
 
-    // Determines the polar movement (magnitude, angle, rotation)
+    // Determines the polar movement (angle speed, angle degrees, rotation speed)
     // from the current xbox thumbstick positions
     public static PolarMovement getPolarMovementFromThumbsticks(boolean isYleftFlipped) {
         ThumbStickPosition pos = getThumbstickPosition(isYleftFlipped);
-        PolarMovement move = new PolarMovement(pos.yLeftPosition, pos.xLeftPosition, pos.xRightPosition);
+        PolarMovement move = new PolarMovement(pos.leftForwardBackPosition, pos.leftSideToSidePosition, pos.rightSideToSidePosition);
+        // Logger.info("Xbox Polar Movement: " + pos.leftForwardBackPosition + ", " + pos.leftSideToSidePosition + ", " + pos.rightSideToSidePosition);
         return move;
     }
 
-    // Determines the arcade movement (magnitude, rotation, square inputs)
+    // Determines the arcade movement (straight speed, rotation speed, square inputs, strafe speed)
     // from the current xbox thumbstick positions
     public static ArcadeMovement getArcadeMovementFromThumbsticks(boolean isYleftFlipped) {
         ThumbStickPosition pos = getThumbstickPosition(isYleftFlipped);
-        ArcadeMovement move = new ArcadeMovement(pos.yLeftPosition, pos.xLeftPosition, false, pos.xRightPosition);
+        ArcadeMovement move = new ArcadeMovement(pos.leftForwardBackPosition, pos.leftSideToSidePosition, pos.rightSideToSidePosition);
+        // Logger.info("Xbox Arcade Movement: " + pos.leftForwardBackPosition + ", " + pos.leftSideToSidePosition + ", " + pos.rightSideToSidePosition);
         return move;
     }
 
@@ -204,25 +209,31 @@ public class OI {
     private static ThumbStickPosition getThumbstickPosition(boolean isYleftFlipped) {
         double yLeft = OIDevices.driveXbox.getY(Hand.kLeft); // Forward & backward, flipped
         double xLeft = OIDevices.driveXbox.getX(Hand.kLeft); // Strafe
+        double yRight = OIDevices.driveXbox.getY(Hand.kRight); // Forward & backward, flipped
         double xRight = OIDevices.driveXbox.getX(Hand.kRight); // Rotate
 
         // Forward/backward direction is reversed from what is intuitive, so flip it
         yLeft = -yLeft;
+        yRight = -yRight;
 
         // User-determined flipping of forward/backward orientation
         if (isYleftFlipped) {
             yLeft = -yLeft;
+            yRight = -yRight;
         }
 
         // Deadzones
         double yLeftDeadZone = Brain.getYleftDeadZone();
         double xLeftDeadZone = Brain.getXleftDeadZone();
+        double yRightDeadZone = Brain.getYrightDeadZone();
         double xRightDeadZone = Brain.getXrightDeadZone();
 
         if (Math.abs(yLeft) <= yLeftDeadZone)
             yLeft = 0;
         if (Math.abs(xLeft) <= xLeftDeadZone)
             xLeft = 0;
+        if (Math.abs(yRight) <= yRightDeadZone)
+            yRight = 0;
         if (Math.abs(xRight) <= xRightDeadZone)
             xRight = 0;
 
@@ -234,6 +245,10 @@ public class OI {
             xLeft = xLeft - xLeftDeadZone;
         if (xLeft < 0)
             xLeft = xLeft + xLeftDeadZone;
+        if (yRight > 0)
+            yRight = yRight - yRightDeadZone;
+        if (yRight < 0)
+            yRight = yRight + yRightDeadZone;
         if (xRight > 0)
             xRight = xRight - xRightDeadZone;
         if (xRight < 0)
@@ -242,13 +257,15 @@ public class OI {
         // Sensitivity
         double yLeftSensitivity = Brain.getYleftSensitivity();
         double xLeftSensitivity = Brain.getXleftSensitivity();
+        double yRightSensitivity = Brain.getYrightSensitivity();
         double xRightSensitivity = Brain.getXrightSensitivity();
 
         yLeft = yLeft * yLeftSensitivity;
         xLeft = xLeft * xLeftSensitivity;
+        yRight = yRight * yRightSensitivity;
         xRight = xRight * xRightSensitivity;
 
-        ThumbStickPosition pos = new ThumbStickPosition(yLeft, xLeft, xRight);
+        ThumbStickPosition pos = new ThumbStickPosition(yLeft, xLeft, yRight, xRight);
         return pos;
     }
 

@@ -4,17 +4,19 @@ package frc.robot.helpers;
 // The position values obtained from Xbox Thumbsticks
 public class ThumbStickPosition {
 
-    public double yLeftPosition = 0;
-    public double xLeftPosition = 0;
-    public double xRightPosition = 0;
+    public double leftForwardBackPosition = 0; // y left Forward & Backward
+    public double leftSideToSidePosition = 0; // x left Side to Side
+    public double rightForwardBackPosition = 0; // y right Forward & Backward
+    public double rightSideToSidePosition = 0; // x right Side to Side
 
     public ThumbStickPosition() {
     }
 
-    public ThumbStickPosition(double yLeft, double xLeft, double xRight) {
-        yLeftPosition = yLeft;
-        xLeftPosition = xLeft;
-        xRightPosition = xRight;
+    public ThumbStickPosition(double leftForwardBack, double leftSideToSide, double rightForwardBack, double rightSideToSide) {
+        leftForwardBackPosition = leftForwardBack;
+        leftSideToSidePosition = leftSideToSide;
+        rightSideToSidePosition = rightForwardBack;
+        rightSideToSidePosition = rightSideToSide;
     }
 
 }

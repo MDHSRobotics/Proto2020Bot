@@ -11,6 +11,7 @@ public class BotCommands {
 
     public static LightCycle cmdLightCycle;
     public static LightToggle cmdLightToggle;
+    public static DiffDriveTank cmdDiffDriveTank;
     public static MecDriveCartesian cmdMecDriveCartesian;
     public static OmniDriveArcade cmdOmniDriveArcade;
 
@@ -20,6 +21,7 @@ public class BotCommands {
 
         cmdLightCycle = new LightCycle(BotSubsystems.ssLighter);
         cmdLightToggle = new LightToggle(BotSubsystems.ssLighter);
+        cmdDiffDriveTank = new DiffDriveTank(BotSubsystems.ssDiffDriver);
         cmdMecDriveCartesian = new MecDriveCartesian(BotSubsystems.ssMecDriver);
         cmdOmniDriveArcade = new OmniDriveArcade(BotSubsystems.ssOmniDriver);
     }

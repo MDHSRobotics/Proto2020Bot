@@ -1,48 +1,51 @@
 
-package frc.robot.commands.interactive;
+package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import frc.robot.consoles.Logger;
 import frc.robot.helpers.TankMovement;
+import frc.robot.subsystems.DiffDriver;
+import frc.robot.OI;
 
-// This command uses the xbox input to diff drive using the tank drive method
-public class DiffDriveTank extends Command {
+// This command uses the xbox input to differential drive using the tank method
+public class DiffDriveTank extends CommandBase {
 
-    public DiffDriveTank() {
+    DiffDriver m_diffDriver;
+
+    public DiffDriveTank(DiffDriver diffDriver) {
         Logger.setup("Constructing Command: DiffDriveTank...");
 
-        // Declare subsystem dependencies
-        requires(Robot.robotDiffDriver);
+        // Add given subsystem requirements
+        m_diffDriver = diffDriver;
+        addRequirements(m_diffDriver);
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
         Logger.action("Initializing Command: DiffDriveTank...");
     }
 
     @Override
-    protected void execute() {
-        TankMovement move = OI.getTankMovementFromThumbsticks(Robot.robotDiffDriver.controlStickDirectionFlipped);
-        Robot.robotDiffDriver.driveTank(move.yLeftPosition, move.yRightPosition);
+    public void execute() {
+        TankMovement move = OI.getTankMovementFromThumbsticks(m_diffDriver.controlStickDirectionFlipped);
+        m_diffDriver.driveTank(move.leftSpeed, move.rightSpeed);
     }
 
-    // This command continues until interrupted
+    // This command continues until interrupted.
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return false;
     }
 
     @Override
-    protected void end() {
-        Logger.ending("Ending Command: DiffDriveTank...");
-    }
-
-    @Override
-    protected void interrupted() {
-        System.out.println("--");
-        Logger.ending("Interrupting Command: DiffDriveTank...");
+    public void end(boolean interrupted) {
+        if (interrupted) {
+            System.out.println("--");
+            Logger.ending("Interrupting Command: DiffDriveTank...");
+        } else {
+            Logger.ending("Ending Command: DiffDriveTank...");
+        }
     }
 
 }

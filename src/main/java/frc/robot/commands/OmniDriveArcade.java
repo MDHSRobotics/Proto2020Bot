@@ -29,7 +29,7 @@ public class OmniDriveArcade extends CommandBase {
     @Override
     public void execute() {
         ArcadeMovement move = OI.getArcadeMovement(m_omniDriver.controlStickDirectionFlipped);
-        m_omniDriver.driveArcade(move.speed, move.rotation, false, move.strafe);
+        m_omniDriver.driveArcade(move.straightSpeed, move.rotationSpeed, move.strafeSpeed);
     }
 
     // This command continues until interrupted.

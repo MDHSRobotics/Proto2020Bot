@@ -1,13 +1,13 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Devices;
-import frc.robot.commands.interactive.DiffDriveTank;
-import frc.robot.consoles.Logger;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-// Diff driver subsystem
-public class DiffDriver extends Subsystem {
+import frc.robot.consoles.Logger;
+import frc.robot.SubsystemDevices;
+
+// Differential driver subsystem
+public class DiffDriver extends SubsystemBase {
 
     // The direction of forward/backward via the controller
     public boolean controlStickDirectionFlipped = false;
@@ -23,10 +23,10 @@ public class DiffDriver extends Subsystem {
         Logger.setup("Constructing Subsystem: DiffDriver...");
 
         // Configure wheel speed controllers
-        boolean talonFrontLeftIsConnected = Devices.isConnected(Devices.talonSrxDiffWheelFrontLeft);
-        boolean talonRearLeftIsConnected = Devices.isConnected(Devices.talonSrxDiffWheelRearLeft);
-        boolean talonFrontRightIsConnected = Devices.isConnected(Devices.talonSrxDiffWheelFrontRight);
-        boolean talonRearRightIsConnected = Devices.isConnected(Devices.talonSrxDiffWheelRearRight);
+        boolean talonFrontLeftIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxDiffWheelFrontLeft);
+        boolean talonRearLeftIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxDiffWheelRearLeft);
+        boolean talonFrontRightIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxDiffWheelFrontRight);
+        boolean talonRearRightIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxDiffWheelRearRight);
         m_talonsAreConnected = (talonFrontLeftIsConnected &&
                                 talonRearLeftIsConnected &&
                                 talonFrontRightIsConnected &&
@@ -34,19 +34,17 @@ public class DiffDriver extends Subsystem {
 
         if (!m_talonsAreConnected) {
             Logger.error("DiffDriver talons not all connected! Disabling DiffDriver...");
-        }
-        else {
-            Devices.talonSrxDiffWheelFrontLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            Devices.talonSrxDiffWheelRearLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            Devices.talonSrxDiffWheelFrontRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            Devices.talonSrxDiffWheelRearRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        } else {
+            SubsystemDevices.talonSrxDiffWheelFrontLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+            SubsystemDevices.talonSrxDiffWheelRearLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+            SubsystemDevices.talonSrxDiffWheelFrontRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+            SubsystemDevices.talonSrxDiffWheelRearRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
         }
     }
 
-    // Initialize Default Command
     @Override
-    public void initDefaultCommand() {
-        setDefaultCommand(new DiffDriveTank());
+    public void periodic() {
+        // This method will be called once per scheduler run
     }
 
     // Flip the control direction of the joystick in Y (or Y Left for Xbox thumbsticks)
@@ -57,32 +55,30 @@ public class DiffDriver extends Subsystem {
 
         if (controlStickDirectionFlipped) {
             Logger.info("DiffDriver control stick direction is now flipped.");
-        }
-        else {
+        } else {
             Logger.info("DiffDriver control stick direction is now standard (not flipped).");
         }
 
         return controlStickDirectionFlipped;
     }
 
-
     // Stop all the drive motors
     public void stop() {
         if (!m_talonsAreConnected) {
-            Devices.diffDrive.feed();
+            SubsystemDevices.diffDrive.feed();
             return;
         }
 
-        Devices.diffDrive.stopMotor();
+        SubsystemDevices.diffDrive.stopMotor();
     }
 
     // Drive using the tank method
-    public void driveTank(double yLeft, double yRight) {
+    public void driveTank(double leftSpeed, double rightSpeed) {
         if (!m_talonsAreConnected) {
-            Devices.diffDrive.feed();
+            SubsystemDevices.diffDrive.feed();
             return;
         }
-        Devices.diffDrive.tankDrive(yLeft, yRight);
-    }
 
+        SubsystemDevices.diffDrive.tankDrive(leftSpeed, rightSpeed);
+    }
 }

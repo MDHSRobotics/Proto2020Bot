@@ -97,84 +97,84 @@ public class MecDriver extends SubsystemBase {
         SubsystemDevices.mecDrive.stopMotor();
     }
 
-    // Drive with just the front two wheels at the given speed
-    public void frontWheelDrive(double speed) {
+    // Drive straight with just the front two wheels at the given speed
+    public void frontWheelDrive(double straightSpeed) {
         if (!m_talonsAreConnected) {
             SubsystemDevices.mecDrive.feed();
             return;
         }
 
-        SubsystemDevices.talonSrxMecWheelFrontLeft.set(speed);
-        SubsystemDevices.talonSrxMecWheelFrontRight.set(speed);
+        SubsystemDevices.talonSrxMecWheelFrontLeft.set(straightSpeed);
+        SubsystemDevices.talonSrxMecWheelFrontRight.set(straightSpeed);
         SubsystemDevices.talonSrxMecWheelRearLeft.set(0);
         SubsystemDevices.talonSrxMecWheelRearRight.set(0);
         SubsystemDevices.mecDrive.feed();
     }
 
     // Strafe at the given speed
-    public void strafe(double speed) {
+    public void strafe(double strafeSpeed) {
         if (!m_talonsAreConnected) {
             SubsystemDevices.mecDrive.feed();
             return;
         }
 
-        SubsystemDevices.mecDrive.driveCartesian(speed, 0, 0);
+        SubsystemDevices.mecDrive.driveCartesian(strafeSpeed, 0, 0);
     }
 
     // Drive straight at the given speed
-    public void driveStraight(double speed) {
+    public void driveStraight(double straightSpeed) {
         if (!m_talonsAreConnected) {
             SubsystemDevices.mecDrive.feed();
             return;
         }
 
-        SubsystemDevices.mecDrive.driveCartesian(0, speed, 0);
+        SubsystemDevices.mecDrive.driveCartesian(0, straightSpeed, 0);
     }
 
     // Rotate at the given speed
-    public void rotate(double speed) {
+    public void rotate(double rotationSpeed) {
         if (!m_talonsAreConnected) {
             SubsystemDevices.mecDrive.feed();
             return;
         }
 
-        SubsystemDevices.mecDrive.driveCartesian(0, 0, speed);
+        SubsystemDevices.mecDrive.driveCartesian(0, 0, rotationSpeed);
     }
 
     // Orbit at the given speed, with the robot always looking inward
     // Positive is clockwise, negative is counter-clockwise
-    public void orbitInward(double magnitude, double zRotation) {
+    public void orbitInward(double angleSpeed, double rotationSpeed) {
         if (!m_talonsAreConnected) {
             SubsystemDevices.mecDrive.feed();
             return;
         }
 
         // TODO: Test that this does what the method description says it does
-        SubsystemDevices.mecDrive.drivePolar(magnitude, -90, zRotation);
+        SubsystemDevices.mecDrive.drivePolar(angleSpeed, -90, rotationSpeed);
     }
 
     // Orbit at the given speed, with the robot always looking outward
-    public void orbitOutward(double magnitude, double zRotation) {
+    public void orbitOutward(double angleSpeed, double rotationSpeed) {
         if (!m_talonsAreConnected) {
             SubsystemDevices.mecDrive.feed();
             return;
         }
 
         // TODO: Test that this does what the method description says it does
-        SubsystemDevices.mecDrive.drivePolar(magnitude, 90, zRotation);
+        SubsystemDevices.mecDrive.drivePolar(angleSpeed, 90, rotationSpeed);
     }
 
     // Drive as if this were a tank drive
-    public void driveTank(double xSpeedLeft, double xSpeedRight) {
+    public void driveTank(double leftSpeed, double rightSpeed) {
         if (!m_talonsAreConnected) {
             SubsystemDevices.mecDrive.feed();
             return;
         }
 
-        SubsystemDevices.talonSrxMecWheelFrontLeft.set(xSpeedLeft);
-        SubsystemDevices.talonSrxMecWheelRearLeft.set(xSpeedLeft);
-        SubsystemDevices.talonSrxMecWheelFrontRight.set(xSpeedRight);
-        SubsystemDevices.talonSrxMecWheelRearRight.set(xSpeedRight);
+        SubsystemDevices.talonSrxMecWheelFrontLeft.set(leftSpeed);
+        SubsystemDevices.talonSrxMecWheelRearLeft.set(leftSpeed);
+        SubsystemDevices.talonSrxMecWheelFrontRight.set(rightSpeed);
+        SubsystemDevices.talonSrxMecWheelRearRight.set(rightSpeed);
         // Even if you are periodically setting every drive motor,
         // feeding the Mecanum Drive object is necessary to prevent
         // motor safety warnings which will periodically disable your motors
@@ -182,37 +182,37 @@ public class MecDriver extends SubsystemBase {
     }
 
     // Drive using the cartesian method, using the current control orientation
-    public void driveCartesian(double ySpeed, double xSpeed, double zRotation) {
+    public void driveCartesian(double strafeSpeed, double straightSpeed, double rotationSpeed) {
         DriveOrientation orientation = Brain.getDriveOrientation();
-        driveCartesian(ySpeed, xSpeed, zRotation, orientation);
+        driveCartesian(strafeSpeed, straightSpeed, rotationSpeed, orientation);
     }
 
     // Drive using the cartesian method, using the given control orientation
-    public void driveCartesian(double ySpeed, double xSpeed, double zRotation, DriveOrientation orientation) {
+    public void driveCartesian(double strafeSpeed, double straightSpeed, double rotationSpeed, DriveOrientation orientation) {
         if (!m_talonsAreConnected) {
             SubsystemDevices.mecDrive.feed();
             return;
         }
 
         if (orientation == DriveOrientation.ROBOT) {
-            // Logger.info("Cartesian Movement: " + ySpeed + ", " + xSpeed + ", " + zRotation);
-            SubsystemDevices.mecDrive.driveCartesian(ySpeed, xSpeed, zRotation);
+            // Logger.info("Cartesian Movement: " + strafeSpeed + ", " + straightSpeed + ", " + rotationSpeed);
+            SubsystemDevices.mecDrive.driveCartesian(strafeSpeed, straightSpeed, rotationSpeed);
         } else if (orientation == DriveOrientation.FIELD) {
             double gyroAngle = BotSensors.gyro.getYaw();
-            // Logger.info("Cartesian Movement: " + ySpeed + ", " + xSpeed + ", " + zRotation + ", " + gyroAngle);
-            SubsystemDevices.mecDrive.driveCartesian(ySpeed, xSpeed, zRotation, gyroAngle);
+            // Logger.info("Cartesian Movement: " + strafeSpeed + ", " + straightSpeed + ", " + rotationSpeed + ", " + gyroAngle);
+            SubsystemDevices.mecDrive.driveCartesian(strafeSpeed, straightSpeed, rotationSpeed, gyroAngle);
         }
     }
 
     // Drive using the polar method
-    public void drivePolar(double magnitude, double angle, double rotation) {
+    public void drivePolar(double angleSpeed, double angle, double rotationSpeed) {
         if (!m_talonsAreConnected) {
             SubsystemDevices.mecDrive.feed();
             return;
         }
 
-        // Logger.info("Polar Movement: " + magnitude + ", " + angle + ", " + rotation);
-        SubsystemDevices.mecDrive.drivePolar(magnitude, angle, rotation);
+        // Logger.info("Polar Movement: " + angleSpeed + ", " + angle + ", " + rotationSpeed);
+        SubsystemDevices.mecDrive.drivePolar(angleSpeed, angle, rotationSpeed);
     }
 
     // Drive to align the Robot to a detected line at the given yaw

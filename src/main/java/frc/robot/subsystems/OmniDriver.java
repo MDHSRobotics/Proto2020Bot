@@ -68,41 +68,48 @@ public class OmniDriver extends SubsystemBase {
     public void stop() {
         if (!m_talonsAreConnected) {
             SubsystemDevices.omniDrive.feed();
+            SubsystemDevices.talonSrxOmniWheelFront.feed();
             return;
         }
 
         SubsystemDevices.omniDrive.stopMotor();
+        SubsystemDevices.talonSrxOmniWheelFront.stopMotor();
     }
 
     // Drive straight at the given speed
     public void driveStraight(double speed) {
         if (!m_talonsAreConnected) {
             SubsystemDevices.omniDrive.feed();
+            SubsystemDevices.talonSrxOmniWheelFront.feed();
             return;
         }
 
         SubsystemDevices.omniDrive.arcadeDrive(speed, 0, false);
+        SubsystemDevices.talonSrxOmniWheelFront.feed();
     }
 
     // Rotate at the given speed
     public void rotate(double rotation) {
         if (!m_talonsAreConnected) {
             SubsystemDevices.omniDrive.feed();
+            SubsystemDevices.talonSrxOmniWheelFront.feed();
             return;
         }
 
         SubsystemDevices.omniDrive.arcadeDrive(0, rotation, false);
+        SubsystemDevices.talonSrxOmniWheelFront.feed();
     }
 
     // Drive using the arcade method
-    public void driveArcade(double speed, double rotation, boolean squareInputs, double strafe) {
+    public void driveArcade(double straightSpeed, double rotationSpeed, double strafeSpeed) {
         if (!m_talonsAreConnected) {
             SubsystemDevices.omniDrive.feed();
+            SubsystemDevices.talonSrxOmniWheelFront.feed();
             return;
         }
 
-        SubsystemDevices.omniDrive.arcadeDrive(speed, rotation, squareInputs);
-        SubsystemDevices.talonSrxOmniWheelFront.set(strafe);
+        SubsystemDevices.omniDrive.arcadeDrive(straightSpeed, rotationSpeed, false);
+        SubsystemDevices.talonSrxOmniWheelFront.set(strafeSpeed);
     }
 
 }

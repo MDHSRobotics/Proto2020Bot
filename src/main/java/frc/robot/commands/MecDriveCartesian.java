@@ -29,7 +29,7 @@ public class MecDriveCartesian extends CommandBase {
     @Override
     public void execute() {
         CartesianMovement move = OI.getCartesianMovement(m_mecDriver.controlStickDirectionFlipped);
-        m_mecDriver.driveCartesian(move.ySpeed, move.xSpeed, move.zRotation);
+        m_mecDriver.driveCartesian(move.strafeSpeed, move.straightSpeed, move.rotationSpeed);
     }
 
     // This command continues until interrupted.

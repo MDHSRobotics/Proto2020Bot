@@ -4,17 +4,17 @@ package frc.robot.helpers;
 // The values (magnitude, angle, rotation) needed to drive using polar coordinates
 public class PolarMovement {
 
-    public double magnitude = 0;
-    public double angle = 0;
-    public double rotation = 0;
+    public double angleSpeed = 0;
+    public double angleDegrees = 0;
+    public double rotationSpeed = 0;
 
     public PolarMovement() {
     }
 
-    public PolarMovement(double x, double y, double z) {
-        magnitude = PolarMovement.calculateMagnitude(x, y);
-        angle = PolarMovement.calculateAngle(x, y);
-        rotation = z;
+    public PolarMovement(double xStraightSpeed, double yStrafeSpeed, double zRotationSpeed) {
+        angleSpeed = PolarMovement.calculateMagnitude(xStraightSpeed, yStrafeSpeed);
+        angleDegrees = PolarMovement.calculateAngle(xStraightSpeed, yStrafeSpeed);
+        rotationSpeed = zRotationSpeed;
     }
 
     public static double calculateMagnitude(double x, double y) {

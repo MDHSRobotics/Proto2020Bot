@@ -4,17 +4,17 @@ package frc.robot.helpers;
 // The values needed to drive using cartesian coordinates
 public class CartesianMovement {
 
-    public double ySpeed = 0; // Side to Side
-    public double xSpeed = 0; // Forward & Backward
-    public double zRotation = 0; // Rotate
+    public double strafeSpeed = 0; // y Side to Side
+    public double straightSpeed = 0; // x Forward & Backward
+    public double rotationSpeed = 0; // z Rotate
 
     public CartesianMovement() {
     }
 
-    public CartesianMovement(double y, double x, double z) {
-        ySpeed = y;
-        xSpeed = x;
-        zRotation = z;
+    public CartesianMovement(double yStrafeSpeed, double xStraightSpeed, double zRotationSpeed) {
+        strafeSpeed = yStrafeSpeed;
+        straightSpeed = xStraightSpeed;
+        rotationSpeed = zRotationSpeed;
     }
 
 }

@@ -9,6 +9,7 @@ import frc.robot.subsystems.*;
 public class BotSubsystems {
 
     public static Lighter ssLighter;
+    public static DiffDriver ssDiffDriver;
     public static MecDriver ssMecDriver;
     public static OmniDriver ssOmniDriver;
 
@@ -17,6 +18,7 @@ public class BotSubsystems {
         Logger.setup("Initializing BotSubsystems...");
 
         ssLighter = new Lighter();
+        ssDiffDriver = new DiffDriver();
         ssMecDriver = new MecDriver();
         ssOmniDriver = new OmniDriver();
     }
@@ -25,6 +27,9 @@ public class BotSubsystems {
     public static void setDefaultCommands() {
         Logger.setup("Lighter DefaultCommand -> LightToggle...");
         ssLighter.setDefaultCommand(BotCommands.cmdLightToggle);
+
+        Logger.setup("DiffDriver DefaultCommand -> DiffDriveTank...");
+        ssDiffDriver.setDefaultCommand(BotCommands.cmdDiffDriveTank);
 
         Logger.setup("MecDriver DefaultCommand -> MecDriveCartesian...");
         ssMecDriver.setDefaultCommand(BotCommands.cmdMecDriveCartesian);

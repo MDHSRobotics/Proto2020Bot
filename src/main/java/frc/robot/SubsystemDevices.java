@@ -44,13 +44,14 @@ public class SubsystemDevices {
         Logger.setup("Initializing SubsystemDevices...");
 
         // Differential Drive
+        // TODO: Investigate why these motor controllers have to be inverted. Are all TalonSRX Motor Controllers backwards?
         talonSrxDiffWheelFrontLeft.setInverted(true);
         talonSrxDiffWheelFrontRight.setInverted(true);
         talonSrxDiffWheelRearLeft.setInverted(true);
         talonSrxDiffWheelRearRight.setInverted(true);
-        diffDrive = new DifferentialDrive(talonSrxDiffWheelFrontLeft, talonSrxDiffWheelFrontRight);
         talonSrxDiffWheelRearLeft.follow(talonSrxDiffWheelFrontLeft);
         talonSrxDiffWheelRearRight.follow(talonSrxDiffWheelFrontRight);
+        diffDrive = new DifferentialDrive(talonSrxDiffWheelFrontLeft, talonSrxDiffWheelFrontRight);
 
         // Mecanum Drive
         // TODO: Investigate why these motor controllers have to be inverted. Are all TalonSRX Motor Controllers backwards?
