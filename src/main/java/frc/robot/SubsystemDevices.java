@@ -17,6 +17,11 @@ public class SubsystemDevices {
     public static final Relay relayLighter = new Relay(1);
 
     // Motor Controllers
+    public static final WPI_TalonSRX talonSrxDiffWheelFrontLeft = new WPI_TalonSRX(21); // 1 motor
+    public static final WPI_TalonSRX talonSrxDiffWheelRearLeft = new WPI_TalonSRX(22); // 1 motor
+    public static final WPI_TalonSRX talonSrxDiffWheelFrontRight = new WPI_TalonSRX(23); // 1 motor
+    public static final WPI_TalonSRX talonSrxDiffWheelRearRight = new WPI_TalonSRX(24); // 1 motor
+
     public static final WPI_TalonSRX talonSrxMecWheelFrontLeft = new WPI_TalonSRX(1); // 1 motor
     public static final WPI_TalonSRX talonSrxMecWheelRearLeft = new WPI_TalonSRX(2); // 1 motor
     public static final WPI_TalonSRX talonSrxMecWheelFrontRight = new WPI_TalonSRX(3); // 1 motor
@@ -30,12 +35,22 @@ public class SubsystemDevices {
     public static final WPI_TalonSRX talonSrxOmniWheelRear = new WPI_TalonSRX(18); // 1 motor
 
     // Drives
+    public static DifferentialDrive diffDrive;
     public static MecanumDrive mecDrive;
     public static DifferentialDrive omniDrive;
 
     // Intialize the subsystem devices
     public static void initializeDevices() {
         Logger.setup("Initializing SubsystemDevices...");
+
+        // Differential Drive
+        talonSrxDiffWheelFrontLeft.setInverted(true);
+        talonSrxDiffWheelFrontRight.setInverted(true);
+        talonSrxDiffWheelRearLeft.setInverted(true);
+        talonSrxDiffWheelRearRight.setInverted(true);
+        diffDrive = new DifferentialDrive(talonSrxDiffWheelFrontLeft, talonSrxDiffWheelFrontRight);
+        talonSrxDiffWheelRearLeft.follow(talonSrxDiffWheelFrontLeft);
+        talonSrxDiffWheelRearRight.follow(talonSrxDiffWheelFrontRight);
 
         // Mecanum Drive
         // TODO: Investigate why these motor controllers have to be inverted. Are all TalonSRX Motor Controllers backwards?

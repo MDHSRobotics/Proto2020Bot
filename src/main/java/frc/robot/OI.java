@@ -20,6 +20,18 @@ public class OI {
     // Active Control Stick //
     //----------------------//
 
+    // Determines the tank movement (up or down for Left, up or down for Right)
+    // from the active control stick position(s)
+    public static TankMovement getTankMovement(boolean isYflipped) {
+        ControlStick cStick = Brain.getControlStick();
+        switch (cStick) {
+        case XBOX:
+            return getTankMovementFromThumbsticks(isYflipped);
+        default:
+            return null;
+        }
+    }
+
     // Determines the cartesian movement (forward/backward speed, side to side speed, rotation speed)
     // from the active control stick position(s)
     public static CartesianMovement getCartesianMovement(boolean isYflipped) {
@@ -152,6 +164,15 @@ public class OI {
     public static double getFrontWheelDriveSpeed() {
         double triggerAxis = OIDevices.driveXbox.getTriggerAxis(Hand.kLeft);
         return triggerAxis;
+    }
+
+    // Determines the tank movement (up or down of Left, up or down of Right)
+    // from the current xbox thumbstick positions
+    public static TankMovement getTankMovementFromThumbsticks(boolean isYflipped) {
+        ThumbStickPosition pos = getThumbstickPosition(isYflipped);
+        TankMovement move = new TankMovement(pos.yLeftPosition, pos.yRightPosition);
+        //Logger.info("Xbox Tankrtesian Movement: " + pos.yLeftPosition + ", " + pos.yRightPosition);
+        return move;
     }
 
     // Determines the cartesian movement (forward/backward speed, side to side speed, rotation speed)
