@@ -1,14 +1,9 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.commands.OmniDriveArcade;
 import frc.robot.consoles.Logger;
-import frc.robot.sensors.Gyro;
-import frc.robot.sensors.Vision;
-import frc.robot.Brain;
 import frc.robot.SubsystemDevices;
 
 // Omni-directional driver subsystem

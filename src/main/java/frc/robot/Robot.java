@@ -26,9 +26,9 @@ public class Robot extends TimedRobot {
         System.out.println("--");
         Logger.setup("Initializing Robot...");
 
-        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+        // Instantiate our BotManager.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
-        RobotManager.initialize();
+        BotManager.initialize();
     }
 
     /**
@@ -61,14 +61,14 @@ public class Robot extends TimedRobot {
     }
 
     /**
-     * This autonomous runs the autonomous command selected by your {@link RobotCommands} class.
+     * This autonomous runs the autonomous command selected by your {@link BotCommands} class.
      */
     @Override
     public void autonomousInit() {
         System.out.println("--");
         Logger.setup("Initializing Autonomous Mode...");
 
-        m_autonomousCommand = RobotCommands.getAutonomousCommand();
+        m_autonomousCommand = BotCommands.getAutonomousCommand();
 
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {

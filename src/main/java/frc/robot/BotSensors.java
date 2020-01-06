@@ -9,7 +9,7 @@ import frc.robot.consoles.Logger;
 import frc.robot.sensors.Cameras;
 
 // This class contains singleton instances of id mapped sensors.
-public class RobotSensors {
+public class BotSensors {
 
     // Cameras
     public static UsbCamera cameraSight;
@@ -18,7 +18,7 @@ public class RobotSensors {
     public static AHRS gyro;
 
     public static void initializeSensors() {
-        Logger.setup("Initializing RobotSensors...");
+        Logger.setup("Initializing BotSensors...");
 
         boolean cam0connected = Cameras.testConnection(0);
         if (cam0connected)

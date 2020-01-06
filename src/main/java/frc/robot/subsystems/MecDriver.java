@@ -7,7 +7,7 @@ import frc.robot.consoles.Logger;
 import frc.robot.sensors.Gyro;
 import frc.robot.sensors.Vision;
 import frc.robot.Brain;
-import frc.robot.RobotSensors;
+import frc.robot.BotSensors;
 import frc.robot.SubsystemDevices;
 
 // Mecanum driver subsystem
@@ -198,7 +198,7 @@ public class MecDriver extends SubsystemBase {
             // Logger.info("Cartesian Movement: " + ySpeed + ", " + xSpeed + ", " + zRotation);
             SubsystemDevices.mecDrive.driveCartesian(ySpeed, xSpeed, zRotation);
         } else if (orientation == DriveOrientation.FIELD) {
-            double gyroAngle = RobotSensors.gyro.getYaw();
+            double gyroAngle = BotSensors.gyro.getYaw();
             // Logger.info("Cartesian Movement: " + ySpeed + ", " + xSpeed + ", " + zRotation + ", " + gyroAngle);
             SubsystemDevices.mecDrive.driveCartesian(ySpeed, xSpeed, zRotation, gyroAngle);
         }
@@ -220,7 +220,7 @@ public class MecDriver extends SubsystemBase {
         Logger.setup("##");
 
         // Get the correction yaw needed to align the Robot with the target yaw
-        double yaw = RobotSensors.gyro.getYaw();
+        double yaw = BotSensors.gyro.getYaw();
         double correction = targetYaw - yaw;
         if (correction > 180)
             correction = correction - 360;

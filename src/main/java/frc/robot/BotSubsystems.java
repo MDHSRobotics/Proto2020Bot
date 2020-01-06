@@ -6,7 +6,7 @@ import frc.robot.subsystems.*;
 
 // Contains instances of all the subsystems on the robot.
 // IMPORTANT: When you make a new subsystem, you need to also set a default command.
-public class RobotSubsystems {
+public class BotSubsystems {
 
     public static Lighter ssLighter;
     public static MecDriver ssMecDriver;
@@ -14,7 +14,7 @@ public class RobotSubsystems {
 
     // Initialize all robot subsystems
     public static void initializeSubsystems() {
-        Logger.setup("Initializing RobotSubsystems...");
+        Logger.setup("Initializing BotSubsystems...");
 
         ssLighter = new Lighter();
         ssMecDriver = new MecDriver();
@@ -24,13 +24,13 @@ public class RobotSubsystems {
     // Set all the subsystem default commands
     public static void setDefaultCommands() {
         Logger.setup("Lighter DefaultCommand -> LightToggle...");
-        ssLighter.setDefaultCommand(RobotCommands.cmdLightToggle);
+        ssLighter.setDefaultCommand(BotCommands.cmdLightToggle);
 
         Logger.setup("MecDriver DefaultCommand -> MecDriveCartesian...");
-        ssMecDriver.setDefaultCommand(RobotCommands.cmdMecDriveCartesian);
+        ssMecDriver.setDefaultCommand(BotCommands.cmdMecDriveCartesian);
 
         Logger.setup("OmniDriver DefaultCommand -> OmniDriveArcade...");
-        ssOmniDriver.setDefaultCommand(RobotCommands.cmdOmniDriveArcade);
+        ssOmniDriver.setDefaultCommand(BotCommands.cmdOmniDriveArcade);
     }
 
 }

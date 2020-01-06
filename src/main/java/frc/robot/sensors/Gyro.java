@@ -2,7 +2,7 @@
 package frc.robot.sensors;
 
 import frc.robot.consoles.Logger;
-import frc.robot.RobotSensors;
+import frc.robot.BotSensors;
 
 public class Gyro {
 
@@ -10,7 +10,7 @@ public class Gyro {
 
     // Returns true if the gyro yaw matches the target angle within the YAW_TOLERANCE
     public static boolean isYawAligned(double targetAngle) {
-        double angle = RobotSensors.gyro.getYaw();
+        double angle = BotSensors.gyro.getYaw();
         double difference = Math.abs(targetAngle - angle);
         if (difference > 180)
             difference = 360 - difference;

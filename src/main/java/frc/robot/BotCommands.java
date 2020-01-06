@@ -7,7 +7,7 @@ import frc.robot.commands.*;
 import frc.robot.consoles.Logger;
 
 // Contains instances of all the commands on the robot.
-public class RobotCommands {
+public class BotCommands {
 
     public static LightCycle cmdLightCycle;
     public static LightToggle cmdLightToggle;
@@ -16,12 +16,12 @@ public class RobotCommands {
 
     // Initialize all robot commands
     public static void initializeCommands() {
-        Logger.setup("Initializing RobotCommands...");
+        Logger.setup("Initializing BotCommands...");
 
-        cmdLightCycle = new LightCycle(RobotSubsystems.ssLighter);
-        cmdLightToggle = new LightToggle(RobotSubsystems.ssLighter);
-        cmdMecDriveCartesian = new MecDriveCartesian(RobotSubsystems.ssMecDriver);
-        cmdOmniDriveArcade = new OmniDriveArcade(RobotSubsystems.ssOmniDriver);
+        cmdLightCycle = new LightCycle(BotSubsystems.ssLighter);
+        cmdLightToggle = new LightToggle(BotSubsystems.ssLighter);
+        cmdMecDriveCartesian = new MecDriveCartesian(BotSubsystems.ssMecDriver);
+        cmdOmniDriveArcade = new OmniDriveArcade(BotSubsystems.ssOmniDriver);
     }
 
     // Return the command to run in autonomous mode

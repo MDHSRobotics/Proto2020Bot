@@ -9,7 +9,7 @@ import frc.robot.consoles.Logger;
 import frc.robot.consoles.Shuffler;
 
 // This is where the robot state is initialized and persisted.
-public class RobotManager {
+public class BotManager {
 
     //--------------//
     // Robot States //
@@ -59,7 +59,7 @@ public class RobotManager {
 
     // It is important that the robot be initialized in exactly this order.
     public static void initialize() {
-        Logger.setup("Initializing RobotManager...");
+        Logger.setup("Initializing BotManager...");
 
         // Initialize SubsystemDevices
         SubsystemDevices.initializeDevices();
@@ -68,10 +68,10 @@ public class RobotManager {
         botShuffler = new Shuffler();
         botShuffler.preInitialize();
 
-        // Initialize RobotSensors, RobotSubsystems, and RobotCommands
-        RobotSensors.initializeSensors();
-        RobotSubsystems.initializeSubsystems();
-        RobotCommands.initializeCommands();
+        // Initialize BotSensors, BotSubsystems, and BotCommands
+        BotSensors.initializeSensors();
+        BotSubsystems.initializeSubsystems();
+        BotCommands.initializeCommands();
 
         // Setup SmartDashboard
         setupSmartDashboard();
@@ -81,7 +81,7 @@ public class RobotManager {
         botShuffler.configure();
 
         // Set default subsystem commands and configure button bindings
-        RobotSubsystems.setDefaultCommands();
+        BotSubsystems.setDefaultCommands();
         ButtonBindings.configure();
     }
 
@@ -89,8 +89,8 @@ public class RobotManager {
     private static void setupSmartDashboard() {
         Logger.setup("Adding AutoModes to SmartDashboard...");
         autoCommandChooser = new SendableChooser<>();
-        autoCommandChooser.setDefaultOption("Lighter - LightCycle", RobotCommands.cmdLightCycle);
-        autoCommandChooser.addOption("Lighter - LightToggle", RobotCommands.cmdLightToggle);
+        autoCommandChooser.setDefaultOption("Lighter - LightCycle", BotCommands.cmdLightCycle);
+        autoCommandChooser.addOption("Lighter - LightToggle", BotCommands.cmdLightToggle);
         SmartDashboard.putData("AutoMode", autoCommandChooser);
     }
 
