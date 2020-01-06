@@ -8,10 +8,10 @@ import frc.robot.helpers.CartesianMovement;
 import frc.robot.subsystems.MecDriver;
 import frc.robot.OI;
 
-// This command uses the joystick input to mecanum drive using the cartesian method
+// This command uses the controller input to mecanum drive using the cartesian method
 public class MecDriveCartesian extends CommandBase {
 
-    MecDriver m_mecDriver = null;
+    MecDriver m_mecDriver;
 
     public MecDriveCartesian(MecDriver mecDriver) {
         Logger.setup("Constructing Command: MecDriveCartesian...");

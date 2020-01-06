@@ -2,6 +2,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.Relay;
 
@@ -30,11 +31,13 @@ public class SubsystemDevices {
 
     // Drives
     public static MecanumDrive mecDrive;
+    public static DifferentialDrive omniDrive;
 
     // Intialize the subsystem devices
     public static void initializeDevices() {
         Logger.setup("Initializing SubsystemDevices...");
 
+        // Mecanum Drive
         // TODO: Investigate why these motor controllers have to be inverted. Are all TalonSRX Motor Controllers backwards?
         talonSrxMecWheelFrontLeft.setInverted(true);
         talonSrxMecWheelRearLeft.setInverted(true);
@@ -44,6 +47,13 @@ public class SubsystemDevices {
                                     talonSrxMecWheelRearLeft,
                                     talonSrxMecWheelFrontRight,
                                     talonSrxMecWheelRearRight);
+
+        // Omni Drive
+        talonSrxOmniWheelRearLeft.follow(talonSrxOmniWheelFrontLeft);
+        talonSrxOmniWheelRearRight.follow(talonSrxOmniWheelFrontRight);
+        talonSrxOmniWheelRear.follow(talonSrxOmniWheelFront);
+        omniDrive = new DifferentialDrive(talonSrxOmniWheelFrontLeft,
+                                          talonSrxOmniWheelFrontRight);
     }
 
     // Determines if the Talon SRX is connected

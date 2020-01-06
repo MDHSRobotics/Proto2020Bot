@@ -1,49 +1,51 @@
 
-package frc.robot.commands.interactive;
+package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.consoles.Logger;
 import frc.robot.helpers.ArcadeMovement;
+import frc.robot.subsystems.OmniDriver;
 import frc.robot.OI;
-import frc.robot.Robot;
 
-// This command uses the joystick input to mecanum drive using the cartesian method
-public class OmniDriveArcade extends Command {
+// This command uses the controller input to omni drive using the arcade method
+public class OmniDriveArcade extends CommandBase {
 
-    public OmniDriveArcade() {
+    OmniDriver m_omniDriver;
+
+    public OmniDriveArcade(OmniDriver omniDriver) {
         Logger.setup("Constructing Command: OmniDriveArcade...");
 
-        // Declare subsystem dependencies
-        requires(Robot.robotOmniDriver);
+        // Add given subsystem requirements
+        m_omniDriver = omniDriver;
+        addRequirements(m_omniDriver);
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
         Logger.action("Initializing Command: OmniDriveArcade...");
     }
 
     @Override
-    protected void execute() {
-        ArcadeMovement move = OI.getArcadeMovement(Robot.robotOmniDriver.controlStickDirectionFlipped);
-        Robot.robotOmniDriver.arcadeDrive(move.speed, move.rotation, false, move.strafe);
+    public void execute() {
+        ArcadeMovement move = OI.getArcadeMovement(m_omniDriver.controlStickDirectionFlipped);
+        m_omniDriver.driveArcade(move.speed, move.rotation, false, move.strafe);
     }
 
-    // This command continues until interrupted
+    // This command continues until interrupted.
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return false;
     }
 
     @Override
-    protected void end() {
-        Logger.ending("Ending Command: OmniDriveArcade...");
-    }
-
-    @Override
-    protected void interrupted() {
-        System.out.println("--");
-        Logger.ending("Interrupting Command: OmniDriveArcade...");
+    public void end(boolean interrupted) {
+        if (interrupted) {
+            System.out.println("--");
+            Logger.ending("Interrupting Command: OmniDriveArcade...");
+        } else {
+            Logger.ending("Ending Command: OmniDriveArcade...");
+        }
     }
 
 }

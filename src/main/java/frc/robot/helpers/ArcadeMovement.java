@@ -1,7 +1,7 @@
 
 package frc.robot.helpers;
 
-// The values needed to drive using Arcade Drive
+// The values needed to drive using arcade mode
 public class ArcadeMovement {
 
     public double speed = 0; // forward speed

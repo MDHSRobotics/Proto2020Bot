@@ -164,7 +164,7 @@ public class MecDriver extends SubsystemBase {
         SubsystemDevices.mecDrive.drivePolar(magnitude, 90, zRotation);
     }
 
-    // Drive using the cartesian method, using the current control orientation
+    // Drive as if this were a tank drive
     public void driveTank(double xSpeedLeft, double xSpeedRight) {
         if (!m_talonsAreConnected) {
             SubsystemDevices.mecDrive.feed();

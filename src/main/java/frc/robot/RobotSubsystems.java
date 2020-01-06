@@ -10,6 +10,7 @@ public class RobotSubsystems {
 
     public static Lighter ssLighter;
     public static MecDriver ssMecDriver;
+    public static OmniDriver ssOmniDriver;
 
     // Initialize all robot subsystems
     public static void initializeSubsystems() {
@@ -17,6 +18,7 @@ public class RobotSubsystems {
 
         ssLighter = new Lighter();
         ssMecDriver = new MecDriver();
+        ssOmniDriver = new OmniDriver();
     }
 
     // Set all the subsystem default commands
@@ -26,6 +28,9 @@ public class RobotSubsystems {
 
         Logger.setup("MecDriver DefaultCommand -> MecDriveCartesian...");
         ssMecDriver.setDefaultCommand(RobotCommands.cmdMecDriveCartesian);
+
+        Logger.setup("OmniDriver DefaultCommand -> OmniDriveArcade...");
+        ssOmniDriver.setDefaultCommand(RobotCommands.cmdOmniDriveArcade);
     }
 
 }

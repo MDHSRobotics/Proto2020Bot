@@ -10,7 +10,7 @@ import frc.robot.subsystems.Lighter;
 // This command cycles through all the "ligher" states
 public class LightCycle extends CommandBase {
 
-    private Lighter m_lighter = null;
+    private Lighter m_lighter;
 
     // TODO: Make these constructor parameters. Use overloading for these default values.
     private static final int NUM_CYCLES = 3;

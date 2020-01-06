@@ -13,7 +13,7 @@ import frc.robot.OI;
 // This command toggles the "Lighter" lights from certain sensor states
 public class LightToggle extends CommandBase {
 
-    Lighter m_lighter = null;
+    Lighter m_lighter;
 
     public LightToggle(Lighter lighter) {
         Logger.setup("Constructing Command: LightToggle...");
