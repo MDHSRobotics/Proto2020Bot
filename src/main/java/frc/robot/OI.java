@@ -6,10 +6,10 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.helpers.*;
 import frc.robot.Brain;
 
-/**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
- */
+// This class contains logic for retrieving values from human interface devices,
+// like joysticks and xbox controllers.
+// IMPORTANT: This should be the only class that uses OIDevices to obtain human interface values.
+// TODO: Consider splitting OI into multiple smaller classes.
 public class OI {
 
     public enum ControlStick {

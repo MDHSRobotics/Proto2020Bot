@@ -11,6 +11,8 @@ import frc.robot.helpers.DPadButton;
 import frc.robot.helpers.DPadButton.Direction;
 
 // This class contains human interface id mappings, singleton input device instances, and utility methods.
+// IMPORTANT: Do not access OIDevices directly from subsystems or commands.
+// Instead, access them through a method in the OI class.
 public class OIDevices {
 
     private static final int DRIVE_XBOX_STICK_NUM = 0;

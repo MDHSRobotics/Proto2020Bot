@@ -8,8 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.consoles.Logger;
 import frc.robot.consoles.Shuffler;
 
-// The container for the robot. This class is where the bulk of the robot should be declared.
-// Contains subsystems, commands, and button mappings.
+// This is where the robot state is initialized and persisted.
 public class RobotManager {
 
     //--------------//
