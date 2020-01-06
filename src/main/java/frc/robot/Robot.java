@@ -16,6 +16,7 @@ import frc.robot.consoles.Logger;
 public class Robot extends TimedRobot {
 
     private Command m_autonomousCommand;
+    private boolean m_driveXBoxConnected = false;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -26,9 +27,13 @@ public class Robot extends TimedRobot {
         System.out.println("--");
         Logger.setup("Initializing Robot...");
 
-        // Instantiate our BotManager.  This will perform all our button bindings, and put our
-        // autonomous chooser on the dashboard.
+        // Initialize our BotManager, which initializes and perists the state of the robot,
+        // including flags, sensors, devices, subsystems, commands, button bindings, shuffleboard,
+        // and puts our autonomous chooser on the dashboard.
         BotManager.initialize();
+
+        // Check which controllers are plugged in
+        m_driveXBoxConnected = OIDevices.isDriveXboxConnected();
     }
 
     /**
@@ -40,6 +45,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        // Update the Shuffleboard
+        BotManager.botShuffler.update();
+
         // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
         // commands, running already-scheduled commands, removing finished or interrupted commands,
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -102,6 +110,15 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        // Detect whether a controller has been plugged in after start-up
+        if (!m_driveXBoxConnected) {
+            if (OIDevices.isDriveXboxConnected()) {
+                // Drive XBox was not previously plugged in but now it is so configure buttons
+                ButtonBindings.configureDriveXBoxButtons();
+                Logger.setup("Drive XBox controller detected and configured");
+                m_driveXBoxConnected = true;
+            }
+        }
     }
 
     @Override
