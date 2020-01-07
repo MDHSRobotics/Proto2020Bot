@@ -34,6 +34,8 @@ public class SubsystemDevices {
     public static final WPI_TalonSRX talonSrxOmniWheelFront = new WPI_TalonSRX(7); // 1 motor
     public static final WPI_TalonSRX talonSrxOmniWheelRear = new WPI_TalonSRX(18); // 1 motor
 
+    public static final WPI_TalonSRX talonSrxHatcher = new WPI_TalonSRX(90); // 1 motor
+
     // Drives
     public static DifferentialDrive diffDrive;
     public static MecanumDrive mecDrive;
