@@ -23,6 +23,7 @@ public class ButtonBindings {
 
         OIDevices.driveXboxBtnA.whenPressed(BotCommands.cmdLightCycle);
         OIDevices.driveXboxBtnB.whenPressed(BotCommands.cmdLightToggle);
+        OIDevices.driveXboxBtnX.whenPressed(BotCommands.cmdHatcherToggleClawPosition);
     }
 
 }

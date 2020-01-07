@@ -11,7 +11,7 @@ import frc.robot.OI;
 // This command uses the controller input to omni drive using the arcade method
 public class OmniDriveArcade extends CommandBase {
 
-    OmniDriver m_omniDriver;
+    private OmniDriver m_omniDriver;
 
     public OmniDriveArcade(OmniDriver omniDriver) {
         Logger.setup("Constructing Command: OmniDriveArcade...");

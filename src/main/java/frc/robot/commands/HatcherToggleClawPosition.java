@@ -1,40 +1,37 @@
 
-package frc.robot.commands.instant;
+package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
-import frc.robot.commands.reactive.HatchClawOpen;
-import frc.robot.commands.reactive.HatchClawClose;
 import frc.robot.consoles.Logger;
-import frc.robot.Robot;
+import frc.robot.subsystems.Hatcher;
+import frc.robot.BotCommands;
 
 // Toggles the position of the Hatcher Claw
 public class HatcherToggleClawPosition extends InstantCommand {
 
-    private HatchClawOpen m_hatchClawOpenCmd;
-    private HatchClawClose m_hatchClawCloseCmd;
+    private Hatcher m_hatcher;
 
-    public HatcherToggleClawPosition() {
+    public HatcherToggleClawPosition(Hatcher hatcher) {
         super();
         Logger.setup("Constructing InstantCommand: HatcherToggleClawPosition...");
 
-        m_hatchClawOpenCmd = new HatchClawOpen();
-        m_hatchClawCloseCmd = new HatchClawClose();
+        m_hatcher = hatcher;
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
         System.out.println("--");
         Logger.action("Initializing InstantCommand: HatcherToggleClawPosition...");
 
-        if (Robot.robotHatcher.clawIsClosed) {
+        if (m_hatcher.clawIsClosed) {
             Logger.action("Hatcher -> Moving to OPEN...");
-            m_hatchClawOpenCmd.start();
+            BotCommands.cmdHatchClawOpen.schedule();
         } else {
             Logger.action("Hatcher -> Moving to CLOSED...");
-            m_hatchClawCloseCmd.start();
+            BotCommands.cmdHatchClawClose.schedule();
         }
-        Robot.robotHatcher.toggleClawPosition();
+        m_hatcher.toggleClawPosition();
     }
 
 }

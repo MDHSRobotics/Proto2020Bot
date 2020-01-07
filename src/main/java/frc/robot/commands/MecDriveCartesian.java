@@ -11,7 +11,7 @@ import frc.robot.OI;
 // This command uses the controller input to mecanum drive using the cartesian method
 public class MecDriveCartesian extends CommandBase {
 
-    MecDriver m_mecDriver;
+    private MecDriver m_mecDriver;
 
     public MecDriveCartesian(MecDriver mecDriver) {
         Logger.setup("Constructing Command: MecDriveCartesian...");

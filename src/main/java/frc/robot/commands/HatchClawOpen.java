@@ -1,50 +1,55 @@
 
-package frc.robot.commands.reactive;
+package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.consoles.Logger;
-import frc.robot.Robot;
+import frc.robot.subsystems.Hatcher;
 
 // This command opens the Hatcher claw via encoder to grab the hatch, and keeps it there
-public class HatchClawOpen extends Command {
+public class HatchClawOpen extends CommandBase {
 
-    public HatchClawOpen() {
+    private Hatcher m_hatcher;
+
+    public HatchClawOpen(Hatcher hatcher) {
         Logger.setup("Constructing Command: HatchClawOpen...");
 
-        // Declare subsystem dependencies
-        requires(Robot.robotHatcher);
+        // Add given subsystem requirements
+        m_hatcher = hatcher;
+        addRequirements(m_hatcher);
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
         Logger.action("Initializing Command: HatchClawOpen...");
 
         // Set encoded position
-        Robot.robotHatcher.openClaw();
+        m_hatcher.openClaw();
     }
 
     @Override
-    protected void execute() {
-        // int position = Robot.robotHatcher.getPosition();
-        // int velocity = Robot.robotHatcher.getVelocity();
+    public void execute() {
+        // int position = m_hatcher.getPosition();
+        // int velocity = m_hatcher.getVelocity();
         // Logger.info("HatchClawOpen -> Position: " + position + "; Velocity: " + velocity);
     }
 
     // This command continues until interrupted
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return false;
     }
 
     @Override
-    protected void end() {
-        Logger.ending("Ending Command: HatchClawOpen...");
-    }
+    public void end(boolean interrupted) {
+        if (interrupted) {
+            System.out.println("--");
+            Logger.ending("Interrupting Command: HatchClawOpen...");
+        } else {
+            Logger.ending("Ending Command: HatchClawOpen...");
+        }
 
-    @Override
-    protected void interrupted() {
-        Logger.ending("Interrupting Command: HatchClawOpen...");
+        m_hatcher.stop();
     }
 
 }

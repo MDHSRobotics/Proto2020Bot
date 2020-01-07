@@ -4,7 +4,7 @@ package frc.robot;
 import frc.robot.consoles.Logger;
 import frc.robot.subsystems.*;
 
-// Contains instances of all the subsystems on the robot.
+// Contains singleton instances of all the subsystems on the robot.
 // IMPORTANT: When you make a new subsystem, you need to also set a default command.
 public class BotSubsystems {
 
@@ -12,6 +12,7 @@ public class BotSubsystems {
     public static DiffDriver ssDiffDriver;
     public static MecDriver ssMecDriver;
     public static OmniDriver ssOmniDriver;
+    public static Hatcher ssHatcher;
 
     // Initialize all robot subsystems
     public static void initializeSubsystems() {
@@ -21,6 +22,7 @@ public class BotSubsystems {
         ssDiffDriver = new DiffDriver();
         ssMecDriver = new MecDriver();
         ssOmniDriver = new OmniDriver();
+        ssHatcher = new Hatcher();
     }
 
     // Set all the subsystem default commands
@@ -36,6 +38,9 @@ public class BotSubsystems {
 
         Logger.setup("OmniDriver DefaultCommand -> OmniDriveArcade...");
         ssOmniDriver.setDefaultCommand(BotCommands.cmdOmniDriveArcade);
+
+        Logger.setup("Hatcher DefaultCommand -> HatcherStop...");
+        ssHatcher.setDefaultCommand(BotCommands.cmdHatcherStop);
     }
 
 }

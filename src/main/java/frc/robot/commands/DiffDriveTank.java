@@ -11,7 +11,7 @@ import frc.robot.OI;
 // This command uses the xbox input to differential drive using the tank method
 public class DiffDriveTank extends CommandBase {
 
-    DiffDriver m_diffDriver;
+    private DiffDriver m_diffDriver;
 
     public DiffDriveTank(DiffDriver diffDriver) {
         Logger.setup("Constructing Command: DiffDriveTank...");
