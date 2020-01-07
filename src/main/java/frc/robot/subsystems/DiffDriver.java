@@ -16,30 +16,32 @@ public class DiffDriver extends SubsystemBase {
     private final double SECONDS_FROM_NEUTRAL_TO_FULL = 0;
     private final int TIMEOUT_MS = 10;
 
-    // The Talon connection state, to prevent watchdog warnings during testing
-    private boolean m_talonsAreConnected = false;
+    // If not all the talons are initialized, this should be true
+    private boolean m_disabled = false;
 
     public DiffDriver() {
         Logger.setup("Constructing Subsystem: DiffDriver...");
 
-        // Configure wheel speed controllers
-        boolean talonFrontLeftIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxDiffWheelFrontLeft);
-        boolean talonRearLeftIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxDiffWheelRearLeft);
-        boolean talonFrontRightIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxDiffWheelFrontRight);
-        boolean talonRearRightIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxDiffWheelRearRight);
-        m_talonsAreConnected = (talonFrontLeftIsConnected &&
-                                talonRearLeftIsConnected &&
-                                talonFrontRightIsConnected &&
-                                talonRearRightIsConnected);
-
-        if (!m_talonsAreConnected) {
-            Logger.error("DiffDriver talons not all connected! Disabling DiffDriver...");
-        } else {
-            SubsystemDevices.talonSrxDiffWheelFrontLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            SubsystemDevices.talonSrxDiffWheelRearLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            SubsystemDevices.talonSrxDiffWheelFrontRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            SubsystemDevices.talonSrxDiffWheelRearRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        // Determine whether or not to disable the subsystem
+        m_disabled = (SubsystemDevices.diffDrive == null);
+        if (m_disabled) {
+            Logger.error("DiffDriver devices not initialized! Disabling subsystem...");
+            return;
         }
+
+        // Configure the subsystem devices
+        // TODO: Investigate why these motor controllers have to be inverted. Are all TalonSRX Motor Controllers backwards?
+        SubsystemDevices.talonSrxDiffWheelFrontLeft.setInverted(true);
+        SubsystemDevices.talonSrxDiffWheelFrontRight.setInverted(true);
+        SubsystemDevices.talonSrxDiffWheelRearLeft.setInverted(true);
+        SubsystemDevices.talonSrxDiffWheelRearRight.setInverted(true);
+        SubsystemDevices.talonSrxDiffWheelRearLeft.follow(SubsystemDevices.talonSrxDiffWheelFrontLeft);
+        SubsystemDevices.talonSrxDiffWheelRearRight.follow(SubsystemDevices.talonSrxDiffWheelFrontRight);
+
+        SubsystemDevices.talonSrxDiffWheelFrontLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        SubsystemDevices.talonSrxDiffWheelRearLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        SubsystemDevices.talonSrxDiffWheelFrontRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        SubsystemDevices.talonSrxDiffWheelRearRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
     }
 
     @Override
@@ -64,21 +66,14 @@ public class DiffDriver extends SubsystemBase {
 
     // Stop all the drive motors
     public void stop() {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.diffDrive.feed();
-            return;
-        }
-
+        if (m_disabled) return;
         SubsystemDevices.diffDrive.stopMotor();
     }
 
     // Drive using the tank method
     public void driveTank(double leftSpeed, double rightSpeed) {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.diffDrive.feed();
-            return;
-        }
-
+        if (m_disabled) return;
         SubsystemDevices.diffDrive.tankDrive(leftSpeed, rightSpeed);
     }
+
 }

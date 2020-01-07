@@ -16,32 +16,32 @@ public class OmniDriver extends SubsystemBase {
     private final double SECONDS_FROM_NEUTRAL_TO_FULL = 0;
     private final int TIMEOUT_MS = 10;
 
-    // The Talon connection state, to prevent watchdog warnings during testing
-    private boolean m_talonsAreConnected = false;
+    // If not all the talons are initialized, this should be true
+    private boolean m_disabled = false;
 
     public OmniDriver() {
         Logger.setup("Constructing Subsystem: OmniDriver...");
 
-        // Configure wheel speed controllers
-        boolean talonFrontLeftIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxOmniWheelFrontLeft);
-        boolean talonRearLeftIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxOmniWheelRearLeft);
-        boolean talonFrontRightIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxOmniWheelFrontRight);
-        boolean talonRearRightIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxOmniWheelRearRight);
-        boolean talonFrontIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxOmniWheelFront);
-        boolean talonRearIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxOmniWheelRear);
-        m_talonsAreConnected = (talonFrontLeftIsConnected && talonRearLeftIsConnected && talonFrontRightIsConnected
-                && talonRearRightIsConnected && talonFrontIsConnected && talonRearIsConnected);
-
-        if (!m_talonsAreConnected) {
-            Logger.error("OmniDriver talons not all connected! Disabling OmniDriver...");
-        } else {
-            SubsystemDevices.talonSrxOmniWheelFrontLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            SubsystemDevices.talonSrxOmniWheelRearLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            SubsystemDevices.talonSrxOmniWheelFrontRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            SubsystemDevices.talonSrxOmniWheelRearRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            SubsystemDevices.talonSrxOmniWheelFront.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            SubsystemDevices.talonSrxOmniWheelRear.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        // Determine whether or not to disable the subsystem
+        m_disabled = (SubsystemDevices.omniDrive == null ||
+                      SubsystemDevices.talonSrxOmniWheelFront == null ||
+                      SubsystemDevices.talonSrxOmniWheelRear == null);
+        if (m_disabled) {
+            Logger.error("DiffDriver devices not initialized! Disabling subsystem...");
+            return;
         }
+
+        // Configure the subsystem devices
+        SubsystemDevices.talonSrxOmniWheelRearLeft.follow(SubsystemDevices.talonSrxOmniWheelFrontLeft);
+        SubsystemDevices.talonSrxOmniWheelRearRight.follow(SubsystemDevices.talonSrxOmniWheelFrontRight);
+        SubsystemDevices.talonSrxOmniWheelRear.follow(SubsystemDevices.talonSrxOmniWheelFront);
+
+        SubsystemDevices.talonSrxOmniWheelFrontLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        SubsystemDevices.talonSrxOmniWheelRearLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        SubsystemDevices.talonSrxOmniWheelFrontRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        SubsystemDevices.talonSrxOmniWheelRearRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        SubsystemDevices.talonSrxOmniWheelFront.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        SubsystemDevices.talonSrxOmniWheelRear.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
     }
 
     @Override
@@ -66,11 +66,7 @@ public class OmniDriver extends SubsystemBase {
 
     // Stop all the drive motors
     public void stop() {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.omniDrive.feed();
-            SubsystemDevices.talonSrxOmniWheelFront.feed();
-            return;
-        }
+        if (m_disabled) return;
 
         SubsystemDevices.omniDrive.stopMotor();
         SubsystemDevices.talonSrxOmniWheelFront.stopMotor();
@@ -78,11 +74,7 @@ public class OmniDriver extends SubsystemBase {
 
     // Drive straight at the given speed
     public void driveStraight(double speed) {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.omniDrive.feed();
-            SubsystemDevices.talonSrxOmniWheelFront.feed();
-            return;
-        }
+        if (m_disabled) return;
 
         SubsystemDevices.omniDrive.arcadeDrive(speed, 0, false);
         SubsystemDevices.talonSrxOmniWheelFront.feed();
@@ -90,11 +82,7 @@ public class OmniDriver extends SubsystemBase {
 
     // Rotate at the given speed
     public void rotate(double rotation) {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.omniDrive.feed();
-            SubsystemDevices.talonSrxOmniWheelFront.feed();
-            return;
-        }
+        if (m_disabled) return;
 
         SubsystemDevices.omniDrive.arcadeDrive(0, rotation, false);
         SubsystemDevices.talonSrxOmniWheelFront.feed();
@@ -102,11 +90,7 @@ public class OmniDriver extends SubsystemBase {
 
     // Drive using the arcade method
     public void driveArcade(double straightSpeed, double rotationSpeed, double strafeSpeed) {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.omniDrive.feed();
-            SubsystemDevices.talonSrxOmniWheelFront.feed();
-            return;
-        }
+        if (m_disabled) return;
 
         SubsystemDevices.omniDrive.arcadeDrive(straightSpeed, rotationSpeed, false);
         SubsystemDevices.talonSrxOmniWheelFront.set(strafeSpeed);

@@ -24,30 +24,30 @@ public class MecDriver extends SubsystemBase {
     private final double SECONDS_FROM_NEUTRAL_TO_FULL = 0;
     private final int TIMEOUT_MS = 10;
 
-    // The Talon connection state, to prevent watchdog warnings during testing
-    private boolean m_talonsAreConnected = false;
+    // If not all the talons are initialized, this should be true
+    private boolean m_disabled = false;
 
     public MecDriver() {
         Logger.setup("Constructing Subsystem: MecDriver...");
 
-        // Configure wheel speed controllers
-        boolean talonFrontLeftIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxMecWheelFrontLeft);
-        boolean talonRearLeftIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxMecWheelRearLeft);
-        boolean talonFrontRightIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxMecWheelFrontRight);
-        boolean talonRearRightIsConnected = SubsystemDevices.isConnected(SubsystemDevices.talonSrxMecWheelRearRight);
-        m_talonsAreConnected = (talonFrontLeftIsConnected &&
-                                talonRearLeftIsConnected &&
-                                talonFrontRightIsConnected &&
-                                talonRearRightIsConnected);
-
-        if (!m_talonsAreConnected) {
-            Logger.error("MecDriver talons not all connected! Disabling MecDriver...");
-        } else {
-            SubsystemDevices.talonSrxMecWheelFrontLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            SubsystemDevices.talonSrxMecWheelRearLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            SubsystemDevices.talonSrxMecWheelFrontRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-            SubsystemDevices.talonSrxMecWheelRearRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        // Determine whether or not to disable the subsystem
+        m_disabled = (SubsystemDevices.mecDrive == null);
+        if (m_disabled) {
+            Logger.error("MecDriver devices not initialized! Disabling subsystem...");
+            return;
         }
+
+        // Configure the subsystem devices
+        // TODO: Investigate why these motor controllers have to be inverted. Are all TalonSRX Motor Controllers backwards?
+        SubsystemDevices.talonSrxMecWheelFrontLeft.setInverted(true);
+        SubsystemDevices.talonSrxMecWheelRearLeft.setInverted(true);
+        SubsystemDevices.talonSrxMecWheelFrontRight.setInverted(true);
+        SubsystemDevices.talonSrxMecWheelRearRight.setInverted(true);
+
+        SubsystemDevices.talonSrxMecWheelFrontLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        SubsystemDevices.talonSrxMecWheelRearLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        SubsystemDevices.talonSrxMecWheelFrontRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        SubsystemDevices.talonSrxMecWheelRearRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
     }
 
     @Override
@@ -89,20 +89,13 @@ public class MecDriver extends SubsystemBase {
 
     // Stop all the drive motors
     public void stop() {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.mecDrive.feed();
-            return;
-        }
-
+        if (m_disabled) return;
         SubsystemDevices.mecDrive.stopMotor();
     }
 
     // Drive straight with just the front two wheels at the given speed
     public void frontWheelDrive(double straightSpeed) {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.mecDrive.feed();
-            return;
-        }
+        if (m_disabled) return;
 
         SubsystemDevices.talonSrxMecWheelFrontLeft.set(straightSpeed);
         SubsystemDevices.talonSrxMecWheelFrontRight.set(straightSpeed);
@@ -113,63 +106,40 @@ public class MecDriver extends SubsystemBase {
 
     // Strafe at the given speed
     public void strafe(double strafeSpeed) {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.mecDrive.feed();
-            return;
-        }
-
+        if (m_disabled) return;
         SubsystemDevices.mecDrive.driveCartesian(strafeSpeed, 0, 0);
     }
 
     // Drive straight at the given speed
     public void driveStraight(double straightSpeed) {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.mecDrive.feed();
-            return;
-        }
-
+        if (m_disabled) return;
         SubsystemDevices.mecDrive.driveCartesian(0, straightSpeed, 0);
     }
 
     // Rotate at the given speed
     public void rotate(double rotationSpeed) {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.mecDrive.feed();
-            return;
-        }
-
+        if (m_disabled) return;
         SubsystemDevices.mecDrive.driveCartesian(0, 0, rotationSpeed);
     }
 
     // Orbit at the given speed, with the robot always looking inward
     // Positive is clockwise, negative is counter-clockwise
     public void orbitInward(double angleSpeed, double rotationSpeed) {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.mecDrive.feed();
-            return;
-        }
-
+        if (m_disabled) return;
         // TODO: Test that this does what the method description says it does
         SubsystemDevices.mecDrive.drivePolar(angleSpeed, -90, rotationSpeed);
     }
 
     // Orbit at the given speed, with the robot always looking outward
     public void orbitOutward(double angleSpeed, double rotationSpeed) {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.mecDrive.feed();
-            return;
-        }
-
+        if (m_disabled) return;
         // TODO: Test that this does what the method description says it does
         SubsystemDevices.mecDrive.drivePolar(angleSpeed, 90, rotationSpeed);
     }
 
     // Drive as if this were a tank drive
     public void driveTank(double leftSpeed, double rightSpeed) {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.mecDrive.feed();
-            return;
-        }
+        if (m_disabled) return;
 
         SubsystemDevices.talonSrxMecWheelFrontLeft.set(leftSpeed);
         SubsystemDevices.talonSrxMecWheelRearLeft.set(leftSpeed);
@@ -189,10 +159,7 @@ public class MecDriver extends SubsystemBase {
 
     // Drive using the cartesian method, using the given control orientation
     public void driveCartesian(double strafeSpeed, double straightSpeed, double rotationSpeed, DriveOrientation orientation) {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.mecDrive.feed();
-            return;
-        }
+        if (m_disabled) return;
 
         if (orientation == DriveOrientation.ROBOT) {
             // Logger.info("Cartesian Movement: " + strafeSpeed + ", " + straightSpeed + ", " + rotationSpeed);
@@ -206,11 +173,7 @@ public class MecDriver extends SubsystemBase {
 
     // Drive using the polar method
     public void drivePolar(double angleSpeed, double angle, double rotationSpeed) {
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.mecDrive.feed();
-            return;
-        }
-
+        if (m_disabled) return;
         // Logger.info("Polar Movement: " + angleSpeed + ", " + angle + ", " + rotationSpeed);
         SubsystemDevices.mecDrive.drivePolar(angleSpeed, angle, rotationSpeed);
     }
@@ -226,8 +189,7 @@ public class MecDriver extends SubsystemBase {
             correction = correction - 360;
         if (correction < -180)
             correction = correction + 360;
-        Logger.info("MecDriver -> Gyro -> Target Yaw: " + targetYaw + "; Current Yaw: " + yaw + "; Correction: "
-                + correction);
+        Logger.info("MecDriver -> Gyro -> Target Yaw: " + targetYaw + "; Current Yaw: " + yaw + "; Correction: " + correction);
 
         // Get the drive polar magnitude and angle needed to align the Robot's center with the appropriate detected line
         double magnitude = 0;
@@ -243,8 +205,7 @@ public class MecDriver extends SubsystemBase {
                     magnitude = Brain.getAlignFrontMagnitude();
                     if (imageX < 0)
                         magnitude = -magnitude;
-                    Logger.info("MecDriver -> Front Camera -> Pixels to correct: " + imageX + "; Magnitude: "
-                            + magnitude + "; Angle: " + angle);
+                    Logger.info("MecDriver -> Front Camera -> Pixels to correct: " + imageX + "; Magnitude: " + magnitude + "; Angle: " + angle);
                 }
             }
         } else if (-135 < correction && correction < -45) {
@@ -258,8 +219,7 @@ public class MecDriver extends SubsystemBase {
                     magnitude = Brain.getAlignSideMagnitude();
                     if (imageX < 0)
                         magnitude = -magnitude;
-                    Logger.info("MecDriver -> Left Camera -> Pixels to correct: " + imageX + "; Magnitude: " + magnitude
-                            + "; Angle: " + angle);
+                    Logger.info("MecDriver -> Left Camera -> Pixels to correct: " + imageX + "; Magnitude: " + magnitude + "; Angle: " + angle);
                 }
             }
         } else if (45 < correction && correction < 135) {
@@ -273,8 +233,7 @@ public class MecDriver extends SubsystemBase {
                     magnitude = Brain.getAlignSideMagnitude();
                     if (imageX > 0)
                         magnitude = -magnitude;
-                    Logger.info("MecDriver -> Right Camera -> Pixels to correct: " + imageX + "; Magnitude: "
-                            + magnitude + "; Angle: " + angle);
+                    Logger.info("MecDriver -> Right Camera -> Pixels to correct: " + imageX + "; Magnitude: " + magnitude + "; Angle: " + angle);
                 }
             }
         }
@@ -290,12 +249,11 @@ public class MecDriver extends SubsystemBase {
         }
 
         Logger.action("MecDriver -> Drive Polar: " + magnitude + ", " + angle + ", " + zRotation);
-        if (!m_talonsAreConnected) {
-            SubsystemDevices.mecDrive.feed();
-        } else {
-            // TODO: Need to test this, to balance the speeds to produce the fastest and most reliable simultaneous alignment
-            SubsystemDevices.mecDrive.drivePolar(magnitude, angle, zRotation);
-        }
+        if (m_disabled) return;
+
+        // TODO: Need to test this, to balance the speeds to produce the fastest and most reliable simultaneous alignment
+        SubsystemDevices.mecDrive.drivePolar(magnitude, angle, zRotation);
+
         Logger.ending("^^");
     }
 
