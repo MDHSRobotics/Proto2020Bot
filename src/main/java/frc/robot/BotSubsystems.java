@@ -8,39 +8,39 @@ import frc.robot.subsystems.*;
 // IMPORTANT: When you make a new subsystem, you need to also set a default command.
 public class BotSubsystems {
 
-    public static Lighter ssLighter;
-    public static DiffDriver ssDiffDriver;
-    public static MecDriver ssMecDriver;
-    public static OmniDriver ssOmniDriver;
-    public static Hatcher ssHatcher;
+    public static Lighter lighter;
+    public static DiffDriver diffDriver;
+    public static MecDriver mecDriver;
+    public static OmniDriver omniDriver;
+    public static Hatcher hatcher;
 
     // Initialize all robot subsystems
     public static void initializeSubsystems() {
         Logger.setup("Initializing BotSubsystems...");
 
-        ssLighter = new Lighter();
-        ssDiffDriver = new DiffDriver();
-        ssMecDriver = new MecDriver();
-        ssOmniDriver = new OmniDriver();
-        ssHatcher = new Hatcher();
+        lighter = new Lighter();
+        diffDriver = new DiffDriver();
+        mecDriver = new MecDriver();
+        omniDriver = new OmniDriver();
+        hatcher = new Hatcher();
     }
 
     // Set all the subsystem default commands
     public static void setDefaultCommands() {
-        Logger.setup("Lighter DefaultCommand -> LightToggle...");
-        ssLighter.setDefaultCommand(BotCommands.cmdLightToggle);
+        Logger.setup("Lighter DefaultCommand -> ToggleLights...");
+        lighter.setDefaultCommand(BotCommands.toggleLights);
 
-        Logger.setup("DiffDriver DefaultCommand -> DiffDriveTank...");
-        ssDiffDriver.setDefaultCommand(BotCommands.cmdDiffDriveTank);
+        Logger.setup("DiffDriver DefaultCommand -> DriveDifferentialTank...");
+        diffDriver.setDefaultCommand(BotCommands.driveDifferentialTank);
 
-        Logger.setup("MecDriver DefaultCommand -> MecDriveCartesian...");
-        ssMecDriver.setDefaultCommand(BotCommands.cmdMecDriveCartesian);
+        Logger.setup("MecDriver DefaultCommand -> DriveMecanumCartesian...");
+        mecDriver.setDefaultCommand(BotCommands.driveMecanumCartesian);
 
-        Logger.setup("OmniDriver DefaultCommand -> OmniDriveArcade...");
-        ssOmniDriver.setDefaultCommand(BotCommands.cmdOmniDriveArcade);
+        Logger.setup("OmniDriver DefaultCommand -> DriveOmniArcade...");
+        omniDriver.setDefaultCommand(BotCommands.driveOmniArcade);
 
-        Logger.setup("Hatcher DefaultCommand -> HatcherStop...");
-        ssHatcher.setDefaultCommand(BotCommands.cmdHatcherStop);
+        Logger.setup("Hatcher DefaultCommand -> StopHatchClaw...");
+        hatcher.setDefaultCommand(BotCommands.stopHatchClaw);
     }
 
 }

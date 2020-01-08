@@ -1,5 +1,5 @@
 
-package frc.robot.commands;
+package frc.robot.commands.lighter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -11,12 +11,12 @@ import frc.robot.subsystems.MecDriver;
 import frc.robot.OI;
 
 // This command toggles the "Lighter" lights from certain sensor states
-public class LightToggle extends CommandBase {
+public class ToggleLights extends CommandBase {
 
     private Lighter m_lighter;
 
-    public LightToggle(Lighter lighter) {
-        Logger.setup("Constructing Command: LightToggle...");
+    public ToggleLights(Lighter lighter) {
+        Logger.setup("Constructing Command: ToggleLights...");
 
         // Add given subsystem requirements
         m_lighter = lighter;
@@ -25,7 +25,7 @@ public class LightToggle extends CommandBase {
 
     @Override
     public void initialize() {
-        Logger.action("Initializing Command: LightToggle...");
+        Logger.action("Initializing Command: ToggleLights...");
     }
 
     @Override
@@ -61,9 +61,9 @@ public class LightToggle extends CommandBase {
     public void end(boolean interrupted) {
         if (interrupted) {
             System.out.println("--");
-            Logger.ending("Interrupting Command: LightToggle...");
+            Logger.ending("Interrupting Command: ToggleLights...");
         } else {
-            Logger.ending("Ending Command: LightToggle...");
+            Logger.ending("Ending Command: ToggleLights...");
         }
 
         m_lighter.turnOffBoth();

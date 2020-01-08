@@ -21,9 +21,9 @@ public class ButtonBindings {
     public static void configureDriveXBoxButtons() {
         Logger.setup("Configure Buttons -> Drive Xbox Controller...");
 
-        OIDevices.driveXboxBtnA.whenPressed(BotCommands.cmdLightCycle);
-        OIDevices.driveXboxBtnB.whenPressed(BotCommands.cmdLightToggle);
-        OIDevices.driveXboxBtnX.whenPressed(BotCommands.cmdHatcherToggleClawPosition);
+        OIDevices.driveXboxBtnA.whenPressed(BotCommands.cycleLights);
+        OIDevices.driveXboxBtnB.whenPressed(BotCommands.toggleLights);
+        OIDevices.driveXboxBtnX.whenPressed(BotCommands.toggleHatchClawPosition);
     }
 
 }

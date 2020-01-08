@@ -1,5 +1,5 @@
 
-package frc.robot.commands;
+package frc.robot.commands.omnidriver;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -9,12 +9,12 @@ import frc.robot.subsystems.OmniDriver;
 import frc.robot.OI;
 
 // This command uses the controller input to omni drive using the arcade method
-public class OmniDriveArcade extends CommandBase {
+public class DriveOmniArcade extends CommandBase {
 
     private OmniDriver m_omniDriver;
 
-    public OmniDriveArcade(OmniDriver omniDriver) {
-        Logger.setup("Constructing Command: OmniDriveArcade...");
+    public DriveOmniArcade(OmniDriver omniDriver) {
+        Logger.setup("Constructing Command: DriveOmniArcade...");
 
         // Add given subsystem requirements
         m_omniDriver = omniDriver;
@@ -23,7 +23,7 @@ public class OmniDriveArcade extends CommandBase {
 
     @Override
     public void initialize() {
-        Logger.action("Initializing Command: OmniDriveArcade...");
+        Logger.action("Initializing Command: DriveOmniArcade...");
     }
 
     @Override
@@ -42,9 +42,9 @@ public class OmniDriveArcade extends CommandBase {
     public void end(boolean interrupted) {
         if (interrupted) {
             System.out.println("--");
-            Logger.ending("Interrupting Command: OmniDriveArcade...");
+            Logger.ending("Interrupting Command: DriveOmniArcade...");
         } else {
-            Logger.ending("Ending Command: OmniDriveArcade...");
+            Logger.ending("Ending Command: DriveOmniArcade...");
         }
     }
 

@@ -1,5 +1,5 @@
 
-package frc.robot.commands;
+package frc.robot.commands.mecdriver;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -9,12 +9,12 @@ import frc.robot.subsystems.MecDriver;
 import frc.robot.OI;
 
 // This command uses the controller input to mecanum drive using the cartesian method
-public class MecDriveCartesian extends CommandBase {
+public class DriveMecanumCartesian extends CommandBase {
 
     private MecDriver m_mecDriver;
 
-    public MecDriveCartesian(MecDriver mecDriver) {
-        Logger.setup("Constructing Command: MecDriveCartesian...");
+    public DriveMecanumCartesian(MecDriver mecDriver) {
+        Logger.setup("Constructing Command: DriveMecanumCartesian...");
 
         // Add given subsystem requirements
         m_mecDriver = mecDriver;
@@ -23,7 +23,7 @@ public class MecDriveCartesian extends CommandBase {
 
     @Override
     public void initialize() {
-        Logger.action("Initializing Command: MecDriveCartesian...");
+        Logger.action("Initializing Command: DriveMecanumCartesian...");
     }
 
     @Override
@@ -42,9 +42,9 @@ public class MecDriveCartesian extends CommandBase {
     public void end(boolean interrupted) {
         if (interrupted) {
             System.out.println("--");
-            Logger.ending("Interrupting Command: MecDriveCartesian...");
+            Logger.ending("Interrupting Command: DriveMecanumCartesian...");
         } else {
-            Logger.ending("Ending Command: MecDriveCartesian...");
+            Logger.ending("Ending Command: DriveMecanumCartesian...");
         }
     }
 

@@ -89,8 +89,8 @@ public class BotManager {
     private static void setupSmartDashboard() {
         Logger.setup("Adding AutoModes to SmartDashboard...");
         autoCommandChooser = new SendableChooser<>();
-        autoCommandChooser.setDefaultOption("Lighter - LightCycle", BotCommands.cmdLightCycle);
-        autoCommandChooser.addOption("Lighter - LightToggle", BotCommands.cmdLightToggle);
+        autoCommandChooser.setDefaultOption("Lighter - CycleLights", BotCommands.cycleLights);
+        autoCommandChooser.addOption("Lighter - ToggleLights", BotCommands.toggleLights);
         SmartDashboard.putData("AutoMode", autoCommandChooser);
     }
 

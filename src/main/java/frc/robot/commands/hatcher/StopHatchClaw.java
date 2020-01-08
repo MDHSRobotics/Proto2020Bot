@@ -1,5 +1,5 @@
 
-package frc.robot.commands;
+package frc.robot.commands.hatcher;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -7,12 +7,12 @@ import frc.robot.consoles.Logger;
 import frc.robot.subsystems.Hatcher;
 
 // This command stops the Hatcher motor
-public class HatcherStop extends CommandBase {
+public class StopHatchClaw extends CommandBase {
 
     private Hatcher m_hatcher;
 
-    public HatcherStop(Hatcher hatcher) {
-        Logger.setup("Constructing Command: HatcherStop...");
+    public StopHatchClaw(Hatcher hatcher) {
+        Logger.setup("Constructing Command: StopHatchClaw...");
 
         // Add given subsystem requirements
         m_hatcher = hatcher;
@@ -21,7 +21,7 @@ public class HatcherStop extends CommandBase {
 
     @Override
     public void initialize() {
-        Logger.action("Initializing Command: HatcherStop...");
+        Logger.action("Initializing Command: StopHatchClaw...");
     }
 
     @Override
@@ -39,9 +39,9 @@ public class HatcherStop extends CommandBase {
     public void end(boolean interrupted) {
         if (interrupted) {
             System.out.println("--");
-            Logger.ending("Interrupting Command: HatcherStop...");
+            Logger.ending("Interrupting Command: StopHatchClaw...");
         } else {
-            Logger.ending("Ending Command: HatcherStop...");
+            Logger.ending("Ending Command: StopHatchClaw...");
         }
 
         m_hatcher.stop();

@@ -1,5 +1,5 @@
 
-package frc.robot.commands;
+package frc.robot.commands.hatcher;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -7,12 +7,12 @@ import frc.robot.consoles.Logger;
 import frc.robot.subsystems.Hatcher;
 
 // This command closes the Hatcher claw via encoder to release, or in preparating to grab, the hatch, and keeps it closed
-public class HatchClawClose extends CommandBase {
+public class CloseHatchClaw extends CommandBase {
 
     private Hatcher m_hatcher;
 
-    public HatchClawClose(Hatcher hatcher) {
-        Logger.setup("Constructing Command: HatchClawClose...");
+    public CloseHatchClaw(Hatcher hatcher) {
+        Logger.setup("Constructing Command: CloseHatchClaw...");
 
         // Add given subsystem requirements
         m_hatcher = hatcher;
@@ -21,7 +21,7 @@ public class HatchClawClose extends CommandBase {
 
     @Override
     public void initialize() {
-        Logger.action("Initializing Command: HatchClawClose...");
+        Logger.action("Initializing Command: CloseHatchClaw...");
 
         // Set encoded position
         m_hatcher.closeClaw();
@@ -31,7 +31,7 @@ public class HatchClawClose extends CommandBase {
     public void execute() {
         // int position = m_hatcher.getPosition();
         // int velocity = m_hatcher.getVelocity();
-        // Logger.info("HatchClawClose -> Position: " + position + "; Velocity: " + velocity);
+        // Logger.info("CloseHatchClaw -> Position: " + position + "; Velocity: " + velocity);
     }
 
     // This command continues until interrupted
@@ -44,9 +44,9 @@ public class HatchClawClose extends CommandBase {
     public void end(boolean interrupted) {
         if (interrupted) {
             System.out.println("--");
-            Logger.ending("Interrupting Command: HatchClawClose...");
+            Logger.ending("Interrupting Command: CloseHatchClaw...");
         } else {
-            Logger.ending("Ending Command: HatchClawClose...");
+            Logger.ending("Ending Command: CloseHatchClaw...");
         }
 
         m_hatcher.stop();
