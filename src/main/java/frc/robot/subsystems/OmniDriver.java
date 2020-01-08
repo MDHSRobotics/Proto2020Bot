@@ -23,9 +23,7 @@ public class OmniDriver extends SubsystemBase {
         Logger.setup("Constructing Subsystem: OmniDriver...");
 
         // Determine whether or not to disable the subsystem
-        m_disabled = (SubsystemDevices.omniDrive == null ||
-                      SubsystemDevices.talonSrxOmniWheelFront == null ||
-                      SubsystemDevices.talonSrxOmniWheelRear == null);
+        m_disabled = (SubsystemDevices.omniDrive == null);
         if (m_disabled) {
             Logger.error("DiffDriver devices not initialized! Disabling subsystem...");
             return;
