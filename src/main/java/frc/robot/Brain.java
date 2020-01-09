@@ -4,8 +4,8 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 
+import frc.robot.oi.ControlDevices.ControlStick;
 import frc.robot.subsystems.MecDriver.DriveOrientation;
-import frc.robot.OI.ControlStick;
 
 // This class contains all the shared NetworkTableEntries for the Robot,
 // their default values, and methods for retrieving their current values

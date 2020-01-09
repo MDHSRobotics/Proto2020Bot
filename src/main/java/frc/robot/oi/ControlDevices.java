@@ -1,19 +1,19 @@
 
-package frc.robot;
+package frc.robot.oi;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-import frc.robot.helpers.DPad;
-import frc.robot.helpers.DPadButton;
-import frc.robot.helpers.DPadButton.Direction;
+import frc.robot.oi.DPadButton.Direction;
 
 // This class contains human interface id mappings, singleton input device instances, and utility methods.
-// IMPORTANT: Do not access OIDevices directly from subsystems or commands.
-// Instead, access them through a method in the OI class.
-public class OIDevices {
+public class ControlDevices {
+
+    public enum ControlStick {
+        JOYSTICK, XBOX
+    }
 
     private static final int DRIVE_XBOX_STICK_NUM = 0;
     private static final int CLIMB_XBOX_STICK_NUM = 1;

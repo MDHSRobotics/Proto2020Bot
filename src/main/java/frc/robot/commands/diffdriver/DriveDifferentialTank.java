@@ -4,9 +4,8 @@ package frc.robot.commands.diffdriver;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.consoles.Logger;
-import frc.robot.helpers.TankMovement;
+import frc.robot.oi.movements.TankMovement;
 import frc.robot.subsystems.DiffDriver;
-import frc.robot.OI;
 
 // This command uses the xbox input to differential drive using the tank method
 public class DriveDifferentialTank extends CommandBase {
@@ -28,7 +27,7 @@ public class DriveDifferentialTank extends CommandBase {
 
     @Override
     public void execute() {
-        TankMovement move = OI.getTankMovementFromThumbsticks(m_diffDriver.controlStickDirectionFlipped);
+        TankMovement move = TankMovement.getTankMovement(m_diffDriver.controlStickDirectionFlipped);
         m_diffDriver.driveTank(move.leftSpeed, move.rightSpeed);
     }
 

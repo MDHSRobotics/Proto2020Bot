@@ -7,10 +7,10 @@ import com.ctre.phoenix.motorcontrol.SensorCollection;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.consoles.Logger;
-import frc.robot.helpers.EncoderUtils;
 import frc.robot.Brain;
 import frc.robot.Constants.EncoderConstants;
 import frc.robot.Constants.TalonConstants;
+import frc.robot.EncoderUtils;
 import frc.robot.SubsystemDevices;
 
 // Hatcher subsystem, for grabbing and releasing hatches

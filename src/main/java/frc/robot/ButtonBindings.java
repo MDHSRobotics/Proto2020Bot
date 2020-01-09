@@ -2,6 +2,7 @@
 package frc.robot;
 
 import frc.robot.consoles.Logger;
+import frc.robot.oi.ControlDevices;
 
 // Configures all the button->command bindings for the robot.
 public class ButtonBindings {
@@ -10,7 +11,7 @@ public class ButtonBindings {
     public static void configure() {
         Logger.setup("Configuring ButtonBindings...");
 
-        if (!OIDevices.isDriveXboxConnected()) {
+        if (!ControlDevices.isDriveXboxConnected()) {
             Logger.error("Drive XBox controller not plugged in!");
         } else {
             configureDriveXBoxButtons();
@@ -21,9 +22,9 @@ public class ButtonBindings {
     public static void configureDriveXBoxButtons() {
         Logger.setup("Configure Buttons -> Drive Xbox Controller...");
 
-        OIDevices.driveXboxBtnA.whenPressed(BotCommands.cycleLights);
-        OIDevices.driveXboxBtnB.whenPressed(BotCommands.toggleLights);
-        OIDevices.driveXboxBtnX.whenPressed(BotCommands.toggleHatchClawPosition);
+        ControlDevices.driveXboxBtnA.whenPressed(BotCommands.cycleLights);
+        ControlDevices.driveXboxBtnB.whenPressed(BotCommands.toggleLights);
+        ControlDevices.driveXboxBtnX.whenPressed(BotCommands.toggleHatchClawPosition);
     }
 
 }

@@ -1,9 +1,10 @@
 
-package frc.robot.helpers;
+package frc.robot.oi;
 
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj.GenericHID;
 
+// Represents the directional pad on an xbox controller (or equivalent on another device).
 public class DPad extends Button {
 
     public GenericHID device;

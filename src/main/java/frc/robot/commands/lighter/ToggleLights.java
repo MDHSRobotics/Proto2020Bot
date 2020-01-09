@@ -4,11 +4,12 @@ package frc.robot.commands.lighter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.consoles.Logger;
+import frc.robot.oi.ControlDevices;
+import frc.robot.oi.DPadButton;
 import frc.robot.sensors.Distance;
 import frc.robot.sensors.Vision;
 import frc.robot.subsystems.Lighter;
 import frc.robot.subsystems.MecDriver;
-import frc.robot.OI;
 
 // This command toggles the "Lighter" lights from certain sensor states
 public class ToggleLights extends CommandBase {
@@ -34,7 +35,7 @@ public class ToggleLights extends CommandBase {
         boolean rightLineDetected = Vision.rightLineDetected();
         boolean leftLineDetected = Vision.leftLineDetected();
         if (frontLineDetected || leftLineDetected || rightLineDetected) {
-            int dpadAngle = OI.getDpadAngleForGyro();
+            int dpadAngle = DPadButton.getDpadAngleForGyro(ControlDevices.driveXbox);
             boolean isAligned = MecDriver.isAligned(dpadAngle);
             if (isAligned) {
                 boolean closeEnough = Distance.distanceReached();

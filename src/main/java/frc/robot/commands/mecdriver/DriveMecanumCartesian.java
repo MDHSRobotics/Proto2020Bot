@@ -4,9 +4,8 @@ package frc.robot.commands.mecdriver;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.consoles.Logger;
-import frc.robot.helpers.CartesianMovement;
+import frc.robot.oi.movements.CartesianMovement;
 import frc.robot.subsystems.MecDriver;
-import frc.robot.OI;
 
 // This command uses the controller input to mecanum drive using the cartesian method
 public class DriveMecanumCartesian extends CommandBase {
@@ -28,7 +27,7 @@ public class DriveMecanumCartesian extends CommandBase {
 
     @Override
     public void execute() {
-        CartesianMovement move = OI.getCartesianMovement(m_mecDriver.controlStickDirectionFlipped);
+        CartesianMovement move = CartesianMovement.getCartesianMovement(m_mecDriver.controlStickDirectionFlipped);
         m_mecDriver.driveCartesian(move.strafeSpeed, move.straightSpeed, move.rotationSpeed);
     }
 
