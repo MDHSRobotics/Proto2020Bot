@@ -56,7 +56,9 @@ public class DriveTab {
 
     // Create all other Widgets
     public void initialize() {
-        m_mecDriveWidget = m_tab.add("Mecanum Drive", SubsystemDevices.mecDrive);
+        if (SubsystemDevices.mecDrive != null) {
+            m_mecDriveWidget = m_tab.add("Mecanum Drive", SubsystemDevices.mecDrive);
+        }
         // m_mecDriverWidget = m_tab.add("Mecanum Driver Subsystem", Robot.robotMecDriver);
         // m_mecDriveStraightCmdWidget = m_tab.add("Mecanum Drive Straight", new MecDriveStraightDistance());
     }
@@ -72,8 +74,10 @@ public class DriveTab {
         // m_mecDriveStraightCmdWidget.withPosition(0, 2);
         // m_mecDriveStraightCmdWidget.withSize(2, 1);
 
-        m_mecDriveWidget.withPosition(3, 1);
-        m_mecDriveWidget.withSize(4, 3);
+        if (m_mecDriveWidget != null) {
+            m_mecDriveWidget.withPosition(3, 1);
+            m_mecDriveWidget.withSize(4, 3);
+        }
 
         m_alignFrontMagnitudeWidget.withPosition(0, 0);
         m_alignSideMagnitudeWidget.withPosition(1, 0);
