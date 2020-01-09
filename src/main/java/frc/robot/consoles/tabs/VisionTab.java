@@ -4,8 +4,9 @@ package frc.robot.consoles.tabs;
 import edu.wpi.first.wpilibj.shuffleboard.*;
 import java.util.Map;
 
+import frc.robot.brains.DistanceBrain;
+import frc.robot.brains.VisionBrain;
 import frc.robot.consoles.ShuffleLogger;
-import frc.robot.Brain;
 
 
 // The Shuffleboard Vision Tab
@@ -61,67 +62,67 @@ public class VisionTab {
     // Create Brain Widgets
     public void preInitialize() {
         // Hue Thresholds
-        m_hueMinWidget = m_hsvLayout.add("Hue Minimum", Brain.hueMinDefault);
-        Brain.hueMinEntry = m_hueMinWidget.getEntry();
+        m_hueMinWidget = m_hsvLayout.add("Hue Minimum", VisionBrain.hueMinDefault);
+        VisionBrain.hueMinEntry = m_hueMinWidget.getEntry();
 
-        m_hueMaxWidget = m_hsvLayout.add("Hue Maximum", Brain.hueMaxDefault);
-        Brain.hueMaxEntry = m_hueMaxWidget.getEntry();
+        m_hueMaxWidget = m_hsvLayout.add("Hue Maximum", VisionBrain.hueMaxDefault);
+        VisionBrain.hueMaxEntry = m_hueMaxWidget.getEntry();
 
         // Saturation Thresholds
-        m_saturationMinWidget = m_hsvLayout.add("Saturation Minimum", Brain.saturationMinDefault);
-        Brain.saturationMinEntry = m_saturationMinWidget.getEntry();
+        m_saturationMinWidget = m_hsvLayout.add("Saturation Minimum", VisionBrain.saturationMinDefault);
+        VisionBrain.saturationMinEntry = m_saturationMinWidget.getEntry();
 
-        m_saturationMaxWidget = m_hsvLayout.add("Saturation Maximum", Brain.saturationMaxDefault);
-        Brain.saturationMaxEntry = m_saturationMaxWidget.getEntry();
+        m_saturationMaxWidget = m_hsvLayout.add("Saturation Maximum", VisionBrain.saturationMaxDefault);
+        VisionBrain.saturationMaxEntry = m_saturationMaxWidget.getEntry();
 
         // Value Thresholds
-        m_valueMinWidget = m_hsvLayout.add("Value Minimum", Brain.valueMinDefault);
-        Brain.valueMinEntry = m_valueMinWidget.getEntry();
+        m_valueMinWidget = m_hsvLayout.add("Value Minimum", VisionBrain.valueMinDefault);
+        VisionBrain.valueMinEntry = m_valueMinWidget.getEntry();
 
-        m_valueMaxWidget = m_hsvLayout.add("Value Maximum", Brain.valueMaxDefault);
-        Brain.valueMaxEntry = m_valueMaxWidget.getEntry();
+        m_valueMaxWidget = m_hsvLayout.add("Value Maximum", VisionBrain.valueMaxDefault);
+        VisionBrain.valueMaxEntry = m_valueMaxWidget.getEntry();
 
         // Front Camera
-        m_frontAreaWidget = m_frontCamLayout.add("Front Line Area", Brain.frontLineAreaDefault);
-        Brain.frontLineAreaEntry = m_frontAreaWidget.getEntry();
+        m_frontAreaWidget = m_frontCamLayout.add("Front Line Area", VisionBrain.frontLineAreaDefault);
+        VisionBrain.frontLineAreaEntry = m_frontAreaWidget.getEntry();
 
-        m_frontAngleWidget = m_frontCamLayout.add("Front Line Angle", Brain.frontLineAngleDefault);
-        Brain.frontLineAngleEntry = m_frontAngleWidget.getEntry();
+        m_frontAngleWidget = m_frontCamLayout.add("Front Line Angle", VisionBrain.frontLineAngleDefault);
+        VisionBrain.frontLineAngleEntry = m_frontAngleWidget.getEntry();
 
-        m_frontXcenterWidget = m_frontCamLayout.add("Front Line Center X", Brain.frontLineXcenterDefault);
-        Brain.frontLineXcenterEntry = m_frontXcenterWidget.getEntry();
+        m_frontXcenterWidget = m_frontCamLayout.add("Front Line Center X", VisionBrain.frontLineXcenterDefault);
+        VisionBrain.frontLineXcenterEntry = m_frontXcenterWidget.getEntry();
 
-        m_frontYcenterWidget = m_frontCamLayout.add("Front Line Center Y", Brain.frontLineYcenterDefault);
-        Brain.frontLineYcenterEntry = m_frontYcenterWidget.getEntry();
+        m_frontYcenterWidget = m_frontCamLayout.add("Front Line Center Y", VisionBrain.frontLineYcenterDefault);
+        VisionBrain.frontLineYcenterEntry = m_frontYcenterWidget.getEntry();
 
         // Left Camera
-        m_leftAreaWidget = m_leftCamLayout.add("Left Line Area", Brain.leftLineAreaDefault);
-        Brain.leftLineAreaEntry = m_leftAreaWidget.getEntry();
+        m_leftAreaWidget = m_leftCamLayout.add("Left Line Area", VisionBrain.leftLineAreaDefault);
+        VisionBrain.leftLineAreaEntry = m_leftAreaWidget.getEntry();
 
-        m_leftAngleWidget = m_leftCamLayout.add("Left Line Angle", Brain.leftLineAngleDefault);
-        Brain.leftLineAngleEntry = m_leftAngleWidget.getEntry();
+        m_leftAngleWidget = m_leftCamLayout.add("Left Line Angle", VisionBrain.leftLineAngleDefault);
+        VisionBrain.leftLineAngleEntry = m_leftAngleWidget.getEntry();
 
-        m_leftXcenterWidget = m_leftCamLayout.add("Left Line Center X", Brain.leftLineXcenterDefault);
-        Brain.leftLineXcenterEntry = m_leftXcenterWidget.getEntry();
+        m_leftXcenterWidget = m_leftCamLayout.add("Left Line Center X", VisionBrain.leftLineXcenterDefault);
+        VisionBrain.leftLineXcenterEntry = m_leftXcenterWidget.getEntry();
 
-        m_leftYcenterWidget = m_leftCamLayout.add("Left Line Center Y", Brain.leftLineYcenterDefault);
-        Brain.leftLineYcenterEntry = m_leftYcenterWidget.getEntry();
+        m_leftYcenterWidget = m_leftCamLayout.add("Left Line Center Y", VisionBrain.leftLineYcenterDefault);
+        VisionBrain.leftLineYcenterEntry = m_leftYcenterWidget.getEntry();
 
         // Right Camera
-        m_rightAreaWidget = m_rightCamLayout.add("Right Line Area", Brain.rightLineAreaDefault);
-        Brain.rightLineAreaEntry = m_rightAreaWidget.getEntry();
+        m_rightAreaWidget = m_rightCamLayout.add("Right Line Area", VisionBrain.rightLineAreaDefault);
+        VisionBrain.rightLineAreaEntry = m_rightAreaWidget.getEntry();
 
-        m_rightAngleWidget = m_rightCamLayout.add("Right Line Angle", Brain.rightLineAngleDefault);
-        Brain.rightLineAngleEntry = m_rightAngleWidget.getEntry();
+        m_rightAngleWidget = m_rightCamLayout.add("Right Line Angle", VisionBrain.rightLineAngleDefault);
+        VisionBrain.rightLineAngleEntry = m_rightAngleWidget.getEntry();
 
-        m_rightXcenterWidget = m_rightCamLayout.add("Right Line Center X", Brain.rightLineXcenterDefault);
-        Brain.rightLineXcenterEntry = m_rightXcenterWidget.getEntry();
+        m_rightXcenterWidget = m_rightCamLayout.add("Right Line Center X", VisionBrain.rightLineXcenterDefault);
+        VisionBrain.rightLineXcenterEntry = m_rightXcenterWidget.getEntry();
 
-        m_rightYcenterWidget = m_rightCamLayout.add("Right Line Center Y", Brain.rightLineYcenterDefault);
-        Brain.rightLineYcenterEntry = m_rightYcenterWidget.getEntry();
-    
-        m_distanceWidget = m_tab.add("Distance Sensor", Brain.distanceDefault);
-        Brain.distanceEntry = m_distanceWidget.getEntry();
+        m_rightYcenterWidget = m_rightCamLayout.add("Right Line Center Y", VisionBrain.rightLineYcenterDefault);
+        VisionBrain.rightLineYcenterEntry = m_rightYcenterWidget.getEntry();
+
+        m_distanceWidget = m_tab.add("Distance Sensor", DistanceBrain.distanceDefault);
+        DistanceBrain.distanceEntry = m_distanceWidget.getEntry();
     }
 
     // Create all other Widgets
@@ -180,10 +181,10 @@ public class VisionTab {
         m_rightAngleWidget.withWidget(BuiltInWidgets.kTextView);
         m_rightXcenterWidget.withWidget(BuiltInWidgets.kTextView);
         m_rightYcenterWidget.withWidget(BuiltInWidgets.kTextView);
-        
+
         // Distance
         m_distanceWidget.withWidget(BuiltInWidgets.kTextView);
-        m_distanceWidget.withPosition(5, 5); 
+        m_distanceWidget.withPosition(5, 5);
     }
 
     // This will be called in the robotPeriodic

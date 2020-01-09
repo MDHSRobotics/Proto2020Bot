@@ -4,11 +4,11 @@ package frc.robot.oi.movements;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
+import frc.robot.brains.ControlStickBrain;
 import frc.robot.oi.positions.JoystickPosition;
 import frc.robot.oi.positions.ThumbStickPosition;
 import frc.robot.oi.ControlDevices;
 import frc.robot.oi.ControlDevices.ControlStick;
-import frc.robot.Brain;
 
 // The values (magnitude, angle, rotation) needed to drive using polar coordinates
 public class PolarMovement {
@@ -37,7 +37,7 @@ public class PolarMovement {
     // Determines the polar movement (magnitude, angle, rotation)
     // from the active control stick position(s)
     public static PolarMovement getPolarMovement(boolean isYflipped) {
-        ControlStick cStick = Brain.getControlStick();
+        ControlStick cStick = ControlStickBrain.getControlStick();
         switch (cStick) {
             case JOYSTICK:
                 return getPolarMovementFromJoystick(ControlDevices.jstick, isYflipped);

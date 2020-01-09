@@ -3,10 +3,10 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import frc.robot.brains.MecDriverBrain;
 import frc.robot.consoles.Logger;
 import frc.robot.sensors.Gyro;
 import frc.robot.sensors.Vision;
-import frc.robot.Brain;
 import frc.robot.BotSensors;
 import frc.robot.SubsystemDevices;
 
@@ -74,7 +74,7 @@ public class MecDriver extends SubsystemBase {
     public DriveOrientation toggleDriveOrientation() {
         Logger.action("Toggling MecDriver drive orientation...");
 
-        DriveOrientation orientation = Brain.getDriveOrientation();
+        DriveOrientation orientation = MecDriverBrain.getDriveOrientation();
         if (orientation == DriveOrientation.FIELD) {
             orientation = DriveOrientation.ROBOT;
             Logger.info("MecDriver drive orientation is now ROBOT.");
@@ -82,7 +82,7 @@ public class MecDriver extends SubsystemBase {
             orientation = DriveOrientation.FIELD;
             Logger.info("MecDriver drive orientation is now FIELD.");
         }
-        Brain.setDriveOrientation(orientation);
+        MecDriverBrain.setDriveOrientation(orientation);
 
         return orientation;
     }
@@ -153,7 +153,7 @@ public class MecDriver extends SubsystemBase {
 
     // Drive using the cartesian method, using the current control orientation
     public void driveCartesian(double strafeSpeed, double straightSpeed, double rotationSpeed) {
-        DriveOrientation orientation = Brain.getDriveOrientation();
+        DriveOrientation orientation = MecDriverBrain.getDriveOrientation();
         driveCartesian(strafeSpeed, straightSpeed, rotationSpeed, orientation);
     }
 
@@ -202,7 +202,7 @@ public class MecDriver extends SubsystemBase {
                 if (!centered) {
                     double imageX = Vision.getFrontCorrectedX();
                     angle = correction + 90;
-                    magnitude = Brain.getAlignFrontMagnitude();
+                    magnitude = MecDriverBrain.getAlignFrontMagnitude();
                     if (imageX < 0)
                         magnitude = -magnitude;
                     Logger.info("MecDriver -> Front Camera -> Pixels to correct: " + imageX + "; Magnitude: " + magnitude + "; Angle: " + angle);
@@ -216,7 +216,7 @@ public class MecDriver extends SubsystemBase {
                 if (!centered) {
                     double imageX = Vision.getLeftCorrectedX();
                     angle = correction + 90;
-                    magnitude = Brain.getAlignSideMagnitude();
+                    magnitude = MecDriverBrain.getAlignSideMagnitude();
                     if (imageX < 0)
                         magnitude = -magnitude;
                     Logger.info("MecDriver -> Left Camera -> Pixels to correct: " + imageX + "; Magnitude: " + magnitude + "; Angle: " + angle);
@@ -230,7 +230,7 @@ public class MecDriver extends SubsystemBase {
                 if (!centered) {
                     double imageX = Vision.getRightCorrectedX();
                     angle = correction + 90;
-                    magnitude = Brain.getAlignSideMagnitude();
+                    magnitude = MecDriverBrain.getAlignSideMagnitude();
                     if (imageX > 0)
                         magnitude = -magnitude;
                     Logger.info("MecDriver -> Right Camera -> Pixels to correct: " + imageX + "; Magnitude: " + magnitude + "; Angle: " + angle);
@@ -239,13 +239,13 @@ public class MecDriver extends SubsystemBase {
         }
 
         // Get the rotation speed to align the Robot with the target gyro yaw
-        double zRotation = (correction / 180) * Brain.getAlignZSensitivity();
-        boolean isCloseEnough = Math.abs(correction) < Brain.getAlignZTolerance();
+        double zRotation = (correction / 180) * MecDriverBrain.getAlignZSensitivity();
+        boolean isCloseEnough = Math.abs(correction) < MecDriverBrain.getAlignZTolerance();
         if (!isCloseEnough) {
-            if (0 < zRotation && zRotation < Brain.getAlignZSpeedMinimum())
-                zRotation = Brain.getAlignZSpeedMinimum();
-            if (0 > zRotation && zRotation > -Brain.getAlignZSpeedMinimum())
-                zRotation = -Brain.getAlignZSpeedMinimum();
+            if (0 < zRotation && zRotation < MecDriverBrain.getAlignZSpeedMinimum())
+                zRotation = MecDriverBrain.getAlignZSpeedMinimum();
+            if (0 > zRotation && zRotation > -MecDriverBrain.getAlignZSpeedMinimum())
+                zRotation = -MecDriverBrain.getAlignZSpeedMinimum();
         }
 
         Logger.action("MecDriver -> Drive Polar: " + magnitude + ", " + angle + ", " + zRotation);

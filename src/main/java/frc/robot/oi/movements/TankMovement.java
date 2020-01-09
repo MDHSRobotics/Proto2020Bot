@@ -3,10 +3,10 @@ package frc.robot.oi.movements;
 
 import edu.wpi.first.wpilibj.XboxController;
 
+import frc.robot.brains.ControlStickBrain;
 import frc.robot.oi.positions.ThumbStickPosition;
 import frc.robot.oi.ControlDevices;
 import frc.robot.oi.ControlDevices.ControlStick;
-import frc.robot.Brain;
 
 // The values needed to drive using tank mode
 public class TankMovement {
@@ -25,7 +25,7 @@ public class TankMovement {
     // Determines the tank movement (up or down for Left, up or down for Right)
     // from the active control stick position(s)
     public static TankMovement getTankMovement(boolean isYflipped) {
-        ControlStick cStick = Brain.getControlStick();
+        ControlStick cStick = ControlStickBrain.getControlStick();
         switch (cStick) {
             case XBOX:
                 return getTankMovementFromThumbsticks(ControlDevices.driveXbox, isYflipped);

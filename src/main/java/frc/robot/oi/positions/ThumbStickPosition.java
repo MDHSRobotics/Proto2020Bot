@@ -4,7 +4,7 @@ package frc.robot.oi.positions;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 
-import frc.robot.Brain;
+import frc.robot.brains.XboxBrain;
 
 // The position values obtained from Xbox Thumbsticks
 public class ThumbStickPosition {
@@ -42,10 +42,10 @@ public class ThumbStickPosition {
         }
 
         // Deadzones
-        double yLeftDeadZone = Brain.getYleftDeadZone();
-        double xLeftDeadZone = Brain.getXleftDeadZone();
-        double yRightDeadZone = Brain.getYrightDeadZone();
-        double xRightDeadZone = Brain.getXrightDeadZone();
+        double yLeftDeadZone = XboxBrain.getYleftDeadZone();
+        double xLeftDeadZone = XboxBrain.getXleftDeadZone();
+        double yRightDeadZone = XboxBrain.getYrightDeadZone();
+        double xRightDeadZone = XboxBrain.getXrightDeadZone();
 
         if (Math.abs(yLeft) <= yLeftDeadZone)
             yLeft = 0;
@@ -74,10 +74,10 @@ public class ThumbStickPosition {
             xRight = xRight + xRightDeadZone;
 
         // Sensitivity
-        double yLeftSensitivity = Brain.getYleftSensitivity();
-        double xLeftSensitivity = Brain.getXleftSensitivity();
-        double yRightSensitivity = Brain.getYrightSensitivity();
-        double xRightSensitivity = Brain.getXrightSensitivity();
+        double yLeftSensitivity = XboxBrain.getYleftSensitivity();
+        double xLeftSensitivity = XboxBrain.getXleftSensitivity();
+        double yRightSensitivity = XboxBrain.getYrightSensitivity();
+        double xRightSensitivity = XboxBrain.getXrightSensitivity();
 
         yLeft = yLeft * yLeftSensitivity;
         xLeft = xLeft * xLeftSensitivity;

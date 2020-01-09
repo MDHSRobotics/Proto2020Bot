@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.shuffleboard.*;
 
 // import frc.robot.commands.test.MecDriveStraightDistance;
 import frc.robot.consoles.ShuffleLogger;
-import frc.robot.Brain;
 import frc.robot.SubsystemDevices;
 // import frc.robot.Robot;
+import frc.robot.brains.MecDriverBrain;
 
 
 // The Shuffleboard Drive Tab
@@ -38,20 +38,20 @@ public class DriveTab {
         // m_targetDistanceWidget = m_tab.add("Target Distance", Brain.driveTargetDistanceDefault);
         // Brain.driveTargetDistanceEntry = m_targetDistanceWidget.getEntry();
 
-        m_alignFrontMagnitudeWidget = m_tab.add("Front Magnitude", Brain.alignFrontMagnitudeDefault);
-        Brain.alignFrontMagnitudeEntry = m_alignFrontMagnitudeWidget.getEntry();
+        m_alignFrontMagnitudeWidget = m_tab.add("Front Magnitude", MecDriverBrain.alignFrontMagnitudeDefault);
+        MecDriverBrain.alignFrontMagnitudeEntry = m_alignFrontMagnitudeWidget.getEntry();
 
-        m_alignSideMagnitudeWidget = m_tab.add("Side Magnitude", Brain.alignSideMagnitudeDefault);
-        Brain.alignSideMagnitudeEntry = m_alignSideMagnitudeWidget.getEntry();
+        m_alignSideMagnitudeWidget = m_tab.add("Side Magnitude", MecDriverBrain.alignSideMagnitudeDefault);
+        MecDriverBrain.alignSideMagnitudeEntry = m_alignSideMagnitudeWidget.getEntry();
 
-        m_alignZSensitivityWidget = m_tab.add("Z Sensitivity", Brain.alignZSensitivityDefault);
-        Brain.alignZSensitivityEntry = m_alignZSensitivityWidget.getEntry();
+        m_alignZSensitivityWidget = m_tab.add("Z Sensitivity", MecDriverBrain.alignZSensitivityDefault);
+        MecDriverBrain.alignZSensitivityEntry = m_alignZSensitivityWidget.getEntry();
 
-        m_alignZSpeedMinimumWidget = m_tab.add("Z Speed Minimum", Brain.alignZSpeedMinimumDefault);
-        Brain.alignZSpeedMinimumEntry = m_alignZSpeedMinimumWidget.getEntry();
+        m_alignZSpeedMinimumWidget = m_tab.add("Z Speed Minimum", MecDriverBrain.alignZSpeedMinimumDefault);
+        MecDriverBrain.alignZSpeedMinimumEntry = m_alignZSpeedMinimumWidget.getEntry();
 
-        m_alignZToleranceWidget = m_tab.add("Z Tolerance", Brain.alignZToleranceDefault);
-        Brain.alignZToleranceEntry = m_alignZToleranceWidget.getEntry();
+        m_alignZToleranceWidget = m_tab.add("Z Tolerance", MecDriverBrain.alignZToleranceDefault);
+        MecDriverBrain.alignZToleranceEntry = m_alignZToleranceWidget.getEntry();
     }
 
     // Create all other Widgets

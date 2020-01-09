@@ -6,8 +6,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import frc.robot.brains.HatcherBrain;
 import frc.robot.consoles.Logger;
-import frc.robot.Brain;
 import frc.robot.Constants.EncoderConstants;
 import frc.robot.Constants.TalonConstants;
 import frc.robot.EncoderUtils;
@@ -96,7 +96,7 @@ public class Hatcher extends SubsystemBase {
 
     // Open the Hatcher claw
     public void openClaw() {
-        double angle = Brain.getHatchOpenAngle();
+        double angle = HatcherBrain.getHatchOpenAngle();
         double ticks = EncoderUtils.translateAngleToTicks(angle, GEAR_RATIO);
         Logger.info("Hatcher -> Motion Magic to OPEN: " + angle + " angle, " + ticks + " ticks");
 
@@ -106,7 +106,7 @@ public class Hatcher extends SubsystemBase {
 
     // Close the Hatcher claw
     public void closeClaw() {
-        double angle = Brain.getHatchCloseAngle();
+        double angle = HatcherBrain.getHatchCloseAngle();
         double ticks = EncoderUtils.translateAngleToTicks(angle, GEAR_RATIO);
         Logger.info("Hatcher -> Motion Magic to CLOSE: " + angle + " angle, " + ticks + " ticks");
 

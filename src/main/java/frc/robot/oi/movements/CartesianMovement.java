@@ -4,11 +4,11 @@ package frc.robot.oi.movements;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
+import frc.robot.brains.ControlStickBrain;
 import frc.robot.oi.positions.JoystickPosition;
 import frc.robot.oi.positions.ThumbStickPosition;
 import frc.robot.oi.ControlDevices;
 import frc.robot.oi.ControlDevices.ControlStick;
-import frc.robot.Brain;
 
 // The values needed to drive using cartesian coordinates
 public class CartesianMovement {
@@ -29,7 +29,7 @@ public class CartesianMovement {
     // Determines the cartesian movement (forward/backward speed, side to side speed, rotation speed)
     // from the active control stick position(s)
     public static CartesianMovement getCartesianMovement(boolean isYflipped) {
-        ControlStick cStick = Brain.getControlStick();
+        ControlStick cStick = ControlStickBrain.getControlStick();
         switch (cStick) {
             case JOYSTICK:
                 return getCartesianMovementFromJoystick(ControlDevices.jstick, isYflipped);

@@ -5,8 +5,8 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.*;
 
 import frc.robot.consoles.ShuffleLogger;
-import frc.robot.Brain;
 import frc.robot.BotSensors;
+import frc.robot.brains.SightBrain;
 
 
 // The Shuffleboard Sight Tab
@@ -29,14 +29,14 @@ public class SightTab {
 
     // Create Brain Widgets
     public void preInitialize() {
-        m_brightnessWidget = m_tab.add("Brightness", Brain.brightnessDefault);
-        Brain.brightnessEntry = m_brightnessWidget.getEntry();
+        m_brightnessWidget = m_tab.add("Brightness", SightBrain.brightnessDefault);
+        SightBrain.brightnessEntry = m_brightnessWidget.getEntry();
 
-        m_exposureWidget = m_tab.add("Exposure", Brain.exposureDefault);
-        Brain.exposureEntry = m_exposureWidget.getEntry();
+        m_exposureWidget = m_tab.add("Exposure", SightBrain.exposureDefault);
+        SightBrain.exposureEntry = m_exposureWidget.getEntry();
 
-        m_whiteBalanceWidget = m_tab.add("White Balance", Brain.whiteBalanceDefault);
-        Brain.whiteBalanceEntry = m_whiteBalanceWidget.getEntry();
+        m_whiteBalanceWidget = m_tab.add("White Balance", SightBrain.whiteBalanceDefault);
+        SightBrain.whiteBalanceEntry = m_whiteBalanceWidget.getEntry();
     }
 
     // Create all other Widgets
@@ -56,21 +56,21 @@ public class SightTab {
         // Don't need to update anything if the sight camera is not active
         if (BotSensors.cameraSight == null) return;
 
-        double brightness = Brain.getBrightness();
+        double brightness = SightBrain.getBrightness();
         NetworkTableEntry brightnessEntry = m_brightnessWidget.getEntry();
         double newBrightness = brightnessEntry.getDouble(brightness);
         if (newBrightness != brightness) {
             BotSensors.cameraSight.setBrightness((int)newBrightness);
         }
 
-        double exposure = Brain.getExposure();
+        double exposure = SightBrain.getExposure();
         NetworkTableEntry exposureEntry = m_exposureWidget.getEntry();
         double newExposure = exposureEntry.getDouble(brightness);
         if (newExposure != exposure) {
             BotSensors.cameraSight.setExposureManual((int)newExposure);
         }
 
-        double whiteBalance = Brain.getBrightness();
+        double whiteBalance = SightBrain.getBrightness();
         NetworkTableEntry whiteBalanceEntry = m_whiteBalanceWidget.getEntry();
         double newWhiteBalance = whiteBalanceEntry.getDouble(whiteBalance);
         if (newWhiteBalance != whiteBalance) {

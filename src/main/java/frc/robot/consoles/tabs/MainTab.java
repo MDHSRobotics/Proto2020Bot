@@ -8,8 +8,9 @@ import java.util.Map;
 
 import frc.robot.consoles.ShuffleLogger;
 import frc.robot.sensors.Vision;
-import frc.robot.Brain;
 import frc.robot.RobotManager;
+import frc.robot.brains.ShufflerBrain;
+import frc.robot.brains.VisionBrain;
 
 
 // The Shuffleboard Main Tab
@@ -33,12 +34,12 @@ public class MainTab {
     // Create Brain Widgets
     public void preInitialize() {
         // Match Time
-        m_matchTimeWidget = m_tab.add("Match Time", Brain.matchTimeDefault);
-        Brain.matchTimeEntry = m_matchTimeWidget.getEntry();
+        m_matchTimeWidget = m_tab.add("Match Time", ShufflerBrain.matchTimeDefault);
+        ShufflerBrain.matchTimeEntry = m_matchTimeWidget.getEntry();
 
         // Front Line Detected
-        m_frontLineDetectedWidget = m_tab.add("Front Line Detected", Brain.frontLineDetectedDefault);
-        Brain.frontLineDetectedEntry = m_frontLineDetectedWidget.getEntry();
+        m_frontLineDetectedWidget = m_tab.add("Front Line Detected", VisionBrain.frontLineDetectedDefault);
+        VisionBrain.frontLineDetectedEntry = m_frontLineDetectedWidget.getEntry();
 
         m_gameModeWidget = m_tab.add("Game Mode", RobotManager.botGameMode.toString());
         m_climbModeWidget = m_tab.add("Climb Mode", RobotManager.botClimbMode.toString());
@@ -70,11 +71,11 @@ public class MainTab {
         // Match time
         DriverStation ds = DriverStation.getInstance();
         double matchTime = ds.getMatchTime();
-        Brain.matchTimeEntry.setDouble(matchTime);
+        ShufflerBrain.matchTimeEntry.setDouble(matchTime);
 
         // Front Line Detector
         boolean frontLineDetected = Vision.frontLineDetected();
-        Brain.frontLineDetectedEntry.setBoolean(frontLineDetected);
+        VisionBrain.frontLineDetectedEntry.setBoolean(frontLineDetected);
 
         // updating the value of the game mode
         NetworkTableEntry gameModeEntry = m_gameModeWidget.getEntry();

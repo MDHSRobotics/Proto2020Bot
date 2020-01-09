@@ -3,7 +3,7 @@ package frc.robot.oi.positions;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-import frc.robot.Brain;
+import frc.robot.brains.JoystickBrain;
 
 // The position values obtained from a Joystick
 public class JoystickPosition {
@@ -37,9 +37,9 @@ public class JoystickPosition {
         }
 
         // Deadzones
-        double yDeadZone = Brain.getYdeadZone();
-        double xDeadZone = Brain.getXdeadZone();
-        double zDeadZone = Brain.getZdeadZone();
+        double yDeadZone = JoystickBrain.getYdeadZone();
+        double xDeadZone = JoystickBrain.getXdeadZone();
+        double zDeadZone = JoystickBrain.getZdeadZone();
 
         if (Math.abs(y) <= yDeadZone)
             y = 0;
@@ -62,9 +62,9 @@ public class JoystickPosition {
             z = z + zDeadZone;
 
         // Sensitivity
-        double ySensitivity = Brain.getYsensitivity();
-        double xSensitivity = Brain.getXsensitivity();
-        double zSensitivity = Brain.getXsensitivity();
+        double ySensitivity = JoystickBrain.getYsensitivity();
+        double xSensitivity = JoystickBrain.getXsensitivity();
+        double zSensitivity = JoystickBrain.getXsensitivity();
 
         y = y * ySensitivity;
         x = x * xSensitivity;
