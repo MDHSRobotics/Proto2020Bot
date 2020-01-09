@@ -9,7 +9,7 @@ import frc.robot.consoles.Logger;
 import frc.robot.consoles.Shuffler;
 
 // This is where the robot state is initialized and persisted.
-public class BotManager {
+public class RobotManager {
 
     //--------------//
     // Robot States //

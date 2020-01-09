@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
         // Initialize our BotManager, which initializes and perists the state of the robot,
         // including flags, sensors, devices, subsystems, commands, button bindings, shuffleboard,
         // and puts our autonomous chooser on the dashboard.
-        BotManager.initialize();
+        RobotManager.initialize();
 
         // Check which controllers are plugged in
         m_driveXBoxConnected = ControlDevices.isDriveXboxConnected();
@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         // Update the Shuffleboard
-        BotManager.botShuffler.update();
+        RobotManager.botShuffler.update();
 
         // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
         // commands, running already-scheduled commands, removing finished or interrupted commands,
