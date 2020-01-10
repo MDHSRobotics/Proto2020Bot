@@ -8,9 +8,9 @@ import frc.robot.Robot;
 
 
 // Tests the MecDrive slowly orbitting, pointing outward, clockwise
-public class MecDriveSlowOrbitOutwardClockwise extends Command {
+public class DriveMecanumSlowOrbitOutwardClockwise extends Command {
 
-    public MecDriveSlowOrbitOutwardClockwise() {
+    public DriveMecanumSlowOrbitOutwardClockwise() {
         Logger.setup("Constructing Command: MecDriveSlowOrbitOutwardClockwise...");
 
         // Declare subsystem dependencies

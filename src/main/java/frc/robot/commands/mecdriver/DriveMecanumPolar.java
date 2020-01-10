@@ -10,9 +10,9 @@ import frc.robot.Robot;
 
 
 // This command uses the joystick input to mecanum drive using the polar method
-public class MecDrivePolar extends Command {
+public class DriveMecanumPolar extends Command {
 
-    public MecDrivePolar() {
+    public DriveMecanumPolar() {
         Logger.setup("Constructing Command: MecDrivePolar...");
 
         // Declare subsystem dependencies

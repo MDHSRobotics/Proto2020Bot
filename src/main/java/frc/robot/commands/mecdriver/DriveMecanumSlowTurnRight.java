@@ -8,9 +8,9 @@ import frc.robot.Robot;
 
 
 // Tests the MecDrive slowly turning right
-public class MecDriveSlowTurnRight extends Command {
+public class DriveMecanumSlowTurnRight extends Command {
 
-    public MecDriveSlowTurnRight() {
+    public DriveMecanumSlowTurnRight() {
         Logger.setup("Constructing Command: MecDriveSlowTurnRight...");
 
         // Declare subsystem dependencies

@@ -9,7 +9,7 @@ import frc.robot.Robot;
 
 
 // This command drives the MecDrive straight until is reaches its target distance
-public class MecDriveStraightDistance extends Command {
+public class DriveMecanumStraightUntilDistance extends Command {
 
     // Constants
     private final double VELOCITY_AT_FULL_SPEED = 11.5; // Velocity (feet/second) at full speed - THIS IS A GUESS - CHECK IT!!
@@ -27,11 +27,11 @@ public class MecDriveStraightDistance extends Command {
     private int m_counter; // Counter for the timer
 
     // Constructors
-    public MecDriveStraightDistance() {
+    public DriveMecanumStraightUntilDistance() {
         this(DEFAULT_TARGET_DISTANCE_IN_FEET, DEFAULT_SPEED);
     }
 
-    public MecDriveStraightDistance(double targetDistanceInFeet, double speed) {
+    public DriveMecanumStraightUntilDistance(double targetDistanceInFeet, double speed) {
         Logger.setup("Constructing Command: MecDriveStraightDistance...");
 
         // Declare subsystem dependencies
@@ -73,7 +73,7 @@ public class MecDriveStraightDistance extends Command {
         m_elapsedTime = m_timer.get();
         // Distance traveled (feet) = elapsed time (seconds) * velocity (feet per second)
 		m_distanceTraveled = m_elapsedTime * m_velocity;
-		
+
 		if (++m_counter >= 50) {
 			Logger.info("Distance traveled = " + m_distanceTraveled + " feet; Elapsed time = " + m_elapsedTime + " seconds");
 			m_counter = 0;

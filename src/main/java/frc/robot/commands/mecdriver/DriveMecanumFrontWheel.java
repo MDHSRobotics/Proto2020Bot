@@ -9,9 +9,9 @@ import frc.robot.Robot;
 
 
 // This command uses the joystick input to front wheel drive
-public class MecDriveFrontWheel extends Command {
+public class DriveMecanumFrontWheel extends Command {
 
-    public MecDriveFrontWheel() {
+    public DriveMecanumFrontWheel() {
         Logger.setup("Constructing Command: MecDriveFrontWheel...");
 
         // Declare subsystem dependencies

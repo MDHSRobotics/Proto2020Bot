@@ -9,11 +9,11 @@ import frc.robot.Robot;
 
 
 // Automatically control the MecDrive to align the Robot with the gyro, and the line seen by the vision system
-public class MecDriveAlign extends Command {
+public class AlignMecanumDriveToGyro extends Command {
 
     private int m_targetAngle = -1;
 
-    public MecDriveAlign() {
+    public AlignMecanumDriveToGyro() {
         Logger.setup("Constructing Command: MecDriveAlign...");
 
         // Declare subsystem dependencies

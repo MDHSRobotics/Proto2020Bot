@@ -9,7 +9,7 @@ import frc.robot.Robot;
 
 
 // This command rotates the MecDrive until is reaches its target angle
-public class MecDriveRotateAngle extends Command {
+public class RotateMecanumDriveToAngle extends Command {
 
     // Constants
     private final double ANGULAR_VELOCITY_AT_FULL_SPEED = 48.0; // Angular velocity (degrees/second) at full speed - THIS IS A GUESS - CHECK IT!!
@@ -27,11 +27,11 @@ public class MecDriveRotateAngle extends Command {
     private int m_counter; // Counter for the timer
 
     // Constructors
-    public MecDriveRotateAngle() {
+    public RotateMecanumDriveToAngle() {
         this(DEFAULT_TARGET_ANGLE, DEFAULT_SPEED);
     }
 
-    public MecDriveRotateAngle(double targetAngle, double speed) {
+    public RotateMecanumDriveToAngle(double targetAngle, double speed) {
         Logger.setup("Constructing Command: MecDriveRotateAngle...");
 
         // Declare subsystem dependencies

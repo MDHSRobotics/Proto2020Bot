@@ -8,9 +8,9 @@ import frc.robot.Robot;
 import frc.robot.consoles.Logger;
 
 // This command uses the joystick input to mecanum drive using the cartesian method
-public class MecDriveTank extends Command {
+public class DriveMecanumTank extends Command {
 
-    public MecDriveTank() {
+    public DriveMecanumTank() {
         Logger.setup("Constructing Command: MecDriveTank...");
 
         // Declare subsystem dependencies

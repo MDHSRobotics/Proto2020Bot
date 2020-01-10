@@ -9,11 +9,11 @@ import frc.robot.commands.interactive.MecDriveCartesian;
 
 
 // This command sets the Game Mode to DELIVERY
-public class RobotGameModeDelivery extends InstantCommand {
-    
+public class SetGameModeToDelivery extends InstantCommand {
+
     private MecDriveCartesian m_mecDriveCartesianCmd;
 
-    public RobotGameModeDelivery() {
+    public SetGameModeToDelivery() {
         super();
         Logger.setup("Constructing InstantCommand: RobotGameModeDelivery...");
         m_mecDriveCartesianCmd = new MecDriveCartesian();

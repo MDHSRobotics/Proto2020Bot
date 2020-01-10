@@ -8,9 +8,9 @@ import frc.robot.Robot;
 
 
 // This command stops the mecanum drive, and toggles the control orientation
-public class MecDriveToggleOrientation extends Command {
+public class ToggleMecanumDriveOrientation extends Command {
 
-    public MecDriveToggleOrientation() {
+    public ToggleMecanumDriveOrientation() {
         Logger.setup("Constructing Command: MecDriveToggleOrientation...");
 
         // Declare subsystem dependencies

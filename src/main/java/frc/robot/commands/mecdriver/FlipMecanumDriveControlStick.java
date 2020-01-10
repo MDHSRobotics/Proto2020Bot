@@ -8,9 +8,9 @@ import frc.robot.Robot;
 
 
 // This command stops the mecanum drive, and flips the joystick or left thumbstick in Y
-public class MecDriveFlipControlStick extends Command {
+public class FlipMecanumDriveControlStick extends Command {
 
-    public MecDriveFlipControlStick() {
+    public FlipMecanumDriveControlStick() {
         Logger.setup("Constructing Command: MecDriveFlipControlStick...");
 
         // Declare subsystem dependencies

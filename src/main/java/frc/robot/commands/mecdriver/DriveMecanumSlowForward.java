@@ -7,11 +7,11 @@ import frc.robot.consoles.Logger;
 import frc.robot.Robot;
 
 
-// Tests the MecDrive slowly orbitting, pointing outward, clockwise
-public class MecDriveSlowOrbitInwardClockwise extends Command {
+// Tests the MecDrive slowly driving forward
+public class DriveMecanumSlowForward extends Command {
 
-    public MecDriveSlowOrbitInwardClockwise() {
-        Logger.setup("Constructing Command: MecDriveSlowOrbitInwardClockwise...");
+    public DriveMecanumSlowForward() {
+        Logger.setup("Constructing Command: MecDriveSlowForward...");
 
         // Declare subsystem dependencies
         requires(Robot.robotMecDriver);
@@ -19,12 +19,12 @@ public class MecDriveSlowOrbitInwardClockwise extends Command {
 
     @Override
     protected void initialize() {
-        Logger.action("Initializing Command: MecDriveSlowOrbitInwardClockwise...");
+        Logger.action("Initializing Command: MecDriveSlowForward...");
     }
 
     @Override
     protected void execute() {
-        Robot.robotMecDriver.orbitInward(1, .5);
+        Robot.robotMecDriver.driveStraight(.5);
     }
 
     // This command finishes immediately, but is intended to be continually restarted while a button is held
@@ -35,13 +35,13 @@ public class MecDriveSlowOrbitInwardClockwise extends Command {
 
     @Override
     protected void end() {
-        Logger.ending("Ending Command: MecDriveSlowOrbitInwardClockwise...");
+        Logger.ending("Ending Command: MecDriveSlowForward...");
     }
 
     @Override
     protected void interrupted() {
         System.out.println("--");
-        Logger.ending("Interrupting Command: MecDriveSlowOrbitInwardClockwise...");
+        Logger.ending("Interrupting Command: MecDriveSlowForward...");
 
         Robot.robotMecDriver.stop();
     }

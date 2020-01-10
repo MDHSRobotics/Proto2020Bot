@@ -9,14 +9,14 @@ import frc.robot.commands.interactive.MecDriveFrontWheel;
 
 
 // This command sets the Game Mode to Climb
-public class RobotGameModeClimb extends InstantCommand {
+public class SetGameModeToClimb extends InstantCommand {
 
-    private MecDriveFrontWheel m_mecDrivePlatFormCmd;
+    private DriveMecanumFrontWheel m_mecDrivePlatFormCmd;
 
-    public RobotGameModeClimb() {
+    public SetGameModeToClimb() {
         super();
         Logger.setup("Constructing InstantCommand: RobotGameModeClimb...");
-        m_mecDrivePlatFormCmd = new MecDriveFrontWheel();
+        m_mecDrivePlatFormCmd = new DriveMecanumFrontWheel();
     }
 
     @Override
