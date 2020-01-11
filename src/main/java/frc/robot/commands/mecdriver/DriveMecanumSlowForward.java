@@ -1,49 +1,49 @@
 
-package frc.robot.commands.test;
+package frc.robot.commands.mecdriver;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.consoles.Logger;
-import frc.robot.Robot;
-
+import frc.robot.subsystems.MecDriver;
 
 // Tests the MecDrive slowly driving forward
-public class DriveMecanumSlowForward extends Command {
+public class DriveMecanumSlowForward extends CommandBase {
 
-    public DriveMecanumSlowForward() {
-        Logger.setup("Constructing Command: MecDriveSlowForward...");
+    private MecDriver m_mecDriver;
 
-        // Declare subsystem dependencies
-        requires(Robot.robotMecDriver);
+    public DriveMecanumSlowForward(MecDriver mecDriver) {
+        Logger.setup("Constructing Command: DriveMecanumSlowForward...");
+
+        // Add given subsystem requirements
+        m_mecDriver = mecDriver;
+        addRequirements(m_mecDriver);
     }
 
     @Override
-    protected void initialize() {
-        Logger.action("Initializing Command: MecDriveSlowForward...");
+    public void initialize() {
+        Logger.action("Initializing Command: DriveMecanumSlowForward...");
     }
 
     @Override
-    protected void execute() {
-        Robot.robotMecDriver.driveStraight(.5);
+    public void execute() {
+        m_mecDriver.driveStraight(.5);
     }
 
     // This command finishes immediately, but is intended to be continually restarted while a button is held
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return true;
     }
 
     @Override
-    protected void end() {
-        Logger.ending("Ending Command: MecDriveSlowForward...");
-    }
-
-    @Override
-    protected void interrupted() {
-        System.out.println("--");
-        Logger.ending("Interrupting Command: MecDriveSlowForward...");
-
-        Robot.robotMecDriver.stop();
+    public void end(boolean interrupted) {
+        if (interrupted) {
+            System.out.println("--");
+            Logger.ending("Interrupting Command: DriveMecanumSlowForward...");
+            m_mecDriver.stop();
+        } else {
+            Logger.ending("Ending Command: DriveMecanumSlowForward...");
+        }
     }
 
 }

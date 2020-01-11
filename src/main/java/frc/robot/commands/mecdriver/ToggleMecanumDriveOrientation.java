@@ -1,48 +1,32 @@
 
-package frc.robot.commands.instant;
+package frc.robot.commands.mecdriver;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 import frc.robot.consoles.Logger;
-import frc.robot.Robot;
-
+import frc.robot.subsystems.MecDriver;
 
 // This command stops the mecanum drive, and toggles the control orientation
-public class ToggleMecanumDriveOrientation extends Command {
+public class ToggleMecanumDriveOrientation extends InstantCommand {
 
-    public ToggleMecanumDriveOrientation() {
-        Logger.setup("Constructing Command: MecDriveToggleOrientation...");
+    private MecDriver m_mecDriver;
 
-        // Declare subsystem dependencies
-        requires(Robot.robotMecDriver);
+    public ToggleMecanumDriveOrientation(MecDriver mecDriver) {
+        Logger.setup("Constructing Command: ToggleMecanumDriveOrientation...");
+
+        // Add given subsystem requirements
+        m_mecDriver = mecDriver;
+        addRequirements(m_mecDriver);
     }
 
+    // Called when the command is initially scheduled.
     @Override
-    protected void initialize() {
-        Logger.action("Initializing Command: MecDriveToggleOrientation...");
+    public void initialize() {
+        System.out.println("--");
+        Logger.action("Initializing InstantCommand: ToggleMecanumDriveOrientation...");
 
-        Robot.robotMecDriver.stop();
-    }
-
-    @Override
-    protected void execute() {
-        Robot.robotMecDriver.toggleDriveOrientation();
-    }
-
-    // This command finishes immediately
-    @Override
-    protected boolean isFinished() {
-        return true;
-    }
-
-    @Override
-    protected void end() {
-        Logger.ending("Ending Command: MecDriveToggleOrientation...");
-    }
-
-    @Override
-    protected void interrupted() {
-        Logger.ending("Interrupting Command: MecDriveToggleOrientation...");
+        m_mecDriver.stop();
+        m_mecDriver.toggleDriveOrientation();
     }
 
 }

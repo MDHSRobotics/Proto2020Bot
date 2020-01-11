@@ -1,48 +1,51 @@
 
-package frc.robot.commands.interactive;
+package frc.robot.commands.mecdriver;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.consoles.Logger;
-import frc.robot.OI;
-import frc.robot.Robot;
-
+import frc.robot.oi.movements.FrontWheelMovement;
+import frc.robot.oi.ControlDevices;
+import frc.robot.subsystems.MecDriver;
 
 // This command uses the joystick input to front wheel drive
-public class DriveMecanumFrontWheel extends Command {
+public class DriveMecanumFrontWheel extends CommandBase {
 
-    public DriveMecanumFrontWheel() {
-        Logger.setup("Constructing Command: MecDriveFrontWheel...");
+    private MecDriver m_mecDriver;
 
-        // Declare subsystem dependencies
-        requires(Robot.robotMecDriver);
+    public DriveMecanumFrontWheel(MecDriver mecDriver) {
+        Logger.setup("Constructing Command: DriveMecanumFrontWheel...");
+
+        // Add given subsystem requirements
+        m_mecDriver = mecDriver;
+        addRequirements(m_mecDriver);
     }
 
     @Override
-    protected void initialize() {
-        Logger.action("Initializing Command: MecDriveFrontWheel...");
+    public void initialize() {
+        Logger.action("Initializing Command: DriveMecanumFrontWheel...");
     }
 
     @Override
-    protected void execute() {
-        double speed = OI.getFrontWheelDriveSpeed();
-        Robot.robotMecDriver.frontWheelDrive(speed);
+    public void execute() {
+        double speed = FrontWheelMovement.getFrontWheelDriveSpeed(ControlDevices.driveXbox);
+        m_mecDriver.frontWheelDrive(speed);
     }
 
-    // This command continues until interrupted
+    // This command continues until interrupted.
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return false;
     }
 
     @Override
-    protected void end() {
-        Logger.ending("Ending Command: MecDriveFrontWheel...");
-    }
-
-    @Override
-    protected void interrupted() {
-        Logger.ending("Interrupting Command: MecDriveFrontWheel...");
+    public void end(boolean interrupted) {
+        if (interrupted) {
+            System.out.println("--");
+            Logger.ending("Interrupting Command: DriveMecanumFrontWheel...");
+        } else {
+            Logger.ending("Ending Command: DriveMecanumFrontWheel...");
+        }
     }
 
 }

@@ -1,52 +1,50 @@
 
-package frc.robot.commands.interactive;
+package frc.robot.commands.mecdriver;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Devices;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import frc.robot.consoles.Logger;
+import frc.robot.oi.movements.TankMovement;
+import frc.robot.subsystems.MecDriver;
 
-// This command uses the joystick input to mecanum drive using the cartesian method
-public class DriveMecanumTank extends Command {
+// This command uses the controller input to mecanum drive using the tank method
+public class DriveMecanumTank extends CommandBase {
 
-    public DriveMecanumTank() {
-        Logger.setup("Constructing Command: MecDriveTank...");
+    private MecDriver m_mecDriver;
 
-        // Declare subsystem dependencies
-        requires(Robot.robotMecDriver);
+    public DriveMecanumTank(MecDriver mecDriver) {
+        Logger.setup("Constructing Command: DriveMecanumTank...");
+
+        // Add given subsystem requirements
+        m_mecDriver = mecDriver;
+        addRequirements(m_mecDriver);
     }
 
     @Override
-    protected void initialize() {
-        Logger.action("Initializing Command: MecDriveTank...");
+    public void initialize() {
+        Logger.action("Initializing Command: DriveMecanumTank...");
     }
 
     @Override
-    protected void execute() {
-        // TODO: Oh my goodness, this isn't the place to compensate for motors running backwards (I know this was a rush)
-        double xSpeedLeft = -Devices.driveXbox.getY(Hand.kLeft);
-        double xSpeedRight = Devices.driveXbox.getY(Hand.kRight);
-        // TODO: Commands should get control values from OI, not directly from Devices (again, I know this was a quick hack)
-        //CartesianMovement move = OI.getCartesianMovement(Robot.robotMecDriver.controlStickDirectionFlipped);
-        Robot.robotMecDriver.driveTank(xSpeedLeft, xSpeedRight);
+    public void execute() {
+        TankMovement move = TankMovement.getTankMovement(m_mecDriver.controlStickDirectionFlipped);
+        m_mecDriver.driveTank(move.leftSpeed, move.rightSpeed);
     }
 
-    // This command continues until interrupted
+    // This command continues until interrupted.
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return false;
     }
 
     @Override
-    protected void end() {
-        Logger.ending("Ending Command: MecDriveTank...");
-    }
-
-    @Override
-    protected void interrupted() {
-        System.out.println("--");
-        Logger.ending("Interrupting Command: MecDriveTank...");
+    public void end(boolean interrupted) {
+        if (interrupted) {
+            System.out.println("--");
+            Logger.ending("Interrupting Command: DriveMecanumTank...");
+        } else {
+            Logger.ending("Ending Command: DriveMecanumTank...");
+        }
     }
 
 }

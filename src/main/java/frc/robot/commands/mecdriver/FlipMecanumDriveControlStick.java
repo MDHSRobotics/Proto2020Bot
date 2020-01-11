@@ -1,48 +1,32 @@
 
-package frc.robot.commands.instant;
+package frc.robot.commands.mecdriver;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 import frc.robot.consoles.Logger;
-import frc.robot.Robot;
-
+import frc.robot.subsystems.MecDriver;
 
 // This command stops the mecanum drive, and flips the joystick or left thumbstick in Y
-public class FlipMecanumDriveControlStick extends Command {
+public class FlipMecanumDriveControlStick extends InstantCommand {
 
-    public FlipMecanumDriveControlStick() {
-        Logger.setup("Constructing Command: MecDriveFlipControlStick...");
+    private MecDriver m_mecDriver;
 
-        // Declare subsystem dependencies
-        requires(Robot.robotMecDriver);
+    public FlipMecanumDriveControlStick(MecDriver mecDriver) {
+        Logger.setup("Constructing Command: FlipMecanumDriveControlStick...");
+
+        // Add given subsystem requirements
+        m_mecDriver = mecDriver;
+        addRequirements(m_mecDriver);
     }
 
+    // Called when the command is initially scheduled.
     @Override
-    protected void initialize() {
-        Logger.action("Initializing Command: MecDriveFlipControlStick...");
+    public void initialize() {
+        System.out.println("--");
+        Logger.action("Initializing InstantCommand: FlipMecanumDriveControlStick...");
 
-        Robot.robotMecDriver.stop();
-    }
-
-    @Override
-    protected void execute() {
-        Robot.robotMecDriver.flipControlStickDirection();
-    }
-
-    // This command finishes immediately
-    @Override
-    protected boolean isFinished() {
-        return true;
-    }
-
-    @Override
-    protected void end() {
-        Logger.ending("Ending Command: MecDriveFlipControlStick...");
-    }
-
-    @Override
-    protected void interrupted() {
-        Logger.ending("Interrupting Command: MecDriveFlipControlStick...");
+        m_mecDriver.stop();
+        m_mecDriver.flipControlStickDirection();
     }
 
 }

@@ -1,43 +1,38 @@
 
-package frc.robot.commands.instant;
+package frc.robot.commands.manager;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 import frc.robot.consoles.Logger;
-import frc.robot.Robot;
-import frc.robot.commands.interactive.MecDriveFrontWheel;
+import frc.robot.BotCommands;
+import frc.robot.RobotManager;
 
-
-// This command sets the Game Mode to Climb
+// This command sets the Game Mode to CLIMB
 public class SetGameModeToClimb extends InstantCommand {
 
-    private DriveMecanumFrontWheel m_mecDrivePlatFormCmd;
-
     public SetGameModeToClimb() {
-        super();
-        Logger.setup("Constructing InstantCommand: RobotGameModeClimb...");
-        m_mecDrivePlatFormCmd = new DriveMecanumFrontWheel();
+        Logger.setup("Constructing InstantCommand: SetGameModeToClimb...");
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
         System.out.println("--");
-        Logger.action("Initializing InstantCommand: RobotGameModeClimb...");
+        Logger.action("Initializing InstantCommand: SetGameModeToClimb...");
 
-        if (Robot.robotGameMode == Robot.GameMode.CLIMB) {
-            if (Robot.robotClimbMode == Robot.ClimbMode.HAB2) {
-                Robot.robotClimbMode = Robot.ClimbMode.HAB3;
+        if (RobotManager.botGameMode == RobotManager.GameMode.CLIMB) {
+            if (RobotManager.botClimbMode == RobotManager.ClimbMode.HAB2) {
+                RobotManager.botClimbMode = RobotManager.ClimbMode.HAB3;
                 Logger.info("Robot Climb Mode is now HAB3");
             }
-            else if (Robot.robotClimbMode == Robot.ClimbMode.HAB3){
-                Robot.robotClimbMode = Robot.ClimbMode.HAB2;
+            else if (RobotManager.botClimbMode == RobotManager.ClimbMode.HAB3){
+                RobotManager.botClimbMode = RobotManager.ClimbMode.HAB2;
                 Logger.info("Robot Climb Mode is now HAB2");
             }
         }
         else {
-            Robot.robotGameMode = Robot.GameMode.CLIMB;
-            Logger.info("Robot Game Mode is now CLIMB; Climb Mode is " + Robot.robotClimbMode);
-            m_mecDrivePlatFormCmd.start();
+            RobotManager.botGameMode = RobotManager.GameMode.CLIMB;
+            Logger.info("Robot Game Mode is now CLIMB; Climb Mode is " + RobotManager.botClimbMode);
+            BotCommands.driveMecanumFrontWheel.schedule();
         }
     }
 

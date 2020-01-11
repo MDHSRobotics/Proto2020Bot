@@ -1,36 +1,30 @@
 
-package frc.robot.commands.instant;
+package frc.robot.commands.manager;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 import frc.robot.consoles.Logger;
-import frc.robot.Robot;
-import frc.robot.commands.interactive.MecDriveCartesian;
-
+import frc.robot.BotCommands;
+import frc.robot.RobotManager;
 
 // This command sets the Game Mode to DELIVERY
 public class SetGameModeToDelivery extends InstantCommand {
 
-    private MecDriveCartesian m_mecDriveCartesianCmd;
-
     public SetGameModeToDelivery() {
-        super();
-        Logger.setup("Constructing InstantCommand: RobotGameModeDelivery...");
-        m_mecDriveCartesianCmd = new MecDriveCartesian();
+        Logger.setup("Constructing InstantCommand: SetGameModeToDelivery...");
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
         System.out.println("--");
         Logger.action("Initializing InstantCommand: RobotGameModeDelivery...");
 
-        if (Robot.robotGameMode == Robot.GameMode.DELIVERY) {
+        if (RobotManager.botGameMode == RobotManager.GameMode.DELIVERY) {
             Logger.info("Robot Game Mode is still DELIVERY");
-        }
-        else {
+        } else {
             Logger.info("Robot Game Mode is now DELIVERY");
-            Robot.robotGameMode = Robot.GameMode.DELIVERY;
-            m_mecDriveCartesianCmd.start();
+            RobotManager.botGameMode = RobotManager.GameMode.DELIVERY;
+            BotCommands.driveMecanumCartesian.schedule();
         }
     }
 

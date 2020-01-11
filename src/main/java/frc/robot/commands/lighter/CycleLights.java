@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.consoles.Logger;
 import frc.robot.subsystems.Lighter;
 
-// This command cycles through all the "ligher" states
+// This command cycles through all the "lighter" states
 public class CycleLights extends CommandBase {
 
     private Lighter m_lighter;

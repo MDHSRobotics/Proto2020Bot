@@ -22,6 +22,8 @@ public class ButtonBindings {
     public static void configureDriveXBoxButtons() {
         Logger.setup("Configure Buttons -> Drive Xbox Controller...");
 
+        ControlDevices.driveXboxBtnStart.whenPressed(BotCommands.setGameModeToDelivery);
+        ControlDevices.driveXboxBtnBack.whenPressed(BotCommands.setGameModeToClimb);
         ControlDevices.driveXboxBtnA.whenPressed(BotCommands.cycleLights);
         ControlDevices.driveXboxBtnB.whenPressed(BotCommands.toggleLights);
         ControlDevices.driveXboxBtnX.whenPressed(BotCommands.toggleHatchClawPosition);

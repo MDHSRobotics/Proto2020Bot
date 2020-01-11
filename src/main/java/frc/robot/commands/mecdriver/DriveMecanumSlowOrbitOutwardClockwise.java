@@ -1,49 +1,49 @@
 
-package frc.robot.commands.test;
+package frc.robot.commands.mecdriver;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.consoles.Logger;
-import frc.robot.Robot;
-
+import frc.robot.subsystems.MecDriver;
 
 // Tests the MecDrive slowly orbitting, pointing outward, clockwise
-public class DriveMecanumSlowOrbitOutwardClockwise extends Command {
+public class DriveMecanumSlowOrbitOutwardClockwise extends CommandBase {
 
-    public DriveMecanumSlowOrbitOutwardClockwise() {
-        Logger.setup("Constructing Command: MecDriveSlowOrbitOutwardClockwise...");
+    private MecDriver m_mecDriver;
 
-        // Declare subsystem dependencies
-        requires(Robot.robotMecDriver);
+    public DriveMecanumSlowOrbitOutwardClockwise(MecDriver mecDriver) {
+        Logger.setup("Constructing Command: DriveMecanumSlowOrbitOutwardClockwise...");
+
+        // Add given subsystem requirements
+        m_mecDriver = mecDriver;
+        addRequirements(m_mecDriver);
     }
 
     @Override
-    protected void initialize() {
-        Logger.action("Initializing Command: MecDriveSlowOrbitOutwardClockwise...");
+    public void initialize() {
+        Logger.action("Initializing Command: DriveMecanumSlowOrbitOutwardClockwise...");
     }
 
     @Override
-    protected void execute() {
-        Robot.robotMecDriver.orbitOutward(1, .5);
+    public void execute() {
+        m_mecDriver.orbitOutward(1, .5);
     }
 
     // This command finishes immediately, but is intended to be continually restarted while a button is held
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return true;
     }
 
     @Override
-    protected void end() {
-        Logger.ending("Ending Command: MecDriveSlowOrbitOutwardClockwise...");
-    }
-
-    @Override
-    protected void interrupted() {
-        System.out.println("--");
-        Logger.ending("Interrupting Command: MecDriveSlowOrbitOutwardClockwise...");
-
-        Robot.robotMecDriver.stop();
+    public void end(boolean interrupted) {
+        if (interrupted) {
+            System.out.println("--");
+            Logger.ending("Interrupting Command: DriveMecanumSlowOrbitOutwardClockwise...");
+            m_mecDriver.stop();
+        } else {
+            Logger.ending("Ending Command: DriveMecanumSlowOrbitOutwardClockwise...");
+        }
     }
 
 }
