@@ -4,6 +4,13 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.consoles.Logger;
+import static frc.robot.subsystems.Devices.omniDrive;
+import static frc.robot.subsystems.Devices.talonSrxOmniWheelFront;
+import static frc.robot.subsystems.Devices.talonSrxOmniWheelFrontLeft;
+import static frc.robot.subsystems.Devices.talonSrxOmniWheelFrontRight;
+import static frc.robot.subsystems.Devices.talonSrxOmniWheelRear;
+import static frc.robot.subsystems.Devices.talonSrxOmniWheelRearLeft;
+import static frc.robot.subsystems.Devices.talonSrxOmniWheelRearRight;
 
 // Omni-directional driver subsystem
 public class OmniDriver extends SubsystemBase {
@@ -22,23 +29,23 @@ public class OmniDriver extends SubsystemBase {
         Logger.setup("Constructing Subsystem: OmniDriver...");
 
         // Determine whether or not to disable the subsystem
-        m_disabled = (Devices.omniDrive == null);
+        m_disabled = (omniDrive == null);
         if (m_disabled) {
             Logger.error("DiffDriver devices not initialized! Disabling subsystem...");
             return;
         }
 
         // Configure the subsystem devices
-        Devices.talonSrxOmniWheelRearLeft.follow(Devices.talonSrxOmniWheelFrontLeft);
-        Devices.talonSrxOmniWheelRearRight.follow(Devices.talonSrxOmniWheelFrontRight);
-        Devices.talonSrxOmniWheelRear.follow(Devices.talonSrxOmniWheelFront);
+        talonSrxOmniWheelRear.follow(talonSrxOmniWheelFront);
+        talonSrxOmniWheelRearLeft.follow(talonSrxOmniWheelFrontLeft);
+        talonSrxOmniWheelRearRight.follow(talonSrxOmniWheelFrontRight);
 
-        Devices.talonSrxOmniWheelFrontLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-        Devices.talonSrxOmniWheelRearLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-        Devices.talonSrxOmniWheelFrontRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-        Devices.talonSrxOmniWheelRearRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-        Devices.talonSrxOmniWheelFront.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-        Devices.talonSrxOmniWheelRear.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        talonSrxOmniWheelFront.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        talonSrxOmniWheelFrontLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        talonSrxOmniWheelFrontRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        talonSrxOmniWheelRear.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        talonSrxOmniWheelRearLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        talonSrxOmniWheelRearRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
     }
 
     @Override
@@ -51,7 +58,6 @@ public class OmniDriver extends SubsystemBase {
         Logger.action("Toggling OmniDriver control stick direction...");
 
         controlStickDirectionFlipped = !controlStickDirectionFlipped;
-
         if (controlStickDirectionFlipped) {
             Logger.info("OmniDriver control stick direction is now flipped.");
         } else {
@@ -65,32 +71,32 @@ public class OmniDriver extends SubsystemBase {
     public void stop() {
         if (m_disabled) return;
 
-        Devices.omniDrive.stopMotor();
-        Devices.talonSrxOmniWheelFront.stopMotor();
+        omniDrive.stopMotor();
+        talonSrxOmniWheelFront.stopMotor();
     }
 
     // Drive straight at the given speed
     public void driveStraight(double speed) {
         if (m_disabled) return;
 
-        Devices.omniDrive.arcadeDrive(speed, 0, false);
-        Devices.talonSrxOmniWheelFront.feed();
+        omniDrive.arcadeDrive(speed, 0, false);
+        talonSrxOmniWheelFront.feed();
     }
 
     // Rotate at the given speed
     public void rotate(double rotation) {
         if (m_disabled) return;
 
-        Devices.omniDrive.arcadeDrive(0, rotation, false);
-        Devices.talonSrxOmniWheelFront.feed();
+        omniDrive.arcadeDrive(0, rotation, false);
+        talonSrxOmniWheelFront.feed();
     }
 
     // Drive using the arcade method
     public void driveArcade(double straightSpeed, double rotationSpeed, double strafeSpeed) {
         if (m_disabled) return;
 
-        Devices.omniDrive.arcadeDrive(straightSpeed, rotationSpeed, false);
-        Devices.talonSrxOmniWheelFront.set(strafeSpeed);
+        omniDrive.arcadeDrive(straightSpeed, rotationSpeed, false);
+        talonSrxOmniWheelFront.set(strafeSpeed);
     }
 
 }
