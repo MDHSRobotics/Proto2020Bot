@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.shuffleboard.*;
 
 // import frc.robot.commands.test.MecDriveStraightDistance;
 import frc.robot.consoles.ShuffleLogger;
-import frc.robot.SubsystemDevices;
+import frc.robot.subsystems.Devices;
 // import frc.robot.Robot;
 import frc.robot.brains.MecDriverBrain;
 
@@ -56,8 +56,8 @@ public class DriveTab {
 
     // Create all other Widgets
     public void initialize() {
-        if (SubsystemDevices.mecDrive != null) {
-            m_mecDriveWidget = m_tab.add("Mecanum Drive", SubsystemDevices.mecDrive);
+        if (Devices.mecDrive != null) {
+            m_mecDriveWidget = m_tab.add("Mecanum Drive", Devices.mecDrive);
         }
         // m_mecDriverWidget = m_tab.add("Mecanum Driver Subsystem", Robot.robotMecDriver);
         // m_mecDriveStraightCmdWidget = m_tab.add("Mecanum Drive Straight", new MecDriveStraightDistance());

@@ -8,7 +8,6 @@ import frc.robot.consoles.Logger;
 import frc.robot.sensors.Gyro;
 import frc.robot.sensors.Vision;
 import frc.robot.BotSensors;
-import frc.robot.SubsystemDevices;
 
 // Mecanum driver subsystem
 public class MecDriver extends SubsystemBase {
@@ -31,7 +30,7 @@ public class MecDriver extends SubsystemBase {
         Logger.setup("Constructing Subsystem: MecDriver...");
 
         // Determine whether or not to disable the subsystem
-        m_disabled = (SubsystemDevices.mecDrive == null);
+        m_disabled = (Devices.mecDrive == null);
         if (m_disabled) {
             Logger.error("MecDriver devices not initialized! Disabling subsystem...");
             return;
@@ -39,15 +38,15 @@ public class MecDriver extends SubsystemBase {
 
         // Configure the subsystem devices
         // TODO: Investigate why these motor controllers have to be inverted. Are all TalonSRX Motor Controllers backwards?
-        SubsystemDevices.talonSrxMecWheelFrontLeft.setInverted(true);
-        SubsystemDevices.talonSrxMecWheelRearLeft.setInverted(true);
-        SubsystemDevices.talonSrxMecWheelFrontRight.setInverted(true);
-        SubsystemDevices.talonSrxMecWheelRearRight.setInverted(true);
+        Devices.talonSrxMecWheelFrontLeft.setInverted(true);
+        Devices.talonSrxMecWheelRearLeft.setInverted(true);
+        Devices.talonSrxMecWheelFrontRight.setInverted(true);
+        Devices.talonSrxMecWheelRearRight.setInverted(true);
 
-        SubsystemDevices.talonSrxMecWheelFrontLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-        SubsystemDevices.talonSrxMecWheelRearLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-        SubsystemDevices.talonSrxMecWheelFrontRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
-        SubsystemDevices.talonSrxMecWheelRearRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        Devices.talonSrxMecWheelFrontLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        Devices.talonSrxMecWheelRearLeft.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        Devices.talonSrxMecWheelFrontRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
+        Devices.talonSrxMecWheelRearRight.configOpenloopRamp(SECONDS_FROM_NEUTRAL_TO_FULL, TIMEOUT_MS);
     }
 
     @Override
@@ -90,36 +89,36 @@ public class MecDriver extends SubsystemBase {
     // Stop all the drive motors
     public void stop() {
         if (m_disabled) return;
-        SubsystemDevices.mecDrive.stopMotor();
+        Devices.mecDrive.stopMotor();
     }
 
     // Drive straight with just the front two wheels at the given speed
     public void frontWheelDrive(double straightSpeed) {
         if (m_disabled) return;
 
-        SubsystemDevices.talonSrxMecWheelFrontLeft.set(straightSpeed);
-        SubsystemDevices.talonSrxMecWheelFrontRight.set(straightSpeed);
-        SubsystemDevices.talonSrxMecWheelRearLeft.set(0);
-        SubsystemDevices.talonSrxMecWheelRearRight.set(0);
-        SubsystemDevices.mecDrive.feed();
+        Devices.talonSrxMecWheelFrontLeft.set(straightSpeed);
+        Devices.talonSrxMecWheelFrontRight.set(straightSpeed);
+        Devices.talonSrxMecWheelRearLeft.set(0);
+        Devices.talonSrxMecWheelRearRight.set(0);
+        Devices.mecDrive.feed();
     }
 
     // Strafe at the given speed
     public void strafe(double strafeSpeed) {
         if (m_disabled) return;
-        SubsystemDevices.mecDrive.driveCartesian(strafeSpeed, 0, 0);
+        Devices.mecDrive.driveCartesian(strafeSpeed, 0, 0);
     }
 
     // Drive straight at the given speed
     public void driveStraight(double straightSpeed) {
         if (m_disabled) return;
-        SubsystemDevices.mecDrive.driveCartesian(0, straightSpeed, 0);
+        Devices.mecDrive.driveCartesian(0, straightSpeed, 0);
     }
 
     // Rotate at the given speed
     public void rotate(double rotationSpeed) {
         if (m_disabled) return;
-        SubsystemDevices.mecDrive.driveCartesian(0, 0, rotationSpeed);
+        Devices.mecDrive.driveCartesian(0, 0, rotationSpeed);
     }
 
     // Orbit at the given speed, with the robot always looking inward
@@ -127,28 +126,28 @@ public class MecDriver extends SubsystemBase {
     public void orbitInward(double angleSpeed, double rotationSpeed) {
         if (m_disabled) return;
         // TODO: Test that this does what the method description says it does
-        SubsystemDevices.mecDrive.drivePolar(angleSpeed, -90, rotationSpeed);
+        Devices.mecDrive.drivePolar(angleSpeed, -90, rotationSpeed);
     }
 
     // Orbit at the given speed, with the robot always looking outward
     public void orbitOutward(double angleSpeed, double rotationSpeed) {
         if (m_disabled) return;
         // TODO: Test that this does what the method description says it does
-        SubsystemDevices.mecDrive.drivePolar(angleSpeed, 90, rotationSpeed);
+        Devices.mecDrive.drivePolar(angleSpeed, 90, rotationSpeed);
     }
 
     // Drive as if this were a tank drive
     public void driveTank(double leftSpeed, double rightSpeed) {
         if (m_disabled) return;
 
-        SubsystemDevices.talonSrxMecWheelFrontLeft.set(leftSpeed);
-        SubsystemDevices.talonSrxMecWheelRearLeft.set(leftSpeed);
-        SubsystemDevices.talonSrxMecWheelFrontRight.set(rightSpeed);
-        SubsystemDevices.talonSrxMecWheelRearRight.set(rightSpeed);
+        Devices.talonSrxMecWheelFrontLeft.set(leftSpeed);
+        Devices.talonSrxMecWheelRearLeft.set(leftSpeed);
+        Devices.talonSrxMecWheelFrontRight.set(rightSpeed);
+        Devices.talonSrxMecWheelRearRight.set(rightSpeed);
         // Even if you are periodically setting every drive motor,
         // feeding the Mecanum Drive object is necessary to prevent
         // motor safety warnings which will periodically disable your motors
-        SubsystemDevices.mecDrive.feed();
+        Devices.mecDrive.feed();
     }
 
     // Drive using the cartesian method, using the current control orientation
@@ -163,11 +162,11 @@ public class MecDriver extends SubsystemBase {
 
         if (orientation == DriveOrientation.ROBOT) {
             // Logger.info("Cartesian Movement: " + strafeSpeed + ", " + straightSpeed + ", " + rotationSpeed);
-            SubsystemDevices.mecDrive.driveCartesian(strafeSpeed, straightSpeed, rotationSpeed);
+            Devices.mecDrive.driveCartesian(strafeSpeed, straightSpeed, rotationSpeed);
         } else if (orientation == DriveOrientation.FIELD) {
             double gyroAngle = BotSensors.gyro.getYaw();
             // Logger.info("Cartesian Movement: " + strafeSpeed + ", " + straightSpeed + ", " + rotationSpeed + ", " + gyroAngle);
-            SubsystemDevices.mecDrive.driveCartesian(strafeSpeed, straightSpeed, rotationSpeed, gyroAngle);
+            Devices.mecDrive.driveCartesian(strafeSpeed, straightSpeed, rotationSpeed, gyroAngle);
         }
     }
 
@@ -175,7 +174,7 @@ public class MecDriver extends SubsystemBase {
     public void drivePolar(double angleSpeed, double angle, double rotationSpeed) {
         if (m_disabled) return;
         // Logger.info("Polar Movement: " + angleSpeed + ", " + angle + ", " + rotationSpeed);
-        SubsystemDevices.mecDrive.drivePolar(angleSpeed, angle, rotationSpeed);
+        Devices.mecDrive.drivePolar(angleSpeed, angle, rotationSpeed);
     }
 
     // Drive to align the Robot to a detected line at the given yaw
@@ -252,7 +251,7 @@ public class MecDriver extends SubsystemBase {
         if (m_disabled) return;
 
         // TODO: Need to test this, to balance the speeds to produce the fastest and most reliable simultaneous alignment
-        SubsystemDevices.mecDrive.drivePolar(magnitude, angle, zRotation);
+        Devices.mecDrive.drivePolar(magnitude, angle, zRotation);
 
         Logger.ending("^^");
     }

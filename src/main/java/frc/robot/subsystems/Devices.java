@@ -1,5 +1,5 @@
 
-package frc.robot;
+package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -7,39 +7,52 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.Relay;
 
 import frc.robot.consoles.Logger;
+import frc.robot.DeviceUtils;
 
-// This class contains singleton instances of id mapped subsystem components, and utility methods.
-// IMPORTANT: It is imperative that ONLY subsystems control any interactive device.
-// Also, only ONE subsystem should control any given device.
-public class SubsystemDevices {
+// This class contains singleton (static) instances of id mapped subsystem components.
+// If a device is not connected at initialization, it should be set to null.
+// IMPORTANT: Only ONE subsystem should control any given device.
+// Device instances are package-private (neither private nor public) so they can only be used by subsystems.
+public class Devices {
+
+    //////////////////////
+    // Device Instances //
+    //////////////////////
 
     // Relays
-    public static Relay relayLighter = new Relay(1);
+    static Relay relayLighter = new Relay(1);
 
-    // Motor Controllers
-    public static WPI_TalonSRX talonSrxDiffWheelFrontLeft = new WPI_TalonSRX(21); // 1 motor
-    public static WPI_TalonSRX talonSrxDiffWheelRearLeft = new WPI_TalonSRX(22); // 1 motor
-    public static WPI_TalonSRX talonSrxDiffWheelFrontRight = new WPI_TalonSRX(23); // 1 motor
-    public static WPI_TalonSRX talonSrxDiffWheelRearRight = new WPI_TalonSRX(24); // 1 motor
+    // TalonSRX
+    static WPI_TalonSRX talonSrxDiffWheelFrontLeft = new WPI_TalonSRX(21); // 1 motor
+    static WPI_TalonSRX talonSrxDiffWheelRearLeft = new WPI_TalonSRX(22); // 1 motor
+    static WPI_TalonSRX talonSrxDiffWheelFrontRight = new WPI_TalonSRX(23); // 1 motor
+    static WPI_TalonSRX talonSrxDiffWheelRearRight = new WPI_TalonSRX(24); // 1 motor
 
-    public static WPI_TalonSRX talonSrxMecWheelFrontLeft = new WPI_TalonSRX(1); // 1 motor
-    public static WPI_TalonSRX talonSrxMecWheelRearLeft = new WPI_TalonSRX(2); // 1 motor
-    public static WPI_TalonSRX talonSrxMecWheelFrontRight = new WPI_TalonSRX(3); // 1 motor
-    public static WPI_TalonSRX talonSrxMecWheelRearRight = new WPI_TalonSRX(4); // 1 motor
+    static WPI_TalonSRX talonSrxMecWheelFrontLeft = new WPI_TalonSRX(1); // 1 motor
+    static WPI_TalonSRX talonSrxMecWheelRearLeft = new WPI_TalonSRX(2); // 1 motor
+    static WPI_TalonSRX talonSrxMecWheelFrontRight = new WPI_TalonSRX(3); // 1 motor
+    static WPI_TalonSRX talonSrxMecWheelRearRight = new WPI_TalonSRX(4); // 1 motor
 
-    public static WPI_TalonSRX talonSrxOmniWheelFrontLeft = new WPI_TalonSRX(5); // 1 motor
-    public static WPI_TalonSRX talonSrxOmniWheelRearLeft = new WPI_TalonSRX(17); // 1 motor
-    public static WPI_TalonSRX talonSrxOmniWheelFrontRight = new WPI_TalonSRX(6); // 1 motor
-    public static WPI_TalonSRX talonSrxOmniWheelRearRight = new WPI_TalonSRX(8); // 1 motor
-    public static WPI_TalonSRX talonSrxOmniWheelFront = new WPI_TalonSRX(7); // 1 motor
-    public static WPI_TalonSRX talonSrxOmniWheelRear = new WPI_TalonSRX(18); // 1 motor
+    static WPI_TalonSRX talonSrxOmniWheelFrontLeft = new WPI_TalonSRX(5); // 1 motor
+    static WPI_TalonSRX talonSrxOmniWheelRearLeft = new WPI_TalonSRX(17); // 1 motor
+    static WPI_TalonSRX talonSrxOmniWheelFrontRight = new WPI_TalonSRX(6); // 1 motor
+    static WPI_TalonSRX talonSrxOmniWheelRearRight = new WPI_TalonSRX(8); // 1 motor
+    static WPI_TalonSRX talonSrxOmniWheelFront = new WPI_TalonSRX(7); // 1 motor
+    static WPI_TalonSRX talonSrxOmniWheelRear = new WPI_TalonSRX(18); // 1 motor
 
-    public static WPI_TalonSRX talonSrxHatcher = new WPI_TalonSRX(90); // 1 motor
+    static WPI_TalonSRX talonSrxHatcher = new WPI_TalonSRX(90); // 1 motor
 
-    // Drives
+    ////////////////////////
+    // Drive Declarations //
+    ////////////////////////
+
     public static DifferentialDrive diffDrive;
     public static MecanumDrive mecDrive;
     public static DifferentialDrive omniDrive;
+
+    /////////////////////
+    // Initializations //
+    /////////////////////
 
     // Intialize the subsystem devices
     public static void initializeDevices() {
@@ -53,10 +66,10 @@ public class SubsystemDevices {
 
     // Differential Drive
     private static void initDiffDriverDevices() {
-        boolean talonSrxDiffWheelFrontLeftIsConnected = isConnected(talonSrxDiffWheelFrontLeft);
-        boolean talonSrxDiffWheelFrontRightIsConnected = isConnected(talonSrxDiffWheelFrontRight);
-        boolean talonSrxDiffWheelRearLeftIsConnected = isConnected(talonSrxDiffWheelRearLeft);
-        boolean talonSrxDiffWheelRearRightIsConnected = isConnected(talonSrxDiffWheelRearRight);
+        boolean talonSrxDiffWheelFrontLeftIsConnected = DeviceUtils.isConnected(talonSrxDiffWheelFrontLeft);
+        boolean talonSrxDiffWheelFrontRightIsConnected = DeviceUtils.isConnected(talonSrxDiffWheelFrontRight);
+        boolean talonSrxDiffWheelRearLeftIsConnected = DeviceUtils.isConnected(talonSrxDiffWheelRearLeft);
+        boolean talonSrxDiffWheelRearRightIsConnected = DeviceUtils.isConnected(talonSrxDiffWheelRearRight);
 
         boolean talonsAreConnected = true;
         if (!talonSrxDiffWheelFrontLeftIsConnected) {
@@ -89,10 +102,10 @@ public class SubsystemDevices {
 
     // Mecanum Drive
     private static void initMecDriverDevices() {
-        boolean talonSrxMecWheelFrontLeftIsConnected = isConnected(talonSrxMecWheelFrontLeft);
-        boolean talonSrxMecWheelFrontRightIsConnected = isConnected(talonSrxMecWheelFrontRight);
-        boolean talonSrxMecWheelRearLeftIsConnected = isConnected(talonSrxMecWheelRearLeft);
-        boolean talonSrxMecWheelRearRightIsConnected = isConnected(talonSrxMecWheelRearRight);
+        boolean talonSrxMecWheelFrontLeftIsConnected = DeviceUtils.isConnected(talonSrxMecWheelFrontLeft);
+        boolean talonSrxMecWheelFrontRightIsConnected = DeviceUtils.isConnected(talonSrxMecWheelFrontRight);
+        boolean talonSrxMecWheelRearLeftIsConnected = DeviceUtils.isConnected(talonSrxMecWheelRearLeft);
+        boolean talonSrxMecWheelRearRightIsConnected = DeviceUtils.isConnected(talonSrxMecWheelRearRight);
 
         boolean talonsAreConnected = true;
         if (!talonSrxMecWheelFrontLeftIsConnected) {
@@ -128,12 +141,12 @@ public class SubsystemDevices {
 
     // Omni Drive
     private static void initOmniDriverDevices() {
-        boolean talonSrxOmniWheelFrontLeftIsConnected = isConnected(talonSrxOmniWheelFrontLeft);
-        boolean talonSrxOmniWheelFrontRightIsConnected = isConnected(talonSrxOmniWheelFrontRight);
-        boolean talonSrxOmniWheelRearLeftIsConnected = isConnected(talonSrxOmniWheelRearLeft);
-        boolean talonSrxOmniWheelRearRightIsConnected = isConnected(talonSrxOmniWheelRearRight);
-        boolean talonSrxOmniWheelFrontIsConnected = isConnected(talonSrxOmniWheelFront);
-        boolean talonSrxOmniWheelRearIsConnected = isConnected(talonSrxOmniWheelRear);
+        boolean talonSrxOmniWheelFrontLeftIsConnected = DeviceUtils.isConnected(talonSrxOmniWheelFrontLeft);
+        boolean talonSrxOmniWheelFrontRightIsConnected = DeviceUtils.isConnected(talonSrxOmniWheelFrontRight);
+        boolean talonSrxOmniWheelRearLeftIsConnected = DeviceUtils.isConnected(talonSrxOmniWheelRearLeft);
+        boolean talonSrxOmniWheelRearRightIsConnected = DeviceUtils.isConnected(talonSrxOmniWheelRearRight);
+        boolean talonSrxOmniWheelFrontIsConnected = DeviceUtils.isConnected(talonSrxOmniWheelFront);
+        boolean talonSrxOmniWheelRearIsConnected = DeviceUtils.isConnected(talonSrxOmniWheelRear);
 
         boolean talonsAreConnected = true;
         if (!talonSrxOmniWheelFrontLeftIsConnected) {
@@ -177,19 +190,12 @@ public class SubsystemDevices {
 
     // Hatcher
     private static void initHatcherDevices() {
-        boolean talonSrxHatcherIsConnected = isConnected(talonSrxHatcher);
+        boolean talonSrxHatcherIsConnected = DeviceUtils.isConnected(talonSrxHatcher);
 
         if (!talonSrxHatcherIsConnected) {
             talonSrxHatcher = null;
             Logger.error("Hatcher talon is not connected! Disabling...");
         }
-    }
-
-    // Determines if the Talon SRX is connected
-    public static boolean isConnected(WPI_TalonSRX talon) {
-        int firmVer = talon.getFirmwareVersion();
-        boolean connected = (firmVer != -1);
-        return connected;
     }
 
 }
