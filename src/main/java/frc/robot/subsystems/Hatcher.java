@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.brains.HatcherBrain;
 import frc.robot.consoles.Logger;
+import frc.robot.subsystems.utils.EncoderUtils;
 import frc.robot.Constants.EncoderConstants;
 import frc.robot.Constants.TalonConstants;
-import frc.robot.EncoderUtils;
 
 // Hatcher subsystem, for grabbing and releasing hatches
 public class Hatcher extends SubsystemBase {

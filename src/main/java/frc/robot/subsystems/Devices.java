@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.Relay;
 
 import frc.robot.consoles.Logger;
+import frc.robot.subsystems.utils.DeviceUtils;
 
 // This class contains singleton (static) instances of id mapped subsystem components.
 // If a device is not connected at initialization, it should be set to null.
