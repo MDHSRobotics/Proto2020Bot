@@ -3,7 +3,7 @@ package frc.robot.subsystems.utils;
 
 import java.lang.Math;
 
-import static frc.robot.Constants.EncoderConstants.*;
+import static frc.robot.subsystems.constants.EncoderConstants.*;
 
 // Utility methods for encoder values.
 public class EncoderUtils {
