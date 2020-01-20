@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.Relay;
 
 import frc.robot.consoles.Logger;
-import frc.robot.DeviceUtils;
 
 // This class contains singleton (static) instances of id mapped subsystem components.
 // If a device is not connected at initialization, it should be set to null.
@@ -23,24 +22,24 @@ public class Devices {
     static Relay relayLighter = new Relay(1);
 
     // TalonSRX
-    static WPI_TalonSRX talonSrxDiffWheelFrontLeft = new WPI_TalonSRX(21); // 1 motor
-    static WPI_TalonSRX talonSrxDiffWheelRearLeft = new WPI_TalonSRX(22); // 1 motor
-    static WPI_TalonSRX talonSrxDiffWheelFrontRight = new WPI_TalonSRX(23); // 1 motor
-    static WPI_TalonSRX talonSrxDiffWheelRearRight = new WPI_TalonSRX(24); // 1 motor
+    static WPI_TalonSRX talonSrxDiffWheelFrontLeft = new WPI_TalonSRX(21);
+    static WPI_TalonSRX talonSrxDiffWheelRearLeft = new WPI_TalonSRX(22);
+    static WPI_TalonSRX talonSrxDiffWheelFrontRight = new WPI_TalonSRX(23);
+    static WPI_TalonSRX talonSrxDiffWheelRearRight = new WPI_TalonSRX(24);
 
-    static WPI_TalonSRX talonSrxMecWheelFrontLeft = new WPI_TalonSRX(1); // 1 motor
-    static WPI_TalonSRX talonSrxMecWheelRearLeft = new WPI_TalonSRX(2); // 1 motor
-    static WPI_TalonSRX talonSrxMecWheelFrontRight = new WPI_TalonSRX(3); // 1 motor
-    static WPI_TalonSRX talonSrxMecWheelRearRight = new WPI_TalonSRX(4); // 1 motor
+    static WPI_TalonSRX talonSrxMecWheelFrontLeft = new WPI_TalonSRX(1);
+    static WPI_TalonSRX talonSrxMecWheelRearLeft = new WPI_TalonSRX(2);
+    static WPI_TalonSRX talonSrxMecWheelFrontRight = new WPI_TalonSRX(3);
+    static WPI_TalonSRX talonSrxMecWheelRearRight = new WPI_TalonSRX(4);
 
-    static WPI_TalonSRX talonSrxOmniWheelFrontLeft = new WPI_TalonSRX(5); // 1 motor
-    static WPI_TalonSRX talonSrxOmniWheelRearLeft = new WPI_TalonSRX(17); // 1 motor
-    static WPI_TalonSRX talonSrxOmniWheelFrontRight = new WPI_TalonSRX(6); // 1 motor
-    static WPI_TalonSRX talonSrxOmniWheelRearRight = new WPI_TalonSRX(8); // 1 motor
-    static WPI_TalonSRX talonSrxOmniWheelFront = new WPI_TalonSRX(7); // 1 motor
-    static WPI_TalonSRX talonSrxOmniWheelRear = new WPI_TalonSRX(18); // 1 motor
+    static WPI_TalonSRX talonSrxOmniWheelFrontLeft = new WPI_TalonSRX(5);
+    static WPI_TalonSRX talonSrxOmniWheelRearLeft = new WPI_TalonSRX(17);
+    static WPI_TalonSRX talonSrxOmniWheelFrontRight = new WPI_TalonSRX(6);
+    static WPI_TalonSRX talonSrxOmniWheelRearRight = new WPI_TalonSRX(8);
+    static WPI_TalonSRX talonSrxOmniWheelFront = new WPI_TalonSRX(7);
+    static WPI_TalonSRX talonSrxOmniWheelRear = new WPI_TalonSRX(18);
 
-    static WPI_TalonSRX talonSrxHatcher = new WPI_TalonSRX(90); // 1 motor
+    static WPI_TalonSRX talonSrxHatcher = new WPI_TalonSRX(90);
 
     ////////////////////////
     // Drive Declarations //
